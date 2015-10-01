@@ -26,12 +26,17 @@ LINKER_SCRIPT = ../Libraries/mbed_f411/targets/cmsis/TARGET_STM/TARGET_STM32F4/T
 
 endif
 
+#name of the project. This name gets used to generate the .o, .bin, and .hex files
 PROJECT = main
 SYS_OBJECTS = 
 LIBRARY_PATHS = 
 LIBRARIES = 
 
+
+#directory where the binary files go
 BUILD_DIR = build
+
+
 ############################################################################### 
 AS      = $(GCC_BIN)arm-none-eabi-as
 CC      = $(GCC_BIN)arm-none-eabi-gcc
@@ -41,7 +46,7 @@ OBJCOPY = $(GCC_BIN)arm-none-eabi-objcopy
 OBJDUMP = $(GCC_BIN)arm-none-eabi-objdump
 SIZE    = $(GCC_BIN)arm-none-eabi-size 
 
-
+#compiling flags needed by the boards
 CPU = -mcpu=cortex-m4 -mthumb -mfpu=fpv4-sp-d16 -mfloat-abi=softfp 
 CC_FLAGS = $(CPU) -c -g -fno-common -fmessage-length=0 -Wall -Wextra -fno-exceptions -ffunction-sections -fdata-sections -fomit-frame-pointer -MMD -MP
 CC_SYMBOLS = -DTOOLCHAIN_GCC_ARM -DTOOLCHAIN_GCC -DMBED_BUILD_TIMESTAMP=1443489270.64 -D__CORTEX_M4 -D__FPU_PRESENT=1 -DTARGET_CORTEX_M -DTARGET_DISCO_F407VG -D__MBED__=1 -DTARGET_M4 -DTARGET_STM -DTARGET_STM32F407 -DTARGET_STM32F4 -DTARGET_STM32F407VG -DARM_MATH_CM4 -DMBED_USERNAME=rmcbee 
@@ -52,7 +57,7 @@ LD_SYS_LIBS = -lstdc++ -lsupc++ -lm -lc -lgcc -lnosys
 
 CC_FLAGS += -DNDEBUG -Os
 
-
+#the actual portion of the make file
 .PHONY: all clean 
 
 all: $(PROJECT).bin $(PROJECT).hex 
