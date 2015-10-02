@@ -4,6 +4,9 @@
 We are using the mbed libraries with an on your computer compiler called gcc-arm-embedded. The first step is to download the compiller and code flasher 
 required to used mbed offline.These steps can be found bellow this description. 
 
+## What are we using
+This setup is based on the STM32F4xx_StdPeriph_Driver as well as the excellent Linux port of STLink by [Texane](https://github.com/texane/stlink) 
+
 ## How to get setup on Linux or Mac: 
 1. Download GCC-ARM for your system from here https://launchpad.net/gcc-arm-embedded/+download
 2. Setup the path on your computer to the location of the downloaded GCC-ARM
@@ -14,7 +17,7 @@ required to used mbed offline.These steps can be found bellow this description.
 7. go into the starter file
 8. run "make"
 9. Plug in your board via the mini-usb connector and run "make burn"
-10. Voila! Your Discovery board will now be running the simple blink program.
+10. Voila! Your board will now be running the simple blink program.
 
 ## How to get setup on Windows: 
 1. Download GCC-ARM for your system from here [here](https://launchpad.net/gcc-arm-embedded/+download)
@@ -27,5 +30,5 @@ required to used mbed offline.These steps can be found bellow this description.
 9. go into the starter file
 10. run "make"
 11. Plug in your board via the mini-usb connector and run "make burn"
-12. Voila! Your Discovery board will now be running the simple blink program.
+12. Voila! Your board will now be running the simple blink program.
 
