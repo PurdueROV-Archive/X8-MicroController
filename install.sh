@@ -1,5 +1,8 @@
 #!/bin/bash
 
+
+#This is for Mac Only
+
 #Get and install gcc
 wget https://launchpad.net/gcc-arm-embedded/4.9/4.9-2015-q3-update/+download/gcc-arm-none-eabi-4_9-2015q3-20150921-mac.tar.bz2 ~/Documnets/
 tar -xvf gcc-arm-none-eabi-4_9-2015q3-20150921-mac.tar.bz2
@@ -8,7 +11,7 @@ chmod +x ~/.bashrc
 echo "source ~/.bashrc" >> ~/.bash_profile
 
 
-#Get and install stlink
+#Get and install stlink and brew
 ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"
 brew install stlink
 
