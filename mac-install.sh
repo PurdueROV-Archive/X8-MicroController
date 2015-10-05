@@ -16,5 +16,6 @@ echo "source ~/.bashrc" >> ~/.bash_profile
 # Get and install homebrew
 ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/install)"
 
-# Get and install stlink
+# Get and install stlink and dfu-util
 brew install stlink
+brew install dfu-util
