@@ -100,7 +100,7 @@ clean:
 	
 burn:
 	@echo " ### Flashing $(BUILD_DIR)/$(PROJECT).bin to device with st-flash...\n"
-	@st-flash write $(BUILD_DIR)/$(PROJECT).bin 0x8000000
+	@st-flash --reset write $(BUILD_DIR)/$(PROJECT).bin 0x8000000
 
 dfu:
 	@echo " ### Flashing $(BUILD_DIR)/$(PROJECT).bin to device with dfu-util...\n"
