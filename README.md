@@ -8,7 +8,9 @@ required to used mbed offline.These steps can be found bellow this description.
 This setup is based on the STM32F4xx_StdPeriph_Driver as well as the excellent Linux port of STLink by [Texane](https://github.com/texane/stlink) 
 
 ## How to get setup on Mac: 
-1. Run mac-install.sh in terminal (make sure to reload your terminal so it reloads your path)
+Run mac-install.sh in terminal (make sure to reload your terminal so it reloads your path).  
+
+The install file downloads arm-gcc, adds it to your path and installs st-link via homebrew. Check it out if you're familiar with these things and would like to configure it manually. 
 
 ## How to get setup on Windows: 
 1. Download GCC-ARM for your system from here [here](https://launchpad.net/gcc-arm-embedded/+download)
