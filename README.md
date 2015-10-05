@@ -7,17 +7,8 @@ required to used mbed offline.These steps can be found bellow this description.
 ## What are we using
 This setup is based on the STM32F4xx_StdPeriph_Driver as well as the excellent Linux port of STLink by [Texane](https://github.com/texane/stlink) 
 
-## How to get setup on Linux or Mac: 
-1. Download GCC-ARM for your system from here https://launchpad.net/gcc-arm-embedded/+download
-2. Setup the path on your computer to the location of the downloaded GCC-ARM
-3. Clone this directory to your computer
-4. Clone the STLink program from the link above into a directory of your choosing
-5. Follow the instructions on the STLink github to compile the program 
-6. Add the STLink directory to your path
-7. go into the starter file
-8. run "make"
-9. Plug in your board via the mini-usb connector and run "make burn"
-10. Voila! Your board will now be running the simple blink program.
+## How to get setup on Mac: 
+1. Run mac-install.sh in terminal (make sure to reload your terminal so it reloads your path)
 
 ## How to get setup on Windows: 
 1. Download GCC-ARM for your system from here [here](https://launchpad.net/gcc-arm-embedded/+download)
