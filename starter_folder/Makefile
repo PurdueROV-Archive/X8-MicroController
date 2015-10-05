@@ -3,7 +3,7 @@
  #	Chip name		Variable name
  #    -----------------------------------------------
  #  	1. STM32F407		DISCO_F407
- #	2. NucleoF411		NUCLEO_F411
+ #		2. NucleoF411		NUCLEO_F411
  
 #Change this depending on which board you want to use
 BOARD = NUCLEO_F411
@@ -52,19 +52,23 @@ SIZE    = $(GCC_BIN)arm-none-eabi-size
 
 #compiling flags needed by the boards
 CPU = -mcpu=cortex-m4 -mthumb -mfpu=fpv4-sp-d16 -mfloat-abi=softfp 
-CC_FLAGS = $(CPU) -c -g -fno-common -fmessage-length=0 -Wall -Wextra -fno-exceptions -ffunction-sections -fdata-sections -fomit-frame-pointer -MMD -MP
-CC_SYMBOLS = -DTOOLCHAIN_GCC_ARM -DTOOLCHAIN_GCC -DMBED_BUILD_TIMESTAMP=1443489270.64 -D__CORTEX_M4 -D__FPU_PRESENT=1 -DTARGET_CORTEX_M -DTARGET_DISCO_F407VG -D__MBED__=1 -DTARGET_M4 -DTARGET_STM -DTARGET_STM32F407 -DTARGET_STM32F4 -DTARGET_STM32F407VG -DARM_MATH_CM4 -DMBED_USERNAME=rmcbee 
+CC_FLAGS = $(CPU) -c -g -fno-common -fmessage-length=0 -Wall -Wextra -fno-exceptions -ffunction-sections -fdata-sections -fomit-frame-pointer -MMD -MP -fdiagnostics-color=auto
+CC_SYMBOLS = -DTOOLCHAIN_GCC_ARM -DTOOLCHAIN_GCC -DMBED_BUILD_TIMESTAMP=1443489270.64 -D__CORTEX_M4 -D__FPU_PRESENT=1 -DTARGET_CORTEX_M -DTARGET_DISCO_F407VG -D__MBED__=1 -DTARGET_M4 -DTARGET_STM -DTARGET_STM32F407 -DTARGET_STM32F4 -DTARGET_STM32F407VG -DARM_MATH_CM4
 
 LD_FLAGS = $(CPU) -Wl,--gc-sections --specs=nano.specs -u _printf_float -u _scanf_float -Wl,--wrap,main -Wl,-Map=$(BUILD_DIR)/$(PROJECT).map,--cref
 LD_SYS_LIBS = -lstdc++ -lsupc++ -lm -lc -lgcc -lnosys
 
 
-CC_FLAGS += -DNDEBUG -Os
+CC_FLAGS += -DNDEBUG -Os 
 
 #the actual portion of the make file
-.PHONY: all clean 
 
-all: $(LIB_OBJ) $(PROJECT).bin $(PROJECT).hex 
+.PHONY: all compile clean burn dfu
+
+all: compile
+
+compile: $(PROJECT).bin $(PROJECT).hex
+	@echo " ### Compiled $(PROJECT).bin & $(PROJECT).hex"
 
 .c.o:
 	@$(CC)  $(CC_FLAGS) $(CC_SYMBOLS) -std=gnu99   $(INCLUDE_PATHS) -o $@ $<
@@ -83,17 +87,21 @@ $(PROJECT).elf: $(OBJECTS) $(SYS_OBJECTS)
 	@rm *.o
 
 $(PROJECT).bin: $(PROJECT).elf
-	#Finished compliling
 	@rm *.d
 	@$(OBJCOPY) -O binary $(BUILD_DIR)/$< $(BUILD_DIR)/$@
 
 $(PROJECT).hex: $(PROJECT).elf
-	@$(OBJCOPY) -O ihex $(BUILD_DIR)/$< $(BUILD_DIR)/$@
+	@$(OBJCOPY) -g -O ihex $(BUILD_DIR)/$< $(BUILD_DIR)/$@
 
+
+clean:
+	@rm $(BUILD_DIR)/*
+	@echo " ### Cleaned build directory"
 	
-#Uploads a .bin file to a stm32f4 discovery board
 burn:
-	st-flash write $(BUILD_DIR)/$(PROJECT).bin 0x8000000
+	@echo " ### Flashing $(BUILD_DIR)/$(PROJECT).bin to device with st-flash...\n"
+	@st-flash write $(BUILD_DIR)/$(PROJECT).bin 0x8000000
 
 dfu:
-	dfu-util -a 0 --dfuse-address 0x08000000 -D $(BUILD_DIR)/$(PROJECT).bin
+	@echo " ### Flashing $(BUILD_DIR)/$(PROJECT).bin to device with dfu-util...\n"
+	@dfu-util -a 0 --dfuse-address 0x08000000 -D $(BUILD_DIR)/$(PROJECT).bin
