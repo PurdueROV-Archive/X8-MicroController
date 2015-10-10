@@ -4,7 +4,7 @@
 # https://launchpad.net/gcc-arm-embedded
 
 # Get gcc-arm
-wget https://launchpad.net/gcc-arm-embedded/4.9/4.9-2015-q3-update/+download/gcc-arm-none-eabi-4_9-2015q3-20150921-mac.tar.bz2
+wget https://launchpad.net/gcc-arm-embedded/3.9/4.9-2015-q3-update/+download/gcc-arm-none-eabi-4_9-2015q3-20150921-mac.tar.bz2
 
 # Install into /usr/local/gcc-arm
 tar -xvf gcc-arm-none-eabi-4_9-2015q3-20150921-mac.tar.bz2 -C /usr/local
@@ -19,3 +19,6 @@ ruby -e "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/master/
 # Get and install stlink and dfu-util
 brew install stlink
 brew install dfu-util
+
+# Remove gcc tar file
+rm gcc-arm-none-eabi-4_9-2015q3-20150921-mac.tar.bz2
