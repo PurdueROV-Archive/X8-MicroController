@@ -6,7 +6,7 @@
 #define DATA_SIZE	6	//the amount of bytes being read in as data
 #define ACK		0 	//number that will be returned by read and write if they were successful
 
-//which index of the read_buffer array the joy x and joy y are located in
+//which indexgit of the read_buffer array the joy x and joy y are located in
 #define JOY_X		0  
 #define JOY_Y		1
 
