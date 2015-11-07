@@ -1,4 +1,5 @@
 #include "main.h"
+#include "lwip/init.h"
 
 
 static GPIO_InitTypeDef  GPIO_InitStruct;
@@ -26,6 +27,9 @@ int main(void)
 	  HAL_GPIO_Init(GPIOA, &GPIO_InitStruct); 
 
   
+
+
+
 	while (1)
 	{
 		//HAL_GPIO_WritePin(GPIOA, GPIO_PIN_5, 1);
