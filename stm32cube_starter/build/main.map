@@ -106,9 +106,21 @@ Discarded input sections
  .text          0x0000000000000000        0x0 main.o
  .data          0x0000000000000000        0x0 main.o
  .bss           0x0000000000000000        0x0 main.o
- .text          0x0000000000000000        0x0 stm32f4xx_it.o
- .data          0x0000000000000000        0x0 stm32f4xx_it.o
- .bss           0x0000000000000000        0x0 stm32f4xx_it.o
+ .text          0x0000000000000000        0x0 src/stm32f4xx_it.o
+ .data          0x0000000000000000        0x0 src/stm32f4xx_it.o
+ .bss           0x0000000000000000        0x0 src/stm32f4xx_it.o
+ .text          0x0000000000000000        0x0 src/init.o
+ .data          0x0000000000000000        0x0 src/init.o
+ .bss           0x0000000000000000        0x0 src/init.o
+ .debug_info    0x0000000000000000       0x99 src/init.o
+ .debug_abbrev  0x0000000000000000       0x4b src/init.o
+ .debug_aranges
+                0x0000000000000000       0x18 src/init.o
+ .debug_line    0x0000000000000000       0xc0 src/init.o
+ .debug_str     0x0000000000000000      0x20a src/init.o
+ .comment       0x0000000000000000       0x71 src/init.o
+ .ARM.attributes
+                0x0000000000000000       0x37 src/init.o
  .text          0x0000000000000000        0x0 ../STM32Cube_FW_F4_V1.9.0/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal.o
  .data          0x0000000000000000        0x0 ../STM32Cube_FW_F4_V1.9.0/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal.o
  .bss           0x0000000000000000        0x0 ../STM32Cube_FW_F4_V1.9.0/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal.o
@@ -1994,11 +2006,11 @@ Discarded input sections
  .debug_frame   0x0000000000000000       0xe0 ../STM32Cube_FW_F4_V1.9.0/Middlewares/Third_Party/LwIP/src/core/ipv4/ip_frag.o
  .ARM.attributes
                 0x0000000000000000       0x37 ../STM32Cube_FW_F4_V1.9.0/Middlewares/Third_Party/LwIP/src/core/ipv4/ip_frag.o
- .text          0x0000000000000000        0x0 /tmp/cciF7m67.o
- .data          0x0000000000000000        0x0 /tmp/cciF7m67.o
- .bss           0x0000000000000000        0x0 /tmp/cciF7m67.o
+ .text          0x0000000000000000        0x0 /tmp/cczpkV5D.o
+ .data          0x0000000000000000        0x0 /tmp/cczpkV5D.o
+ .bss           0x0000000000000000        0x0 /tmp/cczpkV5D.o
  .ARM.attributes
-                0x0000000000000000       0x25 /tmp/cciF7m67.o
+                0x0000000000000000       0x25 /tmp/cczpkV5D.o
  .text          0x0000000000000000        0x0 /usr/bin/../lib/gcc/arm-none-eabi/4.9.3/../../../../arm-none-eabi/lib/armv7e-m/softfp/libc_nano.a(lib_a-exit.o)
  .data          0x0000000000000000        0x0 /usr/bin/../lib/gcc/arm-none-eabi/4.9.3/../../../../arm-none-eabi/lib/armv7e-m/softfp/libc_nano.a(lib_a-exit.o)
  .bss           0x0000000000000000        0x0 /usr/bin/../lib/gcc/arm-none-eabi/4.9.3/../../../../arm-none-eabi/lib/armv7e-m/softfp/libc_nano.a(lib_a-exit.o)
@@ -2196,7 +2208,8 @@ LOAD /usr/bin/../lib/gcc/arm-none-eabi/4.9.3/armv7e-m/softfp/crti.o
 LOAD /usr/bin/../lib/gcc/arm-none-eabi/4.9.3/armv7e-m/softfp/crtbegin.o
 LOAD /usr/bin/../lib/gcc/arm-none-eabi/4.9.3/../../../../arm-none-eabi/lib/armv7e-m/softfp/crt0.o
 LOAD main.o
-LOAD stm32f4xx_it.o
+LOAD src/stm32f4xx_it.o
+LOAD src/init.o
 LOAD ../STM32Cube_FW_F4_V1.9.0/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal.o
 LOAD ../STM32Cube_FW_F4_V1.9.0/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_crc.o
 LOAD ../STM32Cube_FW_F4_V1.9.0/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_can.o
@@ -2266,7 +2279,7 @@ LOAD ../STM32Cube_FW_F4_V1.9.0/Middlewares/Third_Party/LwIP/src/core/ipv4/inet_c
 LOAD ../STM32Cube_FW_F4_V1.9.0/Middlewares/Third_Party/LwIP/src/core/ipv4/ip.o
 LOAD ../STM32Cube_FW_F4_V1.9.0/Middlewares/Third_Party/LwIP/src/core/ipv4/ip_addr.o
 LOAD ../STM32Cube_FW_F4_V1.9.0/Middlewares/Third_Party/LwIP/src/core/ipv4/ip_frag.o
-LOAD /tmp/cciF7m67.o
+LOAD /tmp/cczpkV5D.o
 LOAD /usr/bin/../lib/gcc/arm-none-eabi/4.9.3/../../../../arm-none-eabi/lib/armv7e-m/softfp/libstdc++_nano.a
 LOAD /usr/bin/../lib/gcc/arm-none-eabi/4.9.3/../../../../arm-none-eabi/lib/armv7e-m/softfp/libsupc++_nano.a
 LOAD /usr/bin/../lib/gcc/arm-none-eabi/4.9.3/../../../../arm-none-eabi/lib/armv7e-m/softfp/libm.a
@@ -2300,31 +2313,31 @@ LOAD /usr/bin/../lib/gcc/arm-none-eabi/4.9.3/armv7e-m/softfp/crtn.o
                 0x00000000080001e4       0xc0 main.o
                 0x00000000080001e4                main
  .text.NMI_Handler
-                0x00000000080002a4        0x2 stm32f4xx_it.o
+                0x00000000080002a4        0x2 src/stm32f4xx_it.o
                 0x00000000080002a4                NMI_Handler
  .text.HardFault_Handler
-                0x00000000080002a6        0x2 stm32f4xx_it.o
+                0x00000000080002a6        0x2 src/stm32f4xx_it.o
                 0x00000000080002a6                HardFault_Handler
  .text.MemManage_Handler
-                0x00000000080002a8        0x2 stm32f4xx_it.o
+                0x00000000080002a8        0x2 src/stm32f4xx_it.o
                 0x00000000080002a8                MemManage_Handler
  .text.BusFault_Handler
-                0x00000000080002aa        0x2 stm32f4xx_it.o
+                0x00000000080002aa        0x2 src/stm32f4xx_it.o
                 0x00000000080002aa                BusFault_Handler
  .text.UsageFault_Handler
-                0x00000000080002ac        0x2 stm32f4xx_it.o
+                0x00000000080002ac        0x2 src/stm32f4xx_it.o
                 0x00000000080002ac                UsageFault_Handler
  .text.SVC_Handler
-                0x00000000080002ae        0x2 stm32f4xx_it.o
+                0x00000000080002ae        0x2 src/stm32f4xx_it.o
                 0x00000000080002ae                SVC_Handler
  .text.DebugMon_Handler
-                0x00000000080002b0        0x2 stm32f4xx_it.o
+                0x00000000080002b0        0x2 src/stm32f4xx_it.o
                 0x00000000080002b0                DebugMon_Handler
  .text.PendSV_Handler
-                0x00000000080002b2        0x2 stm32f4xx_it.o
+                0x00000000080002b2        0x2 src/stm32f4xx_it.o
                 0x00000000080002b2                PendSV_Handler
  .text.SysTick_Handler
-                0x00000000080002b4        0x4 stm32f4xx_it.o
+                0x00000000080002b4        0x4 src/stm32f4xx_it.o
                 0x00000000080002b4                SysTick_Handler
  .text.HAL_MspInit
                 0x00000000080002b8        0x2 ../STM32Cube_FW_F4_V1.9.0/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal.o
@@ -2838,7 +2851,7 @@ OUTPUT(build/main.elf elf32-littlearm)
  .ARM.attributes
                 0x0000000000000054       0x37 main.o
  .ARM.attributes
-                0x000000000000008b       0x37 stm32f4xx_it.o
+                0x000000000000008b       0x37 src/stm32f4xx_it.o
  .ARM.attributes
                 0x00000000000000c2       0x37 ../STM32Cube_FW_F4_V1.9.0/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal.o
  .ARM.attributes
@@ -2937,7 +2950,7 @@ OUTPUT(build/main.elf elf32-littlearm)
 .comment        0x0000000000000000       0xe0
  .comment       0x0000000000000000       0x70 main.o
                                          0x71 (size before relaxing)
- .comment       0x0000000000000000       0x71 stm32f4xx_it.o
+ .comment       0x0000000000000000       0x71 src/stm32f4xx_it.o
  .comment       0x0000000000000070       0x70 ../STM32Cube_FW_F4_V1.9.0/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal.o
                                          0x71 (size before relaxing)
  .comment       0x0000000000000000       0x71 ../STM32Cube_FW_F4_V1.9.0/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_cortex.o
@@ -2947,7 +2960,7 @@ OUTPUT(build/main.elf elf32-littlearm)
 
 .debug_info     0x0000000000000000     0x3928
  .debug_info    0x0000000000000000      0x783 main.o
- .debug_info    0x0000000000000783      0x14f stm32f4xx_it.o
+ .debug_info    0x0000000000000783      0x14f src/stm32f4xx_it.o
  .debug_info    0x00000000000008d2      0x91c ../STM32Cube_FW_F4_V1.9.0/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal.o
  .debug_info    0x00000000000011ee      0xe61 ../STM32Cube_FW_F4_V1.9.0/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_cortex.o
  .debug_info    0x000000000000204f      0x70a ../STM32Cube_FW_F4_V1.9.0/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_gpio.o
@@ -2956,7 +2969,7 @@ OUTPUT(build/main.elf elf32-littlearm)
 
 .debug_abbrev   0x0000000000000000      0xe05
  .debug_abbrev  0x0000000000000000      0x1ff main.o
- .debug_abbrev  0x00000000000001ff       0xa0 stm32f4xx_it.o
+ .debug_abbrev  0x00000000000001ff       0xa0 src/stm32f4xx_it.o
  .debug_abbrev  0x000000000000029f      0x258 ../STM32Cube_FW_F4_V1.9.0/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal.o
  .debug_abbrev  0x00000000000004f7      0x30a ../STM32Cube_FW_F4_V1.9.0/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_cortex.o
  .debug_abbrev  0x0000000000000801      0x1c6 ../STM32Cube_FW_F4_V1.9.0/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_gpio.o
@@ -2967,7 +2980,7 @@ OUTPUT(build/main.elf elf32-littlearm)
  .debug_aranges
                 0x0000000000000000       0x20 main.o
  .debug_aranges
-                0x0000000000000020       0x60 stm32f4xx_it.o
+                0x0000000000000020       0x60 src/stm32f4xx_it.o
  .debug_aranges
                 0x0000000000000080       0xc0 ../STM32Cube_FW_F4_V1.9.0/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal.o
  .debug_aranges
@@ -2981,41 +2994,41 @@ OUTPUT(build/main.elf elf32-littlearm)
 
 .debug_ranges   0x0000000000000000      0x450
  .debug_ranges  0x0000000000000000       0x60 main.o
- .debug_ranges  0x0000000000000060       0x50 stm32f4xx_it.o
+ .debug_ranges  0x0000000000000060       0x50 src/stm32f4xx_it.o
  .debug_ranges  0x00000000000000b0       0xb0 ../STM32Cube_FW_F4_V1.9.0/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal.o
  .debug_ranges  0x0000000000000160      0x120 ../STM32Cube_FW_F4_V1.9.0/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_cortex.o
  .debug_ranges  0x0000000000000280       0x60 ../STM32Cube_FW_F4_V1.9.0/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_gpio.o
  .debug_ranges  0x00000000000002e0      0x158 ../STM32Cube_FW_F4_V1.9.0/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_rcc.o
  .debug_ranges  0x0000000000000438       0x18 ../STM32Cube_FW_F4_V1.9.0/Drivers/CMSIS/Device/ST/STM32F4xx/Source/Templates/system_stm32f4xx.o
 
-.debug_line     0x0000000000000000     0x179a
+.debug_line     0x0000000000000000     0x1793
  .debug_line    0x0000000000000000      0x253 main.o
- .debug_line    0x0000000000000253      0x1c7 stm32f4xx_it.o
- .debug_line    0x000000000000041a      0x3df ../STM32Cube_FW_F4_V1.9.0/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal.o
- .debug_line    0x00000000000007f9      0x406 ../STM32Cube_FW_F4_V1.9.0/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_cortex.o
- .debug_line    0x0000000000000bff      0x3ea ../STM32Cube_FW_F4_V1.9.0/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_gpio.o
- .debug_line    0x0000000000000fe9      0x5b9 ../STM32Cube_FW_F4_V1.9.0/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_rcc.o
- .debug_line    0x00000000000015a2      0x1f8 ../STM32Cube_FW_F4_V1.9.0/Drivers/CMSIS/Device/ST/STM32F4xx/Source/Templates/system_stm32f4xx.o
+ .debug_line    0x0000000000000253      0x1c0 src/stm32f4xx_it.o
+ .debug_line    0x0000000000000413      0x3df ../STM32Cube_FW_F4_V1.9.0/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal.o
+ .debug_line    0x00000000000007f2      0x406 ../STM32Cube_FW_F4_V1.9.0/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_cortex.o
+ .debug_line    0x0000000000000bf8      0x3ea ../STM32Cube_FW_F4_V1.9.0/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_gpio.o
+ .debug_line    0x0000000000000fe2      0x5b9 ../STM32Cube_FW_F4_V1.9.0/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_rcc.o
+ .debug_line    0x000000000000159b      0x1f8 ../STM32Cube_FW_F4_V1.9.0/Drivers/CMSIS/Device/ST/STM32F4xx/Source/Templates/system_stm32f4xx.o
 
-.debug_str      0x0000000000000000     0x1746
+.debug_str      0x0000000000000000     0x174a
  .debug_str     0x0000000000000000      0x599 main.o
                                         0x6c1 (size before relaxing)
- .debug_str     0x0000000000000599      0x1ab stm32f4xx_it.o
-                                        0x29a (size before relaxing)
- .debug_str     0x0000000000000744      0x8c8 ../STM32Cube_FW_F4_V1.9.0/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal.o
+ .debug_str     0x0000000000000599      0x1af src/stm32f4xx_it.o
+                                        0x29e (size before relaxing)
+ .debug_str     0x0000000000000748      0x8c8 ../STM32Cube_FW_F4_V1.9.0/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal.o
                                         0xb00 (size before relaxing)
- .debug_str     0x000000000000100c      0x3b5 ../STM32Cube_FW_F4_V1.9.0/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_cortex.o
+ .debug_str     0x0000000000001010      0x3b5 ../STM32Cube_FW_F4_V1.9.0/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_cortex.o
                                         0xc46 (size before relaxing)
- .debug_str     0x00000000000013c1      0x167 ../STM32Cube_FW_F4_V1.9.0/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_gpio.o
+ .debug_str     0x00000000000013c5      0x167 ../STM32Cube_FW_F4_V1.9.0/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_gpio.o
                                         0x54e (size before relaxing)
- .debug_str     0x0000000000001528      0x196 ../STM32Cube_FW_F4_V1.9.0/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_rcc.o
+ .debug_str     0x000000000000152c      0x196 ../STM32Cube_FW_F4_V1.9.0/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_rcc.o
                                         0x729 (size before relaxing)
- .debug_str     0x00000000000016be       0x88 ../STM32Cube_FW_F4_V1.9.0/Drivers/CMSIS/Device/ST/STM32F4xx/Source/Templates/system_stm32f4xx.o
+ .debug_str     0x00000000000016c2       0x88 ../STM32Cube_FW_F4_V1.9.0/Drivers/CMSIS/Device/ST/STM32F4xx/Source/Templates/system_stm32f4xx.o
                                         0x3fa (size before relaxing)
 
 .debug_frame    0x0000000000000000     0x1004
  .debug_frame   0x0000000000000000       0x30 main.o
- .debug_frame   0x0000000000000030       0xa0 stm32f4xx_it.o
+ .debug_frame   0x0000000000000030       0xa0 src/stm32f4xx_it.o
  .debug_frame   0x00000000000000d0      0x184 ../STM32Cube_FW_F4_V1.9.0/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal.o
  .debug_frame   0x0000000000000254      0x134 ../STM32Cube_FW_F4_V1.9.0/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_cortex.o
  .debug_frame   0x0000000000000388       0xc4 ../STM32Cube_FW_F4_V1.9.0/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_gpio.o
@@ -3065,7 +3078,7 @@ Symbol                                            File
 ADC_IRQHandler                                    ../STM32Cube_FW_F4_V1.9.0/Drivers/CMSIS/Device/ST/STM32F4xx/Source/Templates/gcc/startup_stm32f407xx.o
 AHBPrescTable                                     ../STM32Cube_FW_F4_V1.9.0/Drivers/CMSIS/Device/ST/STM32F4xx/Source/Templates/system_stm32f4xx.o
 APBAHBPrescTable                                  ../STM32Cube_FW_F4_V1.9.0/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_rcc.o
-BusFault_Handler                                  stm32f4xx_it.o
+BusFault_Handler                                  src/stm32f4xx_it.o
 CAN1_RX0_IRQHandler                               ../STM32Cube_FW_F4_V1.9.0/Drivers/CMSIS/Device/ST/STM32F4xx/Source/Templates/gcc/startup_stm32f407xx.o
 CAN1_RX1_IRQHandler                               ../STM32Cube_FW_F4_V1.9.0/Drivers/CMSIS/Device/ST/STM32F4xx/Source/Templates/gcc/startup_stm32f407xx.o
 CAN1_SCE_IRQHandler                               ../STM32Cube_FW_F4_V1.9.0/Drivers/CMSIS/Device/ST/STM32F4xx/Source/Templates/gcc/startup_stm32f407xx.o
@@ -3091,7 +3104,7 @@ DMA2_Stream4_IRQHandler                           ../STM32Cube_FW_F4_V1.9.0/Driv
 DMA2_Stream5_IRQHandler                           ../STM32Cube_FW_F4_V1.9.0/Drivers/CMSIS/Device/ST/STM32F4xx/Source/Templates/gcc/startup_stm32f407xx.o
 DMA2_Stream6_IRQHandler                           ../STM32Cube_FW_F4_V1.9.0/Drivers/CMSIS/Device/ST/STM32F4xx/Source/Templates/gcc/startup_stm32f407xx.o
 DMA2_Stream7_IRQHandler                           ../STM32Cube_FW_F4_V1.9.0/Drivers/CMSIS/Device/ST/STM32F4xx/Source/Templates/gcc/startup_stm32f407xx.o
-DebugMon_Handler                                  stm32f4xx_it.o
+DebugMon_Handler                                  src/stm32f4xx_it.o
 Default_Handler                                   ../STM32Cube_FW_F4_V1.9.0/Drivers/CMSIS/Device/ST/STM32F4xx/Source/Templates/gcc/startup_stm32f407xx.o
 ETH_IRQHandler                                    ../STM32Cube_FW_F4_V1.9.0/Drivers/CMSIS/Device/ST/STM32F4xx/Source/Templates/gcc/startup_stm32f407xx.o
 ETH_WKUP_IRQHandler                               ../STM32Cube_FW_F4_V1.9.0/Drivers/CMSIS/Device/ST/STM32F4xx/Source/Templates/gcc/startup_stm32f407xx.o
@@ -3255,7 +3268,7 @@ HAL_I2S_TxCpltCallback                            ../STM32Cube_FW_F4_V1.9.0/Driv
                                                   ../STM32Cube_FW_F4_V1.9.0/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_i2s_ex.o
 HAL_I2S_TxHalfCpltCallback                        ../STM32Cube_FW_F4_V1.9.0/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_i2s.o
 HAL_IncTick                                       ../STM32Cube_FW_F4_V1.9.0/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal.o
-                                                  stm32f4xx_it.o
+                                                  src/stm32f4xx_it.o
 HAL_Init                                          ../STM32Cube_FW_F4_V1.9.0/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal.o
                                                   main.o
 HAL_InitTick                                      ../STM32Cube_FW_F4_V1.9.0/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal.o
@@ -3383,7 +3396,7 @@ HAL_USART_TxCpltCallback                          ../STM32Cube_FW_F4_V1.9.0/Driv
 HAL_USART_TxHalfCpltCallback                      ../STM32Cube_FW_F4_V1.9.0/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_usart.o
 HAL_USART_TxRxCpltCallback                        ../STM32Cube_FW_F4_V1.9.0/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_usart.o
 HASH_RNG_IRQHandler                               ../STM32Cube_FW_F4_V1.9.0/Drivers/CMSIS/Device/ST/STM32F4xx/Source/Templates/gcc/startup_stm32f407xx.o
-HardFault_Handler                                 stm32f4xx_it.o
+HardFault_Handler                                 src/stm32f4xx_it.o
 I2C1_ER_IRQHandler                                ../STM32Cube_FW_F4_V1.9.0/Drivers/CMSIS/Device/ST/STM32F4xx/Source/Templates/gcc/startup_stm32f407xx.o
 I2C1_EV_IRQHandler                                ../STM32Cube_FW_F4_V1.9.0/Drivers/CMSIS/Device/ST/STM32F4xx/Source/Templates/gcc/startup_stm32f407xx.o
 I2C2_ER_IRQHandler                                ../STM32Cube_FW_F4_V1.9.0/Drivers/CMSIS/Device/ST/STM32F4xx/Source/Templates/gcc/startup_stm32f407xx.o
@@ -3409,8 +3422,8 @@ I2S_Transmit_IT                                   ../STM32Cube_FW_F4_V1.9.0/Driv
                                                   ../STM32Cube_FW_F4_V1.9.0/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_i2s_ex.o
 I2S_WaitFlagStateUntilTimeout                     ../STM32Cube_FW_F4_V1.9.0/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_i2s.o
                                                   ../STM32Cube_FW_F4_V1.9.0/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_i2s_ex.o
-MemManage_Handler                                 stm32f4xx_it.o
-NMI_Handler                                       stm32f4xx_it.o
+MemManage_Handler                                 src/stm32f4xx_it.o
+NMI_Handler                                       src/stm32f4xx_it.o
 OTG_FS_IRQHandler                                 ../STM32Cube_FW_F4_V1.9.0/Drivers/CMSIS/Device/ST/STM32F4xx/Source/Templates/gcc/startup_stm32f407xx.o
 OTG_FS_WKUP_IRQHandler                            ../STM32Cube_FW_F4_V1.9.0/Drivers/CMSIS/Device/ST/STM32F4xx/Source/Templates/gcc/startup_stm32f407xx.o
 OTG_HS_EP1_IN_IRQHandler                          ../STM32Cube_FW_F4_V1.9.0/Drivers/CMSIS/Device/ST/STM32F4xx/Source/Templates/gcc/startup_stm32f407xx.o
@@ -3418,7 +3431,7 @@ OTG_HS_EP1_OUT_IRQHandler                         ../STM32Cube_FW_F4_V1.9.0/Driv
 OTG_HS_IRQHandler                                 ../STM32Cube_FW_F4_V1.9.0/Drivers/CMSIS/Device/ST/STM32F4xx/Source/Templates/gcc/startup_stm32f407xx.o
 OTG_HS_WKUP_IRQHandler                            ../STM32Cube_FW_F4_V1.9.0/Drivers/CMSIS/Device/ST/STM32F4xx/Source/Templates/gcc/startup_stm32f407xx.o
 PVD_IRQHandler                                    ../STM32Cube_FW_F4_V1.9.0/Drivers/CMSIS/Device/ST/STM32F4xx/Source/Templates/gcc/startup_stm32f407xx.o
-PendSV_Handler                                    stm32f4xx_it.o
+PendSV_Handler                                    src/stm32f4xx_it.o
 RCC_IRQHandler                                    ../STM32Cube_FW_F4_V1.9.0/Drivers/CMSIS/Device/ST/STM32F4xx/Source/Templates/gcc/startup_stm32f407xx.o
 RTC_Alarm_IRQHandler                              ../STM32Cube_FW_F4_V1.9.0/Drivers/CMSIS/Device/ST/STM32F4xx/Source/Templates/gcc/startup_stm32f407xx.o
 RTC_WKUP_IRQHandler                               ../STM32Cube_FW_F4_V1.9.0/Drivers/CMSIS/Device/ST/STM32F4xx/Source/Templates/gcc/startup_stm32f407xx.o
@@ -3427,8 +3440,8 @@ SDIO_IRQHandler                                   ../STM32Cube_FW_F4_V1.9.0/Driv
 SPI1_IRQHandler                                   ../STM32Cube_FW_F4_V1.9.0/Drivers/CMSIS/Device/ST/STM32F4xx/Source/Templates/gcc/startup_stm32f407xx.o
 SPI2_IRQHandler                                   ../STM32Cube_FW_F4_V1.9.0/Drivers/CMSIS/Device/ST/STM32F4xx/Source/Templates/gcc/startup_stm32f407xx.o
 SPI3_IRQHandler                                   ../STM32Cube_FW_F4_V1.9.0/Drivers/CMSIS/Device/ST/STM32F4xx/Source/Templates/gcc/startup_stm32f407xx.o
-SVC_Handler                                       stm32f4xx_it.o
-SysTick_Handler                                   stm32f4xx_it.o
+SVC_Handler                                       src/stm32f4xx_it.o
+SysTick_Handler                                   src/stm32f4xx_it.o
 SystemCoreClock                                   ../STM32Cube_FW_F4_V1.9.0/Drivers/CMSIS/Device/ST/STM32F4xx/Source/Templates/system_stm32f4xx.o
                                                   ../STM32Cube_FW_F4_V1.9.0/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_rcc.o
 SystemCoreClockUpdate                             ../STM32Cube_FW_F4_V1.9.0/Drivers/CMSIS/Device/ST/STM32F4xx/Source/Templates/system_stm32f4xx.o
@@ -3455,7 +3468,7 @@ USART1_IRQHandler                                 ../STM32Cube_FW_F4_V1.9.0/Driv
 USART2_IRQHandler                                 ../STM32Cube_FW_F4_V1.9.0/Drivers/CMSIS/Device/ST/STM32F4xx/Source/Templates/gcc/startup_stm32f407xx.o
 USART3_IRQHandler                                 ../STM32Cube_FW_F4_V1.9.0/Drivers/CMSIS/Device/ST/STM32F4xx/Source/Templates/gcc/startup_stm32f407xx.o
 USART6_IRQHandler                                 ../STM32Cube_FW_F4_V1.9.0/Drivers/CMSIS/Device/ST/STM32F4xx/Source/Templates/gcc/startup_stm32f407xx.o
-UsageFault_Handler                                stm32f4xx_it.o
+UsageFault_Handler                                src/stm32f4xx_it.o
 WWDG_IRQHandler                                   ../STM32Cube_FW_F4_V1.9.0/Drivers/CMSIS/Device/ST/STM32F4xx/Source/Templates/gcc/startup_stm32f407xx.o
 _Balloc                                           /usr/bin/../lib/gcc/arm-none-eabi/4.9.3/../../../../arm-none-eabi/lib/armv7e-m/softfp/libc_nano.a(lib_a-mprec.o)
                                                   /usr/bin/../lib/gcc/arm-none-eabi/4.9.3/../../../../arm-none-eabi/lib/armv7e-m/softfp/libc_nano.a(lib_a-gdtoa-gethex.o)

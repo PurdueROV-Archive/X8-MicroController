@@ -6,10 +6,11 @@ LWIP = $(LIB_DIR)/Middlewares/Third_Party/LwIP/src
 
 BUILD_DIR = build
 
+
+#Add any source files that you use here.  Remember to end them with .o
 OBJECTS = main.o \
-		stm32f4xx_it.o \
-
-
+		 src/stm32f4xx_it.o \
+		src/init.o
 
 
 
