@@ -147,7 +147,8 @@ OBJECTS += \
 
 
 INCLUDE_PATHS = \
-    -I./inc \
+	-I./inc \
+    -I./$(LIB_DIR)/Inc \
     -I./$(LIB_DIR)/Drivers/STM32F4xx_HAL_Driver/Inc \
     -I./$(LIB_DIR)/Drivers/CMSIS/Include \
     -I./$(LIB_DIR)/Drivers/CMSIS/Device/ST/STM32F4xx/Include \
