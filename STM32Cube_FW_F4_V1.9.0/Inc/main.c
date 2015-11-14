@@ -60,7 +60,7 @@ static void MX_CAN1_Init(void);
 
 /* USER CODE END 0 */
 
-int main(void)
+int main2(void)
 {
 
   /* USER CODE BEGIN 1 */
