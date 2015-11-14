@@ -9,14 +9,13 @@ BUILD_DIR = build
 
 #Add any source files that you use here.  Remember to end them with .o
 OBJECTS = main.o \
-		 src/stm32f4xx_it.o\
+		 src/stm32f4xx_it.o \
 		src/init.o
 
 
 
 OBJECTS += \
        $(DRIVER)/stm32f4xx_hal.o \
-       $(DRIVER)/stm32f4xx_hal_adc.o \
        $(DRIVER)/stm32f4xx_hal_crc.o \
        $(DRIVER)/stm32f4xx_hal_can.o \
        $(DRIVER)/stm32f4xx_hal_uart.o \
