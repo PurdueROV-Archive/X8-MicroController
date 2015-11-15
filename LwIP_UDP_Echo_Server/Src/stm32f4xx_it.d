@@ -1,4 +1,4 @@
-src/stm32f4xx_it.o: src/stm32f4xx_it.c \
+Src/stm32f4xx_it.o: Src/stm32f4xx_it.c \
  ../STM32Cube_FW_F4_V1.9.0/Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal.h \
  inc/stm32f4xx_hal_conf.h \
  ../STM32Cube_FW_F4_V1.9.0/Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_rcc.h \
@@ -29,6 +29,9 @@ src/stm32f4xx_it.o: src/stm32f4xx_it.c \
  ../STM32Cube_FW_F4_V1.9.0/Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_i2s_ex.h \
  ../STM32Cube_FW_F4_V1.9.0/Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_pwr.h \
  ../STM32Cube_FW_F4_V1.9.0/Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_pwr_ex.h \
+ ../STM32Cube_FW_F4_V1.9.0/Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_sd.h \
+ ../STM32Cube_FW_F4_V1.9.0/Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_ll_sdmmc.h \
+ ../STM32Cube_FW_F4_V1.9.0/Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_spi.h \
  ../STM32Cube_FW_F4_V1.9.0/Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_uart.h \
  inc/main.h \
  ../STM32Cube_FW_F4_V1.9.0/Drivers/BSP/STM32F4-Discovery/stm32f4_discovery.h \
@@ -93,6 +96,12 @@ inc/stm32f4xx_hal_conf.h:
 ../STM32Cube_FW_F4_V1.9.0/Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_pwr.h:
 
 ../STM32Cube_FW_F4_V1.9.0/Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_pwr_ex.h:
+
+../STM32Cube_FW_F4_V1.9.0/Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_sd.h:
+
+../STM32Cube_FW_F4_V1.9.0/Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_ll_sdmmc.h:
+
+../STM32Cube_FW_F4_V1.9.0/Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_spi.h:
 
 ../STM32Cube_FW_F4_V1.9.0/Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_uart.h:
 

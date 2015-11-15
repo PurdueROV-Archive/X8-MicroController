@@ -8,12 +8,13 @@ BUILD_DIR = build
 
 
 #Add any source files that you use here.  Remember to end them with .o
-OBJECTS = src/main.o \
-		 src/stm32f4xx_it.o \
-		src/system_stm32f4xx.o \
-		src/app_ethernet.o \
-		src/ethernetif.o \
-		src/udp_echoserver.o 
+OBJECTS = Src/main.o \
+		 Src/stm32f4xx_it.o \
+		#Src/system_stm32f4xx.o \
+		Src/app_ethernet.o \
+		Src/ethernetif.o \
+		Src/udp_echoserver.o
+
 
 
 
@@ -87,8 +88,6 @@ OBJECTS += \
 	$(LWIP)/core/ipv4/ip.o \
 	$(LWIP)/core/ipv4/ip_addr.o \
 	$(LWIP)/core/ipv4/ip_frag.o \
-	$(LIB_DIR)/Drivers/CMSIS/Device/ST/STM32F4xx/Source/Templates/system_stm32f4xx.o \
-	$(LIB_DIR)/Drivers/CMSIS/Device/ST/STM32F4xx/Source/Templates/iar/startup_stm32f407xx.s \
 	$(LWIP)/netif/etharp.o \
 	$(LWIP)/netif/slipif.o \
 	$(LWIP)/netif/ppp/auth.o \
@@ -142,8 +141,8 @@ OBJECTS += \
         $(LWIP)/core/ipv4/ip.o \
         $(LWIP)/core/ipv4/ip_addr.o \
         $(LWIP)/core/ipv4/ip_frag.o \
-        $(LIB_DIR)/Drivers/BSP/STM32F4-Discovery/stm32f4_discovery.o
-
+        $(LIB_DIR)/Drivers/BSP/STM32F4-Discovery/stm32f4_discovery.o \
+        /Users/stewartb2/ROV/X8-MicroController/STM32Cube_FW_F4_V1.9.0/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_eth.o 
 
 
 
@@ -152,6 +151,7 @@ OBJECTS += \
 
 INCLUDE_PATHS = \
 	-I./inc \
+	-I./Inc \
     -I./$(LIB_DIR)/Inc \
     -I./$(LIB_DIR)/Drivers/STM32F4xx_HAL_Driver/Inc \
     -I./$(LIB_DIR)/Drivers/CMSIS/Include \
@@ -175,6 +175,7 @@ INCLUDE_PATHS = \
     -I./$(LWIP)/include/posix/sys \
     -I./$(LWIP)/netif/ppp \
     -I./Src \
+    -I./src \
     -I./$(LIB_DIR)/Drivers/BSP/STM32F4-Discovery
 
 
