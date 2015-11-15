@@ -8,17 +8,13 @@ BUILD_DIR = build
 
 
 #Add any source files that you use here.  Remember to end them with .o
+
+
 OBJECTS = Src/main.o \
-		 Src/stm32f4xx_it.o \
-		#Src/system_stm32f4xx.o \
 		Src/app_ethernet.o \
 		Src/ethernetif.o \
-		Src/udp_echoserver.o
-
-
-
-
-OBJECTS += \
+		Src/udp_echoserver.o \
+		Src/stm32f4xx_it.o \
        $(DRIVER)/stm32f4xx_hal.o \
        $(DRIVER)/stm32f4xx_hal_crc.o \
        $(DRIVER)/stm32f4xx_hal_can.o \
@@ -149,6 +145,7 @@ OBJECTS += \
 
 
 
+
 INCLUDE_PATHS = \
 	-I./inc \
 	-I./Inc \
@@ -163,8 +160,6 @@ INCLUDE_PATHS = \
     -I./$(LIB_DIR)/Middlewares/Third_party/LwIP/test/unit \
     -I./$(LIB_DIR)/Middlewares/Third_party/LwIP/system \
     -I./$(LIB_DIR)/Middlewares/Third_Party/LwIP/system \
-    -I./$(LWIP)/include \
-    -I./$(LWIP)/include/ipv4 \
     -I./$(LIB_DIR)/Drivers/STM32F4xx_HAL_Driver/Inc \
     -I./$(LIB_DIR)/Drivers/STM32F4xx_HAL_Driver/Inc/Legacy \
     -I./$(LIB_DIR)/Middlewares/Third_Party/LwIP/system/arch \
@@ -241,10 +236,9 @@ $(LIB_OBJ): $(LIB_SRC)
 
 $(PROJECT).elf: $(OBJECTS) $(SYS_OBJECTS)
 	@$(LD) $(LD_FLAGS) -T$(LINKER_SCRIPT)  -o $(BUILD_DIR)/$@ $^ $(LIB_OBJ) $(LD_SYS_LIBS) $(LD_SYS_LIBS)
-	@rm *.o
+	
 
 $(PROJECT).bin: $(PROJECT).elf
-	@rm *.d
 	@$(OBJCOPY) -O binary $(BUILD_DIR)/$< $(BUILD_DIR)/$@
 
 $(PROJECT).hex: $(PROJECT).elf
