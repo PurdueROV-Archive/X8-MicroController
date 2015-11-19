@@ -29,12 +29,6 @@ int main(void)
 	  GPIO_InitStruct.Speed = GPIO_SPEED_FAST;
 	  HAL_GPIO_Init(GPIOA, &GPIO_InitStruct); 
 
-
-
-    ETH_BSP_Config();
-    Lwip_Init();
-    tcp_echoserver_init();
-
   
 
 
@@ -95,37 +89,6 @@ static void Error_Handler(void)
   while(1)
   {
   }
-}
-
-
-void tcp_echoserver_init(void)
-{
- /* create new tcp pcb */
- tcp_echoserver_pcb = tcp_new();
- if (tcp_echoserver_pcb != NULL)
- {
- err_t err;
-
- /* bind echo_pcb to port 7 (ECHO protocol) */
- err = tcp_bind(tcp_echoserver_pcb, IP_ADDR_ANY, 7);
-
- if (err == ERR_OK)
- {
- /* start tcp listening for echo_pcb */
- tcp_echoserver_pcb = tcp_listen(tcp_echoserver_pcb);
-
- /* initialize LwIP tcp_accept callback function */
- tcp_accept(tcp_echoserver_pcb, tcp_echoserver_accept);
- }
- else
- {
- printf("Can not bind pcb\n");
- }
- }
- else
- {
- printf("Can not create new pcb\n");
- }
 }
 
 
