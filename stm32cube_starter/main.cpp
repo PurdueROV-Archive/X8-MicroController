@@ -1,9 +1,5 @@
 #include "main.h"
-#include "lwip/init.h"
-#include "lwip/opt.h"
-#include "lwip/netif.h"
-#include "netif/etharp.h"
-#include "lwip/lwip_timers.h"
+
 
 static GPIO_InitTypeDef  GPIO_InitStruct;
 
