@@ -15,24 +15,23 @@ int main(void)
 	  SystemClock_Config();
 	  
 	//enable the led clock
-	 __HAL_RCC_GPIOA_CLK_ENABLE();
+	 __HAL_RCC_GPIOD_CLK_ENABLE();
 		
   
 	  //configures the led pin  
-	  GPIO_InitStruct.Pin = GPIO_PIN_5;
+	  GPIO_InitStruct.Pin = GPIO_PIN_12;
 	  GPIO_InitStruct.Mode = GPIO_MODE_OUTPUT_PP;
 	  GPIO_InitStruct.Pull = GPIO_PULLUP;
 	  GPIO_InitStruct.Speed = GPIO_SPEED_FAST;
-	  HAL_GPIO_Init(GPIOA, &GPIO_InitStruct); 
+	  HAL_GPIO_Init(GPIOD, &GPIO_InitStruct); 
 
-  
 
 
 
 	while (1)
 	{
 		//HAL_GPIO_WritePin(GPIOA, GPIO_PIN_5, 1);
-		HAL_GPIO_TogglePin(GPIOA, GPIO_PIN_5);
+		HAL_GPIO_TogglePin(GPIOD, GPIO_PIN_12);
 		
 	
 		/* Insert a 500ms delay */
