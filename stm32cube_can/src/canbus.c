@@ -1,55 +1,18 @@
+/* STM32F4-CANBUS canbus.c
+ * http://www.eraycanli.com */
 
 #include "commons.h"
 
-uint8_t CAN1dataReceivedFlag;
+#include "canbus.h"
 
 
-CAN_HandleTypeDef HCAN1;
-CanTxMsgTypeDef TxMessage; /* Tx message struct */
-CanRxMsgTypeDef RxMessage; /* Rx message struct */
 
-void InitializeCANBUS1();
-void CAN1SendMessage(uint8_t length, uint8_t *data);
-
-void InitializeLEDS();
-void LedState(uint16_t led, uint8_t state);
-
-#define LED_GREEN GPIO_PIN_12
-#define LED_ORANGE GPIO_PIN_13
-#define LED_RED GPIO_PIN_14
-#define LED_BLUE GPIO_PIN_15
-
-int main() {
-
-    HAL_Init(); /* Called before anything related to HAL */
-    HAL_NVIC_SetPriorityGrouping(NVIC_PRIORITYGROUP_2); /* 2 pre 2 sub priority configuration */
-    HAL_NVIC_SetPriority(SysTick_IRQn, 0, 0); /* SysTick priority (highest) */
-    SysTick_Config(SystemCoreClock / SYSTICK_FREQ); /* Configure SysTick as SYSTICK_FREQ */
-
-    InitializeLEDS();
-
-    InitializeCANBUS1();
-
-    //uint8_t CANBUSTxPacket[] = {0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00}; /* Create CANBUS data packet */
-    uint8_t CANBUSTxPacket[] = {0xAA, 0x55, 0xAA, 0x55, 0xAA, 0x55, 0xAA, 0x53}; /* Create CANBUS data packet */
-    //uint8_t CANBUSTxPacket[] = {0x01}; /* Create CANBUS data packet */
-
-    int loop = 1;
-    while (loop) {
-
-	/* Insert a 500ms delay */
-	    HAL_Delay(500);
-
-        CAN1SendMessage(8, &CANBUSTxPacket[0]); // Send CAN data packet
-        LedState(GPIO_PIN_12, 2);
-    }
-
-    return 0;
-}
+//uint8_t CAN1dataReceivedFlag;
 
 
-/* Interrupt handler of core SysTick */
-//static int interruptCount = 0;
+//CAN_HandleTypeDef HCAN1;
+//CanTxMsgTypeDef TxMessage; /* Tx message struct */
+//CanRxMsgTypeDef RxMessage; /* Rx message struct */
 
 
 void InitializeCANBUS1()
@@ -139,7 +102,7 @@ void CAN1_RX0_IRQHandler()
     {
         if(RxMessage.Data[0] == 0xAA && RxMessage.Data[2] == 0x55) /* Sync bytes are correct */
         {
-            LedState(LED_BLUE, 1); /* Blue LED ON */
+           // LedState(LED_BLUE, 1); /* Blue LED ON */
 
             CAN1dataReceivedFlag = 1; /* Set data received flag */
         }
@@ -148,38 +111,5 @@ void CAN1_RX0_IRQHandler()
     return;
 }
 
-void InitializeLEDS()
-{
-    __GPIOD_CLK_ENABLE(); /* Enable GPIOD clock for leds */
 
-    GPIO_InitTypeDef GPIO_Leds;
-
-    GPIO_Leds.Mode = GPIO_MODE_OUTPUT_PP; /* Output push-pull mode */
-    GPIO_Leds.Pull = GPIO_NOPULL; /* No resistor */
-    GPIO_Leds.Speed = GPIO_SPEED_HIGH;
-    GPIO_Leds.Pin = GPIO_PIN_12 | GPIO_PIN_13 | GPIO_PIN_14 | GPIO_PIN_15; /* PD12(Green) PD13(Orange) PD14(Red) PD15(Blue) */
-    HAL_GPIO_Init(GPIOD, &GPIO_Leds); /* Init GPIOD registers */
-
-
-    return;
-}
-
-
-void LedState(uint16_t led, uint8_t state)
-{
-    switch(state)
-    {
-        case 1: /* ON */
-            HAL_GPIO_WritePin(GPIOD, led, GPIO_PIN_SET);
-            break;
-        case 0: /* OFF */
-            HAL_GPIO_WritePin(GPIOD, led, GPIO_PIN_RESET);
-            break;
-        case 2: /* Toggle */
-            HAL_GPIO_TogglePin(GPIOD, led);
-            break;
-    }
-
-    return;
-}
-
+/* canbus.c */
