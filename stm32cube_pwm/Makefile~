@@ -9,7 +9,9 @@ BUILD_DIR = build
 
 #Add any source files that you use here.  Remember to end them with .o
 OBJECTS = main.o \
-		 src/stm32f4xx_it.o
+		 src/stm32f4xx_it.o \
+		src/init.o
+
 
 
 OBJECTS += \
@@ -21,6 +23,7 @@ OBJECTS += \
        $(DRIVER)/stm32f4xx_hal_cortex.o \
        $(DRIVER)/stm32f4xx_hal_gpio.o \
        $(DRIVER)/stm32f4xx_hal_rcc.o \
+        $(DRIVER)/stm32f4xx_hal_tim.o \
        $(DRIVER)/stm32f4xx_hal_dma.o \
        $(DRIVER)/stm32f4xx_hal_spi.o \
        $(DRIVER)/stm32f4xx_hal_i2c.o \
@@ -246,12 +249,11 @@ $(PROJECT).hex: $(PROJECT).elf
 
 clean:
 	@rm $(BUILD_DIR)/*
-	@rm src/*.o
 	@echo " ### Cleaned build directory"
 
 burn:
 	@echo " ### Flashing $(BUILD_DIR)/main.bin to device with st-flash...\n"
-	@st-flash --reset write $(BUILD_DIR)/main.bin 0x8000000
+	@./st-flash --reset write $(BUILD_DIR)/main.bin 0x8000000
 
 dfu:
 	@echo " ### Flashing $(BUILD_DIR)/$(PROJECT).bin to device with dfu-util...\n"

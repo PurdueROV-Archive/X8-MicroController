@@ -1,8 +1,12 @@
+//put all of your #includes into main.h file
 #include "main.h"
-//touch
 
+
+/* structure used to initialize the gpio pin */
 static GPIO_InitTypeDef  GPIO_InitStruct;
 
+
+/* function declarations */
 static void SystemClock_Config(void);
 static void Error_Handler(void);
 
@@ -19,11 +23,11 @@ int main(void)
 		
   
 	  //configures the led pin  
-	  GPIO_InitStruct.Pin = GPIO_PIN_12;
+	  GPIO_InitStruct.Pin = GPIO_PIN_5;  //pin 5
 	  GPIO_InitStruct.Mode = GPIO_MODE_OUTPUT_PP;
 	  GPIO_InitStruct.Pull = GPIO_PULLUP;
 	  GPIO_InitStruct.Speed = GPIO_SPEED_FAST;
-	  HAL_GPIO_Init(GPIOD, &GPIO_InitStruct); 
+	  HAL_GPIO_Init(GPIOA, &GPIO_InitStruct);  //initializes the pin A5 based on the settings your created earlier
 
 
 
@@ -79,6 +83,7 @@ static void SystemClock_Config(void)
   }
 }
 
+//function used to handle errors
 static void Error_Handler(void)
 {
   while(1)

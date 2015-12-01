@@ -15,7 +15,9 @@ int main(void)
 	SystemClock_Config();
 
 	initPrint();
-  
+
+  char word = 'a';
+
 
 
 	while (1)
@@ -29,6 +31,7 @@ int main(void)
 
 			printDouble(i);
 			printString("\n");
+          HAL_UART_Transmit(&UartHandle,(uint8_t*)&word,1,10);
 
 			/* Insert a 500ms delay */
 			HAL_Delay(100);

@@ -1,26 +1,28 @@
 #include "main.h"
 
+
 #define  PERIOD_VALUE       (uint32_t)(666 - 1)  /* Period Value  */
 #define  PULSE1_VALUE       (uint32_t)(PERIOD_VALUE)        /* Capture Compare 1 Value  */
 
 
+static void SystemClock_Config(void);
+static void Error_Handler(void);
 
+/*structures used in initializing the pins */
 
-/* Timer handler declaration */
-TIM_HandleTypeDef    TimHandle;
-
-/* Timer Output Compare Configuration Structure declaration */
-TIM_OC_InitTypeDef sConfig;
+static GPIO_InitTypeDef  GPIO_InitStruct;
+TIM_OC_InitTypeDef sConfig;/* Timer Output Compare (technical name for PWM) */
+TIM_HandleTypeDef    TimHandle;/* Timer handler declaration */
 
 /* Counter Prescaler value */
 uint32_t uhPrescalerValue = 0;
 
-static void SystemClock_Config(void);
-static void Error_Handler(void);
 
-static GPIO_InitTypeDef  GPIO_InitStruct;
-  
-  
+
+
+/*anything that does not have a comment next to it can be ignored
+ * it means that it is not important enough or will never change
+ * so there is no reason to put a comment next to it */
 
 int main(void)  
 {
@@ -29,54 +31,49 @@ int main(void)
 	  
 	/* Configure the system clock to 100 MHz */
 	SystemClock_Config();
-	
+
 	//enable the led clock
 	 __HAL_RCC_GPIOA_CLK_ENABLE();
 		
-	
-	GPIO_InitTypeDef GPIO_InitStruct;
- 
 
+	//enables the clock used by the pwm timer
 	__TIM2_CLK_ENABLE();
-  
-	/**TIM2 GPIO Configuration    
-	PA5     ------> TIM2_CH1 
-	*/
-	GPIO_InitStruct.Pin = GPIO_PIN_5;
-	GPIO_InitStruct.Mode = GPIO_MODE_AF_PP;
+
+
+	/*this initializes the pin A5 to be act as its alternate functions
+	 * which is pwm (GPIO_AF1_TIM2) */
+	GPIO_InitStruct.Pin = GPIO_PIN_5; //pin 5
+	GPIO_InitStruct.Mode = GPIO_MODE_AF_PP;  //puts it in Alterate Fucntion mode (AF mode)
 	GPIO_InitStruct.Pull = GPIO_NOPULL;
 	GPIO_InitStruct.Speed = GPIO_SPEED_LOW;
-	GPIO_InitStruct.Alternate = GPIO_AF1_TIM2;
-	HAL_GPIO_Init(GPIOA, &GPIO_InitStruct);
+	GPIO_InitStruct.Alternate = GPIO_AF1_TIM2;  //puts it in AF1_TIM2 mode (pwm mode)
+	HAL_GPIO_Init(GPIOA, &GPIO_InitStruct);  //initializes the pin as an alternate function
+											//you still have to initialize the pwm portion
 	  
 
 	  
 	/* Compute the prescaler value to have TIM8 counter clock equal to 16000000 Hz */
 	uhPrescalerValue = (uint32_t)(SystemCoreClock / 16000000) - 1;
   
-	/* Initialize TIMx peripheral as follows:
-		+ Prescaler = (SystemCoreClock / 16000000) - 1
-		+ Period = (666 - 1)
-		+ ClockDivision = 0
-		+ Counter direction = Up
-	*/
+	/*Many of the variables such as TIMx are constants defined in main.h
+	 * anything variable capitalized is a #define and it is located in
+	 * the main.h file*/
 	TimHandle.Instance = TIMx;
 
-	TimHandle.Init.Prescaler         = uhPrescalerValue;
-	TimHandle.Init.Period            = PERIOD_VALUE;
-	TimHandle.Init.ClockDivision     = 0;
-	TimHandle.Init.CounterMode       = TIM_COUNTERMODE_UP;
+	TimHandle.Init.Prescaler         = uhPrescalerValue;  //scales down the master clock to get the clock that the pwm is using
+	TimHandle.Init.Period            = PERIOD_VALUE;  //creates the period of the pwm cycle (the period is in clock ticks one clock tick is an increment of one on the period
+	TimHandle.Init.ClockDivision     = 0;  //no clock division after the prescaling
+	TimHandle.Init.CounterMode       = TIM_COUNTERMODE_UP;  //the pwm's counter will count up to the maximum period value
 	TimHandle.Init.RepetitionCounter = 0;
-	
+
+	//if this portion does not initialize correctly, go into an error handling state
 	if (HAL_TIM_PWM_Init(&TimHandle) != HAL_OK)
 	{
-		
 		Error_Handler();
 	}
 
-	/*##-2- Configure the PWM channels ##*/
-	/* Common configuration for all channels */
-	sConfig.OCMode        = TIM_OCMODE_PWM1;
+	/*configures how the pwm settings and it's duty cycle */
+	sConfig.OCMode        = TIM_OCMODE_PWM1;  //puts it into generic pwm mode
 	sConfig.OCPolarity     = TIM_OCPOLARITY_HIGH;
 	sConfig.OCFastMode  = TIM_OCFAST_DISABLE;
 	sConfig.OCNPolarity   = TIM_OCNPOLARITY_HIGH;
@@ -84,35 +81,37 @@ int main(void)
 
 	sConfig.OCIdleState  = TIM_OCIDLESTATE_RESET;
 
-	/* Set the pulse value for channel 1 */
-	sConfig.Pulse = PULSE1_VALUE;
+
+	sConfig.Pulse = PULSE1_VALUE; /* Set the pulse value for channel 1 */
+
+	//checks if these settings initialize correctly
 	if (HAL_TIM_PWM_ConfigChannel(&TimHandle, &sConfig, TIM_CHANNEL_1) != HAL_OK)
 	{
 		Error_Handler();
 	}
 	
-	/*##-3- Start PWM signals generation ##*/
-	/* Start channel 1 */
+	/*checks if the pwm starts correctly*/
 	if (HAL_TIM_PWM_Start(&TimHandle, TIM_CHANNEL_1) != HAL_OK)
 	{
-		
 		Error_Handler();
 	}
 
 
-
 	while (1)
 	{
-		
-		HAL_Delay(500);
-		sConfig.Pulse = PULSE1_VALUE / 4;
+		/*this code puts a new value as the pulse length (the value in the pwm period when the line switches from high
+		 * to low and then reconfigures the pwm and restarts it to apply the settings
+		 */
+
+		sConfig.Pulse = PULSE1_VALUE / 4;  //sets the brightness to 1/4
 		HAL_TIM_PWM_ConfigChannel(&TimHandle, &sConfig, TIM_CHANNEL_1);
 		HAL_TIM_PWM_Start(&TimHandle, TIM_CHANNEL_1) ;
 		HAL_Delay(500);
-		sConfig.Pulse = PULSE1_VALUE;
+
+		sConfig.Pulse = PULSE1_VALUE;  //sets the brightness to full
 		HAL_TIM_PWM_ConfigChannel(&TimHandle, &sConfig, TIM_CHANNEL_1);
 		HAL_TIM_PWM_Start(&TimHandle, TIM_CHANNEL_1) ;
-		
+		HAL_Delay(500);
 	}
 }
 
