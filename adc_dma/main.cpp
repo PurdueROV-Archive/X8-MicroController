@@ -24,11 +24,6 @@ static void MX_ADC1_Init(void);
 /* USER CODE BEGIN PFP */
 /* Private function prototypes -----------------------------------------------*/
 
-/* USER CODE END PFP */
-
-/* USER CODE BEGIN 0 */
-
-/* USER CODE END 0 */
 
 int main(void) 
 {
@@ -54,11 +49,12 @@ uint32_t ADC1ConvertedValues[1024];
 	  GPIO_InitStruct.Speed = GPIO_SPEED_FAST;
 	  HAL_GPIO_Init(GPIOA, &GPIO_InitStruct); 
 	
-	HAL_GPIO_WritePin(GPIOA, GPIO_PIN_5, 1);
-  /* Initialize all configured peripherals */
-  MX_GPIO_Init();
-  MX_DMA_Init();
-  MX_ADC1_Init();
+	//HAL_GPIO_WritePin(GPIOA, GPIO_PIN_5, 1);
+
+    /* Initialize all configured peripherals */
+     MX_GPIO_Init();
+    MX_DMA_Init();
+    MX_ADC1_Init();
 
   /* USER CODE BEGIN 2 */
 
@@ -68,14 +64,8 @@ uint32_t ADC1ConvertedValues[1024];
 	// -- Enables ADC DMA request  
 	if (HAL_ADC_Start_DMA(&hadc1, (uint32_t*)ADC1ConvertedValues, 2048) != HAL_OK)  
 		return 0;  
-	/* USER CODE END 2 */  
-	/* Infinite loop */ 
 
 
-  /* USER CODE END 2 */
-
-  /* Infinite loop */
-  /* USER CODE BEGIN WHILE */
   while (1)
   {
   /* USER CODE END WHILE */
@@ -88,7 +78,7 @@ uint32_t ADC1ConvertedValues[1024];
   /* USER CODE BEGIN 3 */
 
   }
-  /* USER CODE END 3 */
+
 
 }
 
@@ -171,6 +161,3 @@ void MX_GPIO_Init(void)
 
 }
 
-/* USER CODE BEGIN 4 */
-
-/* USER CODE END 4 */

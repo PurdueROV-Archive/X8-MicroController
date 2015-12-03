@@ -44,6 +44,7 @@
 #endif
 
 /* Includes ------------------------------------------------------------------*/
+#include  "stm32f4xx_hal_dma.h"
 #include "stm32f4xx_hal_def.h"
 
 /** @addtogroup STM32F4xx_HAL_Driver

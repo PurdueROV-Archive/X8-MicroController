@@ -12,29 +12,22 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="8ccd3bba-de1e-4563-a5e1-d56adb5a16f1" name="Default" comment="">
-      <change type="DELETED" beforePath="$PROJECT_DIR$/stm32cube_starter/src/init.d" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/stm32cube_starter/src/init.o" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/stm32cube_starter/src/stm32f4xx_it.d" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/stm32cube_starter/src/stm32f4xx_it.o" afterPath="" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/stm32cube_pwm/build/main.bin" afterPath="$PROJECT_DIR$/stm32cube_pwm/build/main.bin" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/stm32cube_pwm/build/main.elf" afterPath="$PROJECT_DIR$/stm32cube_pwm/build/main.elf" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/stm32cube_serial/build/main.bin" afterPath="$PROJECT_DIR$/stm32cube_serial/build/main.bin" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/stm32cube_serial/build/main.elf" afterPath="$PROJECT_DIR$/stm32cube_serial/build/main.elf" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/stm32cube_starter/build/main.bin" afterPath="$PROJECT_DIR$/stm32cube_starter/build/main.bin" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/stm32cube_starter/build/main.elf" afterPath="$PROJECT_DIR$/stm32cube_starter/build/main.elf" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/X8-MicroController.iml" afterPath="$PROJECT_DIR$/.idea/X8-MicroController.iml" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/adc_dma/Inc/mxconstants.h" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/adc_dma/Inc/stm32f4xx_hal_conf.h" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/adc_dma/Inc/stm32f4xx_it.h" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/adc_dma/Src/stm32f4xx_hal_msp.c" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/adc_dma/Src/stm32f4xx_it.c" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/adc_dma/main.c" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/adc_dma/stm32f4xx_it.c" afterPath="" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/adc_dma/build/main.bin" afterPath="$PROJECT_DIR$/adc_dma/build/main.bin" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/adc_dma/build/main.elf" afterPath="$PROJECT_DIR$/adc_dma/build/main.elf" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/stm32cube_pwm/Makefile" afterPath="$PROJECT_DIR$/stm32cube_pwm/Makefile" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/stm32cube_pwm/build/main.hex" afterPath="$PROJECT_DIR$/stm32cube_pwm/build/main.hex" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/stm32cube_pwm/build/main.map" afterPath="$PROJECT_DIR$/stm32cube_pwm/build/main.map" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/stm32cube_pwm/main.cpp" afterPath="$PROJECT_DIR$/stm32cube_pwm/main.cpp" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/stm32cube_serial/Makefile" afterPath="$PROJECT_DIR$/stm32cube_serial/Makefile" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/stm32cube_serial/build/main.hex" afterPath="$PROJECT_DIR$/stm32cube_serial/build/main.hex" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/stm32cube_serial/build/main.map" afterPath="$PROJECT_DIR$/stm32cube_serial/build/main.map" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/stm32cube_serial/main.cpp" afterPath="$PROJECT_DIR$/stm32cube_serial/main.cpp" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/stm32cube_starter/build/main.hex" afterPath="$PROJECT_DIR$/stm32cube_starter/build/main.hex" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/stm32cube_starter/build/main.map" afterPath="$PROJECT_DIR$/stm32cube_starter/build/main.map" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/stm32cube_starter/main.cpp" afterPath="$PROJECT_DIR$/stm32cube_starter/main.cpp" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/STM32Cube_FW_F4_V1.9.0/Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_adc.h" afterPath="$PROJECT_DIR$/STM32Cube_FW_F4_V1.9.0/Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_adc.h" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/adc_dma/Makefile" afterPath="$PROJECT_DIR$/adc_dma/Makefile" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/adc_dma/build/main.hex" afterPath="$PROJECT_DIR$/adc_dma/build/main.hex" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/adc_dma/build/main.map" afterPath="$PROJECT_DIR$/adc_dma/build/main.map" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/stm32cube_can/main.cpp" afterPath="$PROJECT_DIR$/stm32cube_can/main.cpp" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/stm32cube_starter/Makefile" afterPath="$PROJECT_DIR$/stm32cube_starter/Makefile" />
     </list>
     <ignored path="X8-MicroController.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -55,24 +48,36 @@
   </component>
   <component name="FileEditorManager">
     <leaf>
-      <file leaf-file-name="main.cpp" pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/stm32cube_pwm/main.cpp">
+      <file leaf-file-name="Makefile" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/adc_dma/Makefile">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.8041775">
-              <caret line="112" column="8" selection-start-line="112" selection-start-column="8" selection-end-line="112" selection-end-column="8" />
+            <state vertical-scroll-proportion="0.0">
+              <caret line="11" column="27" selection-start-line="11" selection-start-column="27" selection-end-line="11" selection-end-column="27" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="main.cpp" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/adc_dma/main.cpp">
+          <provider selected="true" editor-type-id="text-editor">
+            <state vertical-scroll-proportion="0.41284403">
+              <caret line="9" column="24" selection-start-line="9" selection-start-column="24" selection-end-line="9" selection-end-column="24" />
               <folding>
-                <element signature="e#3945#5338#0" expanded="false" />
-                <element signature="e#5340#5398#0" expanded="false" />
+                <element signature="e#2062#2697#0" expanded="false" />
+                <element signature="e#2699#3692#0" expanded="false" />
+                <element signature="e#3694#3941#0" expanded="false" />
+                <element signature="e#3943#4056#0" expanded="false" />
               </folding>
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="Makefile" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/stm32cube_pwm/Makefile">
+      <file leaf-file-name="stm32f4xx_hal_msp.c" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/adc_dma/src/stm32f4xx_hal_msp.c">
           <provider selected="true" editor-type-id="text-editor">
             <state vertical-scroll-proportion="0.0">
-              <caret line="255" column="7" selection-start-line="255" selection-start-column="7" selection-end-line="255" selection-end-column="7" />
+              <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
               <folding />
             </state>
           </provider>
@@ -104,12 +109,19 @@
         <option value="$PROJECT_DIR$/stm32cube_serial/src/stm32f4xx_it.c" />
         <option value="$PROJECT_DIR$/stm32cube_serial/src/init.cpp" />
         <option value="$PROJECT_DIR$/stm32cube_serial/src/print.c" />
-        <option value="$PROJECT_DIR$/stm32cube_starter/Makefile" />
         <option value="$PROJECT_DIR$/stm32cube_serial/Makefile" />
         <option value="$PROJECT_DIR$/stm32cube_serial/main.cpp" />
         <option value="$PROJECT_DIR$/stm32cube_starter/main.cpp" />
         <option value="$PROJECT_DIR$/stm32cube_pwm/Makefile" />
         <option value="$PROJECT_DIR$/stm32cube_pwm/main.cpp" />
+        <option value="$PROJECT_DIR$/adc_dma/main.c" />
+        <option value="$PROJECT_DIR$/adc_dma/Src/stm32f4xx_hal_msp.c" />
+        <option value="$PROJECT_DIR$/adc_dma/main.cpp" />
+        <option value="$PROJECT_DIR$/stm32cube_starter/Makefile" />
+        <option value="$PROJECT_DIR$/STM32Cube_FW_F4_V1.9.0/Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_adc.h" />
+        <option value="$PROJECT_DIR$/adc_dma/Makefile" />
+        <option value="$PROJECT_DIR$/adc_dma/src/stm32f4xx_it.c" />
+        <option value="$PROJECT_DIR$/adc_dma/inc/stm32f4xx_hal_conf.h" />
       </list>
     </option>
   </component>
@@ -204,7 +216,7 @@
     </panes>
   </component>
   <component name="PropertiesComponent">
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/wiiNunchuck" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/STM32Cube_FW_F4_V1.9.0/Drivers/CMSIS/Device/ST/STM32F4xx/Include/stm32f4xx.h" />
   </component>
   <component name="RecentsManager">
     <key name="MoveFile.RECENT_KEYS">
@@ -277,15 +289,15 @@
   </component>
   <component name="ToolWindowManager">
     <frame x="65" y="24" width="1301" height="744" extended-state="6" />
-    <editor active="false" />
+    <editor active="true" />
     <layout>
-      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.25039124" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25039124" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32921174" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="CMake" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32766616" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.3477589" sideWeight="0.5062598" order="7" side_tool="true" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32921174" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.24960877" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
-      <window_info id="Terminal" active="true" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.36166924" sideWeight="0.49374023" order="7" side_tool="false" content_ui="tabs" />
+      <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.4034003" sideWeight="0.49374023" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="true" content_ui="tabs" />
       <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Message" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
@@ -332,27 +344,6 @@
     <watches-manager />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/stm32cube_serial/inc/main.h">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="7" column="18" selection-start-line="7" selection-start-column="18" selection-end-line="7" selection-end-column="18" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/STM32Cube_FW_F4_V1.9.0/Projects/STM324x9I_EVAL/Examples/CAN/CAN_LoopBack/Src/main.c">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="122" column="28" selection-start-line="122" selection-start-column="28" selection-end-line="122" selection-end-column="28" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/STM32Cube_FW_F4_V1.9.0/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_can.c">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/wiiNunchuck/main.cpp">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
@@ -608,13 +599,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/stm32cube_starter/Makefile">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.4699739">
-          <caret line="12" column="18" selection-start-line="12" selection-start-column="18" selection-end-line="12" selection-end-column="18" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/stm32cube_starter/inc/init.h">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
@@ -626,7 +610,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
           <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -645,25 +628,161 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
           <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/stm32cube_pwm/Makefile">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="255" column="7" selection-start-line="255" selection-start-column="7" selection-end-line="255" selection-end-column="7" />
-          <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/stm32cube_pwm/main.cpp">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.8041775">
+        <state vertical-scroll-proportion="0.6363636">
           <caret line="112" column="8" selection-start-line="112" selection-start-column="8" selection-end-line="112" selection-end-column="8" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/stm32cube_pwm/Makefile">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.6280992">
+          <caret line="254" column="7" selection-start-line="254" selection-start-column="7" selection-end-line="254" selection-end-column="7" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/stm32cube_starter/Makefile">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.4556962">
+          <caret line="18" column="38" selection-start-line="18" selection-start-column="38" selection-end-line="18" selection-end-column="38" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/STM32Cube_FW_F4_V1.9.0/Drivers/CMSIS/Device/ST/STM32F4xx/Include/stm32f407xx.h">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="116.89655">
+          <caret line="4379" column="29" selection-start-line="4379" selection-start-column="29" selection-end-line="4379" selection-end-column="29" />
+          <caret line="4380" column="29" selection-start-line="4380" selection-start-column="29" selection-end-line="4380" selection-end-column="29" />
+          <caret line="4381" column="29" selection-start-line="4381" selection-start-column="29" selection-end-line="4381" selection-end-column="29" />
+          <caret line="4382" column="29" selection-start-line="4382" selection-start-column="29" selection-end-line="4382" selection-end-column="29" />
+          <caret line="4383" column="29" selection-start-line="4383" selection-start-column="29" selection-end-line="4383" selection-end-column="29" />
+          <caret line="4384" column="29" selection-start-line="4384" selection-start-column="29" selection-end-line="4384" selection-end-column="29" />
+          <caret line="4385" column="29" selection-start-line="4385" selection-start-column="29" selection-end-line="4385" selection-end-column="29" />
+          <caret line="4386" column="29" selection-start-line="4386" selection-start-column="29" selection-end-line="4386" selection-end-column="29" />
+          <caret line="4387" column="29" selection-start-line="4387" selection-start-column="29" selection-end-line="4387" selection-end-column="29" />
+          <caret line="4388" column="29" selection-start-line="4388" selection-start-column="29" selection-end-line="4388" selection-end-column="29" />
+          <caret line="4389" column="29" selection-start-line="4389" selection-start-column="29" selection-end-line="4389" selection-end-column="29" />
+          <caret line="4390" column="29" selection-start-line="4390" selection-start-column="29" selection-end-line="4390" selection-end-column="29" />
+          <caret line="4391" column="29" selection-start-line="4391" selection-start-column="29" selection-end-line="4391" selection-end-column="29" />
+          <caret line="4392" column="29" selection-start-line="4392" selection-start-column="29" selection-end-line="4392" selection-end-column="29" />
+          <caret line="4393" column="0" selection-start-line="4393" selection-start-column="0" selection-end-line="4393" selection-end-column="0" />
+          <caret line="4394" column="29" selection-start-line="4394" selection-start-column="29" selection-end-line="4394" selection-end-column="29" />
+          <caret line="4395" column="29" selection-start-line="4395" selection-start-column="29" selection-end-line="4395" selection-end-column="29" />
+          <caret line="4396" column="29" selection-start-line="4396" selection-start-column="29" selection-end-line="4396" selection-end-column="29" />
+          <caret line="4397" column="29" selection-start-line="4397" selection-start-column="29" selection-end-line="4397" selection-end-column="29" />
+          <caret line="4398" column="0" selection-start-line="4398" selection-start-column="0" selection-end-line="4398" selection-end-column="0" />
+          <caret line="4399" column="29" selection-start-line="4399" selection-start-column="29" selection-end-line="4399" selection-end-column="29" />
+          <caret line="4400" column="29" selection-start-line="4400" selection-start-column="29" selection-end-line="4400" selection-end-column="29" />
+          <caret line="4401" column="29" selection-start-line="4401" selection-start-column="29" selection-end-line="4401" selection-end-column="29" />
+          <caret line="4402" column="0" selection-start-line="4402" selection-start-column="0" selection-end-line="4402" selection-end-column="0" />
+          <caret line="4403" column="29" selection-start-line="4403" selection-start-column="29" selection-end-line="4403" selection-end-column="29" />
+          <caret line="4404" column="29" selection-start-line="4404" selection-start-column="29" selection-end-line="4404" selection-end-column="29" />
+          <caret line="4405" column="29" selection-start-line="4405" selection-start-column="29" selection-end-line="4405" selection-end-column="29" />
+          <caret line="4406" column="0" selection-start-line="4406" selection-start-column="0" selection-end-line="4406" selection-end-column="0" />
+          <caret line="4407" column="29" selection-start-line="4407" selection-start-column="29" selection-end-line="4407" selection-end-column="29" />
+          <caret line="4408" column="29" selection-start-line="4408" selection-start-column="29" selection-end-line="4408" selection-end-column="29" />
+          <caret line="4409" column="29" selection-start-line="4409" selection-start-column="29" selection-end-line="4409" selection-end-column="29" />
+          <caret line="4410" column="0" selection-start-line="4410" selection-start-column="0" selection-end-line="4410" selection-end-column="0" />
+          <caret line="4411" column="29" selection-start-line="4411" selection-start-column="29" selection-end-line="4411" selection-end-column="29" />
+          <caret line="4412" column="29" selection-start-line="4412" selection-start-column="29" selection-end-line="4412" selection-end-column="29" />
+          <caret line="4413" column="29" selection-start-line="4413" selection-start-column="29" selection-end-line="4413" selection-end-column="29" />
+          <caret line="4414" column="0" selection-start-line="4414" selection-start-column="0" selection-end-line="4414" selection-end-column="0" />
+          <caret line="4415" column="29" selection-start-line="4415" selection-start-column="29" selection-end-line="4415" selection-end-column="29" />
+          <caret line="4416" column="29" selection-start-line="4416" selection-start-column="29" selection-end-line="4416" selection-end-column="29" />
+          <caret line="4417" column="29" selection-start-line="4417" selection-start-column="29" selection-end-line="4417" selection-end-column="29" />
+          <caret line="4418" column="0" selection-start-line="4418" selection-start-column="0" selection-end-line="4418" selection-end-column="0" />
+          <caret line="4419" column="29" selection-start-line="4419" selection-start-column="29" selection-end-line="4419" selection-end-column="29" />
+          <caret line="4420" column="29" selection-start-line="4420" selection-start-column="29" selection-end-line="4420" selection-end-column="29" />
+          <caret line="4421" column="29" selection-start-line="4421" selection-start-column="29" selection-end-line="4421" selection-end-column="29" />
+          <caret line="4422" column="0" selection-start-line="4422" selection-start-column="0" selection-end-line="4422" selection-end-column="0" />
+          <caret line="4423" column="29" selection-start-line="4423" selection-start-column="29" selection-end-line="4423" selection-end-column="29" />
+          <caret line="4424" column="29" selection-start-line="4424" selection-start-column="29" selection-end-line="4424" selection-end-column="29" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/STM32Cube_FW_F4_V1.9.0/Drivers/CMSIS/Device/ST/STM32F4xx/Include/stm32f4xx.h">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="2.5421348">
+          <caret line="150" column="2" selection-start-line="150" selection-start-column="2" selection-end-line="150" selection-end-column="2" />
           <folding>
-            <element signature="e#3945#5338#0" expanded="false" />
-            <element signature="e#5340#5398#0" expanded="false" />
+            <element signature="e#7291#7315#0" expanded="true" />
+            <element signature="e#7345#7369#0" expanded="true" />
+            <element signature="e#7399#7423#0" expanded="true" />
+            <element signature="e#7453#7477#0" expanded="true" />
+            <element signature="e#7507#7531#0" expanded="true" />
+            <element signature="e#7561#7585#0" expanded="true" />
+            <element signature="e#7615#7639#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/STM32Cube_FW_F4_V1.9.0/Drivers/STM32F4xx_HAL_Driver/Inc/stm32f4xx_hal_adc.h">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.2949438">
+          <caret line="46" column="31" selection-start-line="46" selection-start-column="31" selection-end-line="46" selection-end-column="31" />
+          <folding>
+            <element signature="e#2238#2250#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/adc_dma/Makefile">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="11" column="27" selection-start-line="11" selection-start-column="27" selection-end-line="11" selection-end-column="27" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/adc_dma/src/stm32f4xx_it.c">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="1.0533708">
+          <caret line="25" column="0" selection-start-line="25" selection-start-column="0" selection-end-line="25" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/STM32Cube_FW_F4_V1.9.0/Drivers/STM32F4xx_HAL_Driver/Src/stm32f4xx_hal_adc.c">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.6430769">
+          <caret line="872" column="33" selection-start-line="872" selection-start-column="26" selection-end-line="872" selection-end-column="33" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/adc_dma/src/stm32f4xx_hal_msp.c">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.0">
+          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/adc_dma/inc/stm32f4xx_hal_conf.h">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.4213483">
+          <caret line="64" column="32" selection-start-line="64" selection-start-column="32" selection-end-line="64" selection-end-column="32" />
+          <folding>
+            <element signature="e#166#178#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/adc_dma/main.cpp">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.41284403">
+          <caret line="9" column="24" selection-start-line="9" selection-start-column="24" selection-end-line="9" selection-end-column="24" />
+          <folding>
+            <element signature="e#2062#2697#0" expanded="false" />
+            <element signature="e#2699#3692#0" expanded="false" />
+            <element signature="e#3694#3941#0" expanded="false" />
+            <element signature="e#3943#4056#0" expanded="false" />
           </folding>
         </state>
       </provider>

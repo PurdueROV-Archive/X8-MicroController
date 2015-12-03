@@ -90,7 +90,7 @@ void InitializeCANBUS1()
 
     CAN_FilterStruct.FilterIdHigh = 0x0000; /* Upper 16bit filter ID */
     CAN_FilterStruct.FilterIdLow = 0x0000; /* Filter lower 16bit ID */
-    CAN_FilterStruct.FilterMaskIdHigh = 0x0000; /* Upper 16bit filter mask */
+    CAN_FilterqStruct.FilterMaskIdHigh = 0x0000; /* Upper 16bit filter mask */
     CAN_FilterStruct.FilterMaskIdLow = 0x0000; /* Lower 16bit filter mask */
     CAN_FilterStruct.FilterFIFOAssignment = CAN_FILTER_FIFO0; /* Which FIFO will be assigned to filter */
     CAN_FilterStruct.FilterNumber = 0;
