@@ -34,7 +34,7 @@ int main(void)
 
 	while (1)
 	{
-		//HAL_GPIO_WritePin(GPIOA, GPIO_PIN_5, 1);
+
 		HAL_GPIO_TogglePin(GPIOD, GPIO_PIN_12);
 		
 	

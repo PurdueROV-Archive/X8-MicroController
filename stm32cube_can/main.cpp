@@ -1,185 +1,325 @@
+#include "main.h"
+/*
+	First off note that the function that get trigerred when there is a packet received with interrupts
+	is at the bottom of the code right after the main loop gets over. This function gets triggered 
+	not mater what the board is doing and the code inside of it gets triggered. We will be using this
+	way of receiving can commands for the final project so look a lot at the interrupt portion.
+ */
 
-#include "commons.h"
+/* These #defines are used to include or not include certain portions of code.
+   Example, if you #define SEND then the code will be in sending mode, if you
+   do not include it, then it will be in not send, or receive mode. The interrupt 
+   mode determines whether the code uses the while loop the receive commands or whether 
+   it uses the commands in an interrupt. */
 
-uint8_t CAN1dataReceivedFlag;
+//#define SEND
+#define INTERRUPT
 
 
-CAN_HandleTypeDef HCAN1;
-CanTxMsgTypeDef TxMessage; /* Tx message struct */
-CanRxMsgTypeDef RxMessage; /* Rx message struct */
 
-void InitializeCANBUS1();
-void CAN1SendMessage(uint8_t length, uint8_t *data);
+CAN_HandleTypeDef CanHandle;
 
-void InitializeLEDS();
-void LedState(uint16_t led, uint8_t state);
+static CanTxMsgTypeDef        TxMessage;
+static CanRxMsgTypeDef        RxMessage;
 
-#define LED_GREEN GPIO_PIN_12
-#define LED_ORANGE GPIO_PIN_13
-#define LED_RED GPIO_PIN_14
-#define LED_BLUE GPIO_PIN_15
+
+
+void SystemClock_Config(void);
+
+void initLEDS(void);
+
+static void Error_Handler(int one, int two);
+
+void HAL_CAN_MspInit(CAN_HandleTypeDef* hcan);
+
+
+HAL_StatusTypeDef CAN_init(void);
 
 int main() {
 
     HAL_Init(); /* Called before anything related to HAL */
-    HAL_NVIC_SetPriorityGrouping(NVIC_PRIORITYGROUP_2); /* 2 pre 2 sub priority configuration */
-    HAL_NVIC_SetPriority(SysTick_IRQn, 0, 0); /* SysTick priority (highest) */
-    SysTick_Config(SystemCoreClock / SYSTICK_FREQ); /* Configure SysTick as SYSTICK_FREQ */
+    SystemClock_Config(); /* Configure SysTick as SYSTICK_FREQ */
 
-    InitializeLEDS();
+    initLEDS();  //initializes the four leds on the discovery board
 
-    InitializeCANBUS1();
+    //initialize the can
+    if(CAN_init() != HAL_OK)  Error_Handler(100, 100);
 
-    //uint8_t CANBUSTxPacket[] = {0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00}; /* Create CANBUS data packet */
-    uint8_t CANBUSTxPacket[] = {0xAA, 0x55, 0xAA, 0x55, 0xAA, 0x55, 0xAA, 0x53}; /* Create CANBUS data packet */
-    //uint8_t CANBUSTxPacket[] = {0x01}; /* Create CANBUS data packet */
+//initializes the interrupt if you #define it at the top
+#ifdef INTERRUPT
+    /*##-2- Start the Reception process and enable reception interrupt #########*/
+  if(HAL_CAN_Receive_IT(&CanHandle, CAN_FIFO0) != HAL_OK)  Error_Handler(500, 500);
+#endif
 
-    int loop = 1;
-    while (loop) {
+
+
+
+    while (1) {
 
 	/* Insert a 500ms delay */
 	    HAL_Delay(500);
+        HAL_GPIO_TogglePin(GPIOD, GPIO_PIN_12);
 
-        CAN1SendMessage(8, &CANBUSTxPacket[0]); // Send CAN data packet
-        LedState(GPIO_PIN_12, 2);
+//include this code if you are sending
+#ifdef SEND
+       if(HAL_CAN_Transmit(&CanHandle, 10) != HAL_OK)
+        {
+
+            HAL_GPIO_TogglePin(GPIOD, GPIO_PIN_14);
+            Error_Handler(2000, 100);
+        }
+
+//else include this code which is used in receiving
+#else
+
+//if we are receiving and not using an interrupt
+#ifndef INTERRUPT
+
+        /*##-4- Start the Reception process ########################################*/
+        if(HAL_CAN_Receive(&CanHandle, CAN_FIFO0,10) != HAL_OK)
+        {
+            Error_Handler(100, 1000);
+        }
+
+        //check
+        if(HAL_CAN_GetState(&CanHandle) != HAL_CAN_STATE_READY)
+        {
+            Error_Handler(100, 500);
+        }
+
+        if(CanHandle.pRxMsg->StdId != 0x11)
+        {
+            Error_Handler(5000, 5000);
+        }
+
+        if(CanHandle.pRxMsg->IDE != CAN_ID_STD)
+        {
+            Error_Handler(100, 0);
+        }
+
+        if(CanHandle.pRxMsg->DLC != 8)
+        {
+            Error_Handler(0, 100);
+        }
+
+        //By the way DLC stands for Data Length
+        for(int i = CanHandle.pRxMsg->DLC; i < 8; i++)
+        {
+           if( CanHandle.pRxMsg->Data[i] != 1)
+           {
+               Error_Handler(1000, 1000);
+           }
+        }
+//end for not interrupt portion of code
+#endif
+
+//end of send or receive portion of code
+#endif
     }
 
     return 0;
 }
 
-
-/* Interrupt handler of core SysTick */
-//static int interruptCount = 0;
-
-
-void InitializeCANBUS1()
+//function used to receive the can command via an interrupt
+void HAL_CAN_RxCpltCallback(CAN_HandleTypeDef* CanHandle)
 {
-    GPIO_InitTypeDef GPIO_InitStruct;
-    CAN_FilterConfTypeDef CAN_FilterStruct;
-
-
-    __HAL_RCC_CAN1_CLK_ENABLE(); /* Enable CANBUS-1 clock */
-
-    __GPIOD_CLK_ENABLE(); /* Enable GPIOD clock */
-
-
-    GPIO_InitStruct.Mode = GPIO_MODE_AF_PP; /* Alternate Function Push-Pull mode */
-    GPIO_InitStruct.Pull = GPIO_NOPULL; /* No resistor */
-    GPIO_InitStruct.Speed = GPIO_SPEED_HIGH;
-    GPIO_InitStruct.Alternate = GPIO_AF9_CAN1; /* Alternate pin function: AF9 / CAN1 */
-    GPIO_InitStruct.Pin = GPIO_PIN_1 | GPIO_PIN_0; /* PD1(CAN1_TX) & PD0(CAN1_RX) */
-    HAL_GPIO_Init(GPIOD, &GPIO_InitStruct); /* Initialize registers */
-
-
-    HCAN1.Instance = CAN1;
-    HCAN1.pTxMsg = &TxMessage; /* Pointer to CAN Tx message */
-    HCAN1.pRxMsg = &RxMessage; /* Pointer to CAN Rx message */
-    HCAN1.Init.Prescaler = 19; /* Time quanta prescaler (tq = (Prescaler+1)/42MHz) */
-    HCAN1.Init.Mode = CAN_MODE_NORMAL; /* Normal communication mode */
-    HCAN1.Init.SJW = CAN_SJW_4TQ; /* 4 time-quanta re-sync jump width */
-    HCAN1.Init.BS1 = CAN_BS1_9TQ; /* 9 tq before sampling point */
-    HCAN1.Init.BS2 = CAN_BS2_8TQ; /* 8 tq after sampling point (before end) */
-    HCAN1.Init.TTCM = DISABLE; /* Time-triggered communication */
-    HCAN1.Init.ABOM = DISABLE; /* Automatic bus-off management */
-    HCAN1.Init.AWUM = DISABLE; /* Automatic wake-up mode */
-    HCAN1.Init.NART = DISABLE; /* Non-automatic retransmission mode */
-    HCAN1.Init.RFLM = DISABLE; /* Receive FIFO locked mode */
-    HCAN1.Init.TXFP = DISABLE; /* Transmit FIFO priority */
-    HAL_CAN_Init(&HCAN1); /* Init CAN1 registers */
-
-
-    CAN_FilterStruct.FilterIdHigh = 0x0000; /* Upper 16bit filter ID */
-    CAN_FilterStruct.FilterIdLow = 0x0000; /* Filter lower 16bit ID */
-    CAN_FilterqStruct.FilterMaskIdHigh = 0x0000; /* Upper 16bit filter mask */
-    CAN_FilterStruct.FilterMaskIdLow = 0x0000; /* Lower 16bit filter mask */
-    CAN_FilterStruct.FilterFIFOAssignment = CAN_FILTER_FIFO0; /* Which FIFO will be assigned to filter */
-    CAN_FilterStruct.FilterNumber = 0;
-    CAN_FilterStruct.FilterMode = CAN_FILTERMODE_IDMASK; /* Identifier mask mode */
-    CAN_FilterStruct.FilterScale = CAN_FILTERSCALE_32BIT; /* 32bit ID filter */
-    CAN_FilterStruct.FilterActivation = ENABLE; /* Enable this filter */
-    CAN_FilterStruct.BankNumber = 14; /* Start slave bank filter (?) */
-    HAL_CAN_ConfigFilter(&HCAN1, &CAN_FilterStruct); /* Initialize filter */
-
-
-    HAL_NVIC_SetPriority(CAN1_RX0_IRQn, 1, 1); /* Set CAN1 Rx interrupt priority to 1-1 */
-    HAL_NVIC_EnableIRQ(CAN1_RX0_IRQn); /* Enable CAN1 Rx Interrupt */
-
-    __HAL_CAN_ENABLE_IT(&HCAN1, CAN_IT_FMP0); /* Enable 'message pending in FIFO0' interrupt */
-
-    HCAN1.pTxMsg->StdId = 0x14; /* Standard ID of this device */
-    HCAN1.pTxMsg->ExtId = 0x01; /* Extended ID */
-    HCAN1.pTxMsg->RTR = CAN_RTR_DATA; /* Remote transmission request:data 0x00000000 */
-    HCAN1.pTxMsg->IDE = CAN_ID_STD; /* Identifier type: standard 0x00000000 */
-
-    return;
-}
-
-
-void CAN1SendMessage(uint8_t length, uint8_t *data)
-{
-    HCAN1.pTxMsg->DLC = length; /* Specify the data length */
-
-    uint8_t d;
-
-    for(d = 0; d < length; ++d)
+	//checks if the address received was correct
+    if ((CanHandle->pRxMsg)->StdId == 0x11 && (CanHandle->pRxMsg)->IDE == CAN_ID_STD)
     {
-        HCAN1.pTxMsg->Data[d] = *(data + d); /* Write every byte to Data[] variable */
-    }
-
-    HAL_CAN_Transmit(&HCAN1, 3000); /* Transmit the packet */
-
-    return;
-}
-
-
-/* CAN1 Rx FIFO0 interrupt service routine */
-void CAN1_RX0_IRQHandler()
-{
-    if(HAL_CAN_Receive(&HCAN1, 0, 5000) == HAL_OK) /* Packet received from CANBUS successfully */
-    {
-        if(RxMessage.Data[0] == 0xAA && RxMessage.Data[2] == 0x55) /* Sync bytes are correct */
+    	//if the data length is 8
+        if((CanHandle->pRxMsg)->DLC == 8)
         {
-            LedState(LED_BLUE, 1); /* Blue LED ON */
-
-            CAN1dataReceivedFlag = 1; /* Set data received flag */
+            //checks if each value is 1, because that's what I send it
+            for(int i = (CanHandle->pRxMsg)->DLC; i < 8; i++)
+            {
+                if( (CanHandle->pRxMsg)->Data[i] != 1)
+                {
+                    Error_Handler(1000, 1000);
+                }
+            }
+            HAL_GPIO_TogglePin(GPIOD, GPIO_PIN_13);
+        }
+        else
+        {
+            Error_Handler(1000, 1000);
         }
     }
-
-    return;
-}
-
-void InitializeLEDS()
-{
-    __GPIOD_CLK_ENABLE(); /* Enable GPIOD clock for leds */
-
-    GPIO_InitTypeDef GPIO_Leds;
-
-    GPIO_Leds.Mode = GPIO_MODE_OUTPUT_PP; /* Output push-pull mode */
-    GPIO_Leds.Pull = GPIO_NOPULL; /* No resistor */
-    GPIO_Leds.Speed = GPIO_SPEED_HIGH;
-    GPIO_Leds.Pin = GPIO_PIN_12 | GPIO_PIN_13 | GPIO_PIN_14 | GPIO_PIN_15; /* PD12(Green) PD13(Orange) PD14(Red) PD15(Blue) */
-    HAL_GPIO_Init(GPIOD, &GPIO_Leds); /* Init GPIOD registers */
-
-
-    return;
-}
-
-
-void LedState(uint16_t led, uint8_t state)
-{
-    switch(state)
+    else
     {
-        case 1: /* ON */
-            HAL_GPIO_WritePin(GPIOD, led, GPIO_PIN_SET);
-            break;
-        case 0: /* OFF */
-            HAL_GPIO_WritePin(GPIOD, led, GPIO_PIN_RESET);
-            break;
-        case 2: /* Toggle */
-            HAL_GPIO_TogglePin(GPIOD, led);
-            break;
+        Error_Handler(1000, 1000);
     }
 
-    return;
+    //checks the interrupt handler to see if it recieved everything correctly
+    if(HAL_CAN_Receive_IT(CanHandle, CAN_FIFO0) != HAL_OK)
+    {
+        /* Reception Error */
+        Error_Handler(2000, 2000);
+    }
+}
+
+void SystemClock_Config(void)
+{
+
+    RCC_OscInitTypeDef RCC_OscInitStruct;
+
+    __PWR_CLK_ENABLE();
+
+    __HAL_PWR_VOLTAGESCALING_CONFIG(PWR_REGULATOR_VOLTAGE_SCALE1);
+
+    RCC_OscInitStruct.OscillatorType = RCC_OSCILLATORTYPE_HSI;
+    RCC_OscInitStruct.HSIState = RCC_HSI_ON;
+    RCC_OscInitStruct.HSICalibrationValue = 16;
+    RCC_OscInitStruct.PLL.PLLState = RCC_PLL_NONE;
+    HAL_RCC_OscConfig(&RCC_OscInitStruct);
+
+    HAL_SYSTICK_Config(HAL_RCC_GetHCLKFreq()/1000);
+
+    HAL_SYSTICK_CLKSourceConfig(SYSTICK_CLKSOURCE_HCLK);
+
+    /* SysTick_IRQn interrupt configuration */
+    HAL_NVIC_SetPriority(SysTick_IRQn, 0, 0);
+}
+
+void HAL_CAN_MspInit(CAN_HandleTypeDef* hcan)
+{
+
+    GPIO_InitTypeDef GPIO_InitStruct;
+    if(hcan->Instance==CAN1)
+    {
+
+        /* USER CODE BEGIN CAN1_MspInit 0 */
+
+        /* USER CODE END CAN1_MspInit 0 */
+        /* Peripheral clock enable */
+        __CAN1_CLK_ENABLE();
+
+        /**CAN1 GPIO Configuration
+        PD0     ------> CAN1_RX
+        PD1     ------> CAN1_TX
+        */
+        GPIO_InitStruct.Pin = GPIO_PIN_0|GPIO_PIN_1;
+        GPIO_InitStruct.Mode = GPIO_MODE_AF_PP;
+        GPIO_InitStruct.Pull = GPIO_NOPULL;
+        GPIO_InitStruct.Speed = GPIO_SPEED_HIGH;
+        GPIO_InitStruct.Alternate = GPIO_AF9_CAN1;
+        HAL_GPIO_Init(GPIOD, &GPIO_InitStruct);
+
+        /* Peripheral interrupt init*/
+        HAL_NVIC_SetPriority(CAN1_RX0_IRQn, 0, 0);
+        HAL_NVIC_EnableIRQ(CAN1_RX0_IRQn);
+        /* USER CODE BEGIN CAN1_MspInit 1 */
+
+        /* USER CODE END CAN1_MspInit 1 */
+    }
+
+}
+
+HAL_StatusTypeDef CAN_init(void)
+{
+
+    CAN_FilterConfTypeDef  sFilterConfig;
+
+
+    /*##-1- Configure the CAN peripheral #######################################*/
+    CanHandle.Instance = CAN1;
+    CanHandle.pTxMsg = &TxMessage;
+    CanHandle.pRxMsg = &RxMessage;
+
+    CanHandle.Init.TTCM = DISABLE;
+    CanHandle.Init.ABOM = DISABLE;
+    CanHandle.Init.AWUM = DISABLE;
+    CanHandle.Init.NART = DISABLE;
+    CanHandle.Init.RFLM = DISABLE;
+    CanHandle.Init.TXFP = DISABLE;
+    CanHandle.Init.Mode = CAN_MODE_NORMAL;
+    CanHandle.Init.SJW = CAN_SJW_1TQ;
+    CanHandle.Init.BS1 = CAN_BS1_6TQ;
+    CanHandle.Init.BS2 = CAN_BS2_8TQ;
+    CanHandle.Init.Prescaler = 2;
+
+    if(HAL_CAN_Init(&CanHandle) != HAL_OK)
+    {
+        /* Initialization Error */
+        //Error_Handler();
+    }
+
+    /*##-2- Configure the CAN Filter ###########################################*/
+    sFilterConfig.FilterNumber = 0;
+    sFilterConfig.FilterMode = CAN_FILTERMODE_IDMASK;
+    sFilterConfig.FilterScale = CAN_FILTERSCALE_32BIT;
+    sFilterConfig.FilterIdHigh = 0x0000;
+    sFilterConfig.FilterIdLow = 0x0000;
+    sFilterConfig.FilterMaskIdHigh = 0x0000;
+    sFilterConfig.FilterMaskIdLow = 0x0000;
+    sFilterConfig.FilterFIFOAssignment = 0;
+    sFilterConfig.FilterActivation = ENABLE;
+    sFilterConfig.BankNumber = 14;
+
+    if(HAL_CAN_ConfigFilter(&CanHandle, &sFilterConfig) != HAL_OK)
+    {
+        /* Filter configuration Error */
+       // Error_Handler();
+    }
+
+    uint8_t num = 1;
+
+    /*#-3- Start the Transmission process #####################################*/
+    CanHandle.pTxMsg->StdId = 0x11;
+    CanHandle.pTxMsg->RTR = CAN_RTR_DATA;
+    CanHandle.pTxMsg->IDE = CAN_ID_STD;
+    CanHandle.pTxMsg->DLC = 8;
+    CanHandle.pTxMsg->Data[0] = num;
+    CanHandle.pTxMsg->Data[1] = num;
+    CanHandle.pTxMsg->Data[2] = num;
+    CanHandle.pTxMsg->Data[3] = num;
+    CanHandle.pTxMsg->Data[4] = num;
+    CanHandle.pTxMsg->Data[5] = num;
+    CanHandle.pTxMsg->Data[6] = num;
+    CanHandle.pTxMsg->Data[7] = num;
+
+
+
+    return HAL_OK; /* Test Passed */
+}
+
+
+//function used to handle errors
+static void Error_Handler(int one, int two)
+{
+    while(1)
+    {
+        HAL_GPIO_TogglePin(GPIOD, GPIO_PIN_15);
+        HAL_Delay(one);
+
+        HAL_GPIO_TogglePin(GPIOD, GPIO_PIN_15);
+        HAL_Delay(two);
+    }
+}
+
+void initLEDS(void)
+{
+    /* structure used to initialize the gpio pin */
+    static GPIO_InitTypeDef  GPIO_InitStruct;
+
+    //enable the led clock
+    __HAL_RCC_GPIOD_CLK_ENABLE();
+
+
+    //configures the led pin
+    GPIO_InitStruct.Pin = GPIO_PIN_12;  //pin 5
+    GPIO_InitStruct.Mode = GPIO_MODE_OUTPUT_PP;
+    GPIO_InitStruct.Pull = GPIO_PULLUP;
+    GPIO_InitStruct.Speed = GPIO_SPEED_FAST;
+    HAL_GPIO_Init(GPIOD, &GPIO_InitStruct);  //initializes the pin A5 based on the settings your created earlier
+
+    GPIO_InitStruct.Pin = GPIO_PIN_13;
+    HAL_GPIO_Init(GPIOD, &GPIO_InitStruct);
+
+    GPIO_InitStruct.Pin = GPIO_PIN_14;
+    HAL_GPIO_Init(GPIOD, &GPIO_InitStruct);
+
+    GPIO_InitStruct.Pin = GPIO_PIN_15;
+    HAL_GPIO_Init(GPIOD, &GPIO_InitStruct);
+
 }
 
