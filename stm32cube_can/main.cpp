@@ -6,6 +6,13 @@
 	way of receiving can commands for the final project so look a lot at the interrupt portion.
  */
 
+
+
+CAN_HandleTypeDef CanHandle;
+
+static CanTxMsgTypeDef        TxMessage;
+static CanRxMsgTypeDef        RxMessage;
+
 /* These #defines are used to include or not include certain portions of code.
    Example, if you #define SEND then the code will be in sending mode, if you
    do not include it, then it will be in not send, or receive mode. The interrupt 
@@ -14,13 +21,6 @@
 
 //#define SEND
 #define INTERRUPT
-
-
-
-CAN_HandleTypeDef CanHandle;
-
-static CanTxMsgTypeDef        TxMessage;
-static CanRxMsgTypeDef        RxMessage;
 
 
 
@@ -47,10 +47,9 @@ int main() {
 
 //initializes the interrupt if you #define it at the top
 #ifdef INTERRUPT
-    /*##-2- Start the Reception process and enable reception interrupt #########*/
+    //initialize the interrupt function to handle receiving the can receives
   if(HAL_CAN_Receive_IT(&CanHandle, CAN_FIFO0) != HAL_OK)  Error_Handler(500, 500);
 #endif
-
 
 
 
@@ -62,9 +61,9 @@ int main() {
 
 //include this code if you are sending
 #ifdef SEND
+       //send a message, if the message fails, turn on a light and then blink another light
        if(HAL_CAN_Transmit(&CanHandle, 10) != HAL_OK)
         {
-
             HAL_GPIO_TogglePin(GPIOD, GPIO_PIN_14);
             Error_Handler(2000, 100);
         }
@@ -74,14 +73,14 @@ int main() {
 
 //if we are receiving and not using an interrupt
 #ifndef INTERRUPT
-
-        /*##-4- Start the Reception process ########################################*/
+        
+        //receive a can message
         if(HAL_CAN_Receive(&CanHandle, CAN_FIFO0,10) != HAL_OK)
         {
             Error_Handler(100, 1000);
         }
 
-        //check
+        //wait until the can state is ready meaning a message has been received
         if(HAL_CAN_GetState(&CanHandle) != HAL_CAN_STATE_READY)
         {
             Error_Handler(100, 500);
@@ -120,6 +119,8 @@ int main() {
     return 0;
 }
 
+//VERY IMPORTANT FUNCTION!!!!!!!
+
 //function used to receive the can command via an interrupt
 void HAL_CAN_RxCpltCallback(CAN_HandleTypeDef* CanHandle)
 {
@@ -137,6 +138,7 @@ void HAL_CAN_RxCpltCallback(CAN_HandleTypeDef* CanHandle)
                     Error_Handler(1000, 1000);
                 }
             }
+            //blink the orange light if a message containing all ones is received
             HAL_GPIO_TogglePin(GPIOD, GPIO_PIN_13);
         }
         else
@@ -180,6 +182,7 @@ void SystemClock_Config(void)
     HAL_NVIC_SetPriority(SysTick_IRQn, 0, 0);
 }
 
+//sets up the pins for can to be alternate functions
 void HAL_CAN_MspInit(CAN_HandleTypeDef* hcan)
 {
 
@@ -187,9 +190,7 @@ void HAL_CAN_MspInit(CAN_HandleTypeDef* hcan)
     if(hcan->Instance==CAN1)
     {
 
-        /* USER CODE BEGIN CAN1_MspInit 0 */
-
-        /* USER CODE END CAN1_MspInit 0 */
+        
         /* Peripheral clock enable */
         __CAN1_CLK_ENABLE();
 
@@ -225,6 +226,8 @@ HAL_StatusTypeDef CAN_init(void)
     CanHandle.pTxMsg = &TxMessage;
     CanHandle.pRxMsg = &RxMessage;
 
+
+    //standard settings for can bus
     CanHandle.Init.TTCM = DISABLE;
     CanHandle.Init.ABOM = DISABLE;
     CanHandle.Init.AWUM = DISABLE;
@@ -237,6 +240,7 @@ HAL_StatusTypeDef CAN_init(void)
     CanHandle.Init.BS2 = CAN_BS2_8TQ;
     CanHandle.Init.Prescaler = 2;
 
+    //if can is unable to initialize
     if(HAL_CAN_Init(&CanHandle) != HAL_OK)
     {
         /* Initialization Error */
@@ -261,13 +265,17 @@ HAL_StatusTypeDef CAN_init(void)
        // Error_Handler();
     }
 
-    uint8_t num = 1;
+    //sets up the communication information
+    CanHandle.pTxMsg->StdId = 0x11;  //the id of this microboard
+    
 
-    /*#-3- Start the Transmission process #####################################*/
-    CanHandle.pTxMsg->StdId = 0x11;
     CanHandle.pTxMsg->RTR = CAN_RTR_DATA;
     CanHandle.pTxMsg->IDE = CAN_ID_STD;
-    CanHandle.pTxMsg->DLC = 8;
+    CanHandle.pTxMsg->DLC = 8;  //data length; how many bytes of data you are sending. This number is always less than 8
+    
+	uint8_t num = 1;  //test number we will be sending
+
+    //the bytes of data that are sent
     CanHandle.pTxMsg->Data[0] = num;
     CanHandle.pTxMsg->Data[1] = num;
     CanHandle.pTxMsg->Data[2] = num;
@@ -296,6 +304,7 @@ static void Error_Handler(int one, int two)
     }
 }
 
+//codes that initializes the leds for the discovery board, if using the black board, change what pins are initialized
 void initLEDS(void)
 {
     /* structure used to initialize the gpio pin */
