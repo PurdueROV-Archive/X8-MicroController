@@ -6,6 +6,11 @@
 	way of receiving can commands for the final project so look a lot at the interrupt portion.
  */
 
+/**CAN1 GPIO Configuration
+       PD0     ------> CAN1_RX
+       PD1     ------> CAN1_TX
+ */
+
 
 
 CAN_HandleTypeDef CanHandle;
@@ -271,6 +276,9 @@ HAL_StatusTypeDef CAN_init(void)
 
     CanHandle.pTxMsg->RTR = CAN_RTR_DATA;
     CanHandle.pTxMsg->IDE = CAN_ID_STD;
+
+
+
     CanHandle.pTxMsg->DLC = 8;  //data length; how many bytes of data you are sending. This number is always less than 8
     
 	uint8_t num = 1;  //test number we will be sending

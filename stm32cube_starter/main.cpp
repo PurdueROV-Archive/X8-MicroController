@@ -23,11 +23,11 @@ int main(void)
 		
   
 	  //configures the led pin  
-	  GPIO_InitStruct.Pin = GPIO_PIN_5;  //pin 5
+	  GPIO_InitStruct.Pin = GPIO_PIN_12;  //pin 5
 	  GPIO_InitStruct.Mode = GPIO_MODE_OUTPUT_PP;
 	  GPIO_InitStruct.Pull = GPIO_PULLUP;
 	  GPIO_InitStruct.Speed = GPIO_SPEED_FAST;
-	  HAL_GPIO_Init(GPIOA, &GPIO_InitStruct);  //initializes the pin A5 based on the settings your created earlier
+	  HAL_GPIO_Init(GPIOD, &GPIO_InitStruct);  //initializes the pin A5 based on the settings your created earlier
 
 
 
