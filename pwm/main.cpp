@@ -18,6 +18,9 @@ TIM_HandleTypeDef    TimHandle;/* Timer handler declaration */
 uint32_t uhPrescalerValue = 0;
 
 
+int prescaller  = 1;
+int period = 1000;
+int pulse = 500;
 
 
 /*anything that does not have a comment next to it can be ignored
@@ -53,7 +56,7 @@ int main(void)
 
 	  
 	/* Compute the prescaler value to have TIM8 counter clock equal to 16000000 Hz */
-	uhPrescalerValue = (uint32_t)(SystemCoreClock / 16000000) - 1;
+	uhPrescalerValue = (uint32_t)(SystemCoreClock / prescaller) - 1;
   
 	/*Many of the variables such as TIMx are constants defined in main.h
 	 * anything variable capitalized is a #define and it is located in
@@ -61,7 +64,7 @@ int main(void)
 	TimHandle.Instance = TIMx;
 
 	TimHandle.Init.Prescaler         = uhPrescalerValue;  //scales down the master clock to get the clock that the pwm is using
-	TimHandle.Init.Period            = PERIOD_VALUE;  //creates the period of the pwm cycle (the period is in clock ticks one clock tick is an increment of one on the period
+	TimHandle.Init.Period            = period;  //creates the period of the pwm cycle (the period is in clock ticks one clock tick is an increment of one on the period
 	TimHandle.Init.ClockDivision     = 0;  //no clock division after the prescaling
 	TimHandle.Init.CounterMode       = TIM_COUNTERMODE_UP;  //the pwm's counter will count up to the maximum period value
 	TimHandle.Init.RepetitionCounter = 0;
@@ -81,7 +84,6 @@ int main(void)
 
 	sConfig.OCIdleState  = TIM_OCIDLESTATE_RESET;
 
-
 	sConfig.Pulse = PULSE1_VALUE; /* Set the pulse value for channel 1 */
 
 	//checks if these settings initialize correctly
@@ -96,6 +98,18 @@ int main(void)
 		Error_Handler();
 	}
 
+	initPrint();
+
+	sConfig.Pulse = pulse;  //sets the brightness to 1/4
+	HAL_TIM_PWM_ConfigChannel(&TimHandle, &sConfig, TIM_CHANNEL_1);
+	HAL_TIM_PWM_Start(&TimHandle, TIM_CHANNEL_1) ;
+
+	//printInt(SystemCoreClock);
+	//printString("\n");
+
+
+	//100000000
+
 
 	while (1)
 	{
@@ -103,15 +117,14 @@ int main(void)
 		 * to low and then reconfigures the pwm and restarts it to apply the settings
 		 */
 
-		sConfig.Pulse = PULSE1_VALUE / 4;  //sets the brightness to 1/4
-		HAL_TIM_PWM_ConfigChannel(&TimHandle, &sConfig, TIM_CHANNEL_1);
-		HAL_TIM_PWM_Start(&TimHandle, TIM_CHANNEL_1) ;
+		printString("switch\n");
+
 		HAL_Delay(500);
 
-		sConfig.Pulse = PULSE1_VALUE;  //sets the brightness to full
+		/*sConfig.Pulse = PULSE1_VALUE;  //sets the brightness to full
 		HAL_TIM_PWM_ConfigChannel(&TimHandle, &sConfig, TIM_CHANNEL_1);
 		HAL_TIM_PWM_Start(&TimHandle, TIM_CHANNEL_1) ;
-		HAL_Delay(500);
+		HAL_Delay(500);*/
 	}
 }
 

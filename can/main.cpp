@@ -78,7 +78,7 @@ int main() {
 
 //if we are receiving and not using an interrupt
 #ifndef INTERRUPT
-        
+
         //receive a can message
         if(HAL_CAN_Receive(&CanHandle, CAN_FIFO0,10) != HAL_OK)
         {

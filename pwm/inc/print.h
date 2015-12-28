@@ -2,7 +2,6 @@
 #include<stdarg.h>
 #include<stdlib.h>
 
-
 /* Definition for USARTx clock resources */
 #define USARTx                           USART2
 #define USARTx_CLK_ENABLE()              __HAL_RCC_USART2_CLK_ENABLE();
@@ -19,7 +18,6 @@
 #define USARTx_RX_PIN                    GPIO_PIN_3
 #define USARTx_RX_GPIO_PORT              GPIOA
 #define USARTx_RX_AF                     GPIO_AF7_USART2
-
 
 /* UART handler declaration */
 extern UART_HandleTypeDef UartHandle;
