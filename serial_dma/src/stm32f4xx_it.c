@@ -15,7 +15,6 @@ void HardFault_Handler(void)
   }
 }
 
-
 void MemManage_Handler(void)
 {
   /* Go to infinite loop when Memory Manage exception occurs */
@@ -53,29 +52,31 @@ void DebugMon_Handler(void)
 }
 
 
-void PendSV_Handler(void)
-{
+void PendSV_Handler(void) {
 }
 
 
-void SysTick_Handler(void)
-{
+void SysTick_Handler(void) {
   HAL_IncTick();
 }
 
-static void Error_Handler(void)
+
+void DMA1_Stream5_IRQHandler(void)
 {
-  while(1)
-  {
-  }
+  HAL_DMA_IRQHandler(&hdma_usart2_rx);
 }
 
-void DMA2_Stream2_IRQHandler(void)
+
+void DMA1_Stream6_IRQHandler(void)
 {
-  HAL_DMA_IRQHandler(&hdma_usart1_rx);
+  HAL_DMA_IRQHandler(&hdma_usart2_tx);
 }
 
-void DMA2_Stream7_IRQHandler(void)
+/**
+* @brief This function handles USART2 global interrupt.
+*/
+void USART2_IRQHandler(void)
 {
-  HAL_DMA_IRQHandler(&hdma_usart1_tx);
+  HAL_UART_IRQHandler(&huart2);
 }
+

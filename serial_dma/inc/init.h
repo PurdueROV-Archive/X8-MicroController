@@ -4,10 +4,21 @@
 
 #include "main.h"
 
-extern UART_HandleTypeDef UartHandle;
-extern DMA_HandleTypeDef hdma_usart1_rx;
-extern DMA_HandleTypeDef hdma_usart1_tx;
+/* External variables --------------------------------------------------------*/
+extern DMA_HandleTypeDef hdma_usart2_rx;
+extern DMA_HandleTypeDef hdma_usart2_tx;
+extern UART_HandleTypeDef huart2;
 
-void initSerial(void);
+void MX_GPIO_Init(void);
+void MX_DMA_Init(void);
+void MX_USART2_UART_Init(void);
+
+/* function declarations */
+void SystemClock_Config(void);
+void Error_Handler(void);
+
+void MX_GPIO_Init(void);
+void MX_DMA_Init(void);
+void MX_USART2_UART_Init(void);
 
 #endif
