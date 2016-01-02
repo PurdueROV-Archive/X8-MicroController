@@ -1,60 +1,15 @@
-/**
-  ******************************************************************************
-  * @file    UART/UART_TwoBoards_ComDMA/Src/main.c 
-  * @author  MCD Application Team
-  * @version V1.2.3
-  * @date    09-October-2015
-  * @brief   This sample code shows how to use STM32F4xx UART HAL API to transmit 
-  *          and receive a data buffer with a communication process based on
-  *          DMA transfer. 
-  *          The communication is done using 2 Boards.
-  ******************************************************************************
-  * @attention
-  *
-  * <h2><center>&copy; COPYRIGHT(c) 2015 STMicroelectronics</center></h2>
-  *
-  * Redistribution and use in source and binary forms, with or without modification,
-  * are permitted provided that the following conditions are met:
-  *   1. Redistributions of source code must retain the above copyright notice,
-  *      this list of conditions and the following disclaimer.
-  *   2. Redistributions in binary form must reproduce the above copyright notice,
-  *      this list of conditions and the following disclaimer in the documentation
-  *      and/or other materials provided with the distribution.
-  *   3. Neither the name of STMicroelectronics nor the names of its contributors
-  *      may be used to endorse or promote products derived from this software
-  *      without specific prior written permission.
-  *
-  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS"
-  * AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE
-  * IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE
-  * DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT HOLDER OR CONTRIBUTORS BE LIABLE
-  * FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL
-  * DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR
-  * SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER
-  * CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY,
-  * OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
-  * OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
-  *
-  ******************************************************************************
-  */
+
 
 /* Includes ------------------------------------------------------------------*/
 #include "main.h"
 
-/** @addtogroup STM32F4xx_HAL_Examples
-  * @{
-  */
 
-/** @addtogroup UART_TwoBoards_ComDMA
-  * @{
-  */ 
 
 /* Private typedef -----------------------------------------------------------*/
 /* Private define ------------------------------------------------------------*/
 #define TRANSMITTER_BOARD
 
-/* Private macro -------------------------------------------------------------*/
-/* Private variables ---------------------------------------------------------*/
+
 /* UART handler declaration */
 UART_HandleTypeDef UartHandle;
 __IO ITStatus UartReady = RESET;
@@ -80,12 +35,8 @@ static uint16_t Buffercmp(uint8_t* pBuffer1, uint8_t* pBuffer2, uint16_t BufferL
 int main(void)
 {
 
-  /* STM32F4xx HAL library initialization:
-       - Configure the Flash prefetch, instruction and Data caches
-       - Configure the Systick to generate an interrupt each 1 msec
-       - Set NVIC Group Priority to 4
-       - Global MSP (MCU Support Package) initialization
-     */
+
+
   HAL_Init();
   
   /* Configure LED3, LED4, LED5 and LED6 */
@@ -97,14 +48,7 @@ int main(void)
   /* Configure the system clock to 168 MHz */
   SystemClock_Config();
 
-  /*##-1- Configure the UART peripheral ######################################*/
-  /* Put the USART peripheral in the Asynchronous mode (UART Mode) */
-  /* UART1 configured as follow:
-      - Word Length = 8 Bits
-      - Stop Bit = One Stop bit
-      - Parity = None
-      - BaudRate = 9600 baud
-      - Hardware flow control disabled (RTS and CTS signals) */
+
   UartHandle.Instance          = USARTx;
   
   UartHandle.Init.BaudRate     = 9600;
@@ -212,26 +156,7 @@ int main(void)
   }
 }
 
-/**
-  * @brief  System Clock Configuration
-  *         The system Clock is configured as follow : 
-  *            System Clock source            = PLL (HSE)
-  *            SYSCLK(Hz)                     = 168000000
-  *            HCLK(Hz)                       = 168000000
-  *            AHB Prescaler                  = 1
-  *            APB1 Prescaler                 = 4
-  *            APB2 Prescaler                 = 2
-  *            HSE Frequency(Hz)              = 8000000
-  *            PLL_M                          = 8
-  *            PLL_N                          = 336
-  *            PLL_P                          = 2
-  *            PLL_Q                          = 7
-  *            VDD(V)                         = 3.3
-  *            Main regulator output voltage  = Scale1 mode
-  *            Flash Latency(WS)              = 5
-  * @param  None
-  * @retval None
-  */
+
 static void SystemClock_Config(void)
 {
   RCC_ClkInitTypeDef RCC_ClkInitStruct;
@@ -381,12 +306,3 @@ void assert_failed(uint8_t* file, uint32_t line)
 }
 #endif
 
-/**
-  * @}
-  */
-
-/**
-  * @}
-  */
-
-/************************ (C) COPYRIGHT STMicroelectronics *****END OF FILE****/

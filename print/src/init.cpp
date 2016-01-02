@@ -30,7 +30,7 @@ void SystemClock_Config(void)
     Error_Handler();
   }
   
-  /* Select PLL as system clock source and configure the HCLK, PCLK1 and PCLK2 
+  /* Select PLL as system clock source and configure the HCLK , PCLK1 and PCLK2
      clocks dividers */
   RCC_ClkInitStruct.ClockType = (RCC_CLOCKTYPE_SYSCLK | RCC_CLOCKTYPE_HCLK | RCC_CLOCKTYPE_PCLK1 | RCC_CLOCKTYPE_PCLK2);
   RCC_ClkInitStruct.SYSCLKSource = RCC_SYSCLKSOURCE_PLLCLK;
@@ -43,7 +43,6 @@ void SystemClock_Config(void)
   }
 }
 
-//function used to handle errors
 void Error_Handler(void)
 {
   while(1)

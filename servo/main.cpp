@@ -1,10 +1,8 @@
 #include "main.h"
 
-int i = 1;
-
-int prescaller  = 1;
-int period = 1000 * i;
-int pulse = 500 * i;
+int prescaller  = 1000000;
+int period = 3333;
+int pulse = 500;
 
 
 int main(void)  
@@ -20,10 +18,6 @@ int main(void)
 	TimHandle.Init.Prescaler         = uhPrescalerValue;
 	TimHandle.Init.Period            = period;
 
-
-
-
-
 	TimHandle.Instance = TIMx;
 	TimHandle.Init.ClockDivision     = 0;
 	TimHandle.Init.CounterMode       = TIM_COUNTERMODE_UP;
@@ -31,7 +25,6 @@ int main(void)
 	//some other random initializations
 	HAL_TIM_PWM_Init(&TimHandle);
 	initPWM();
-	initPrint();
 
 
 

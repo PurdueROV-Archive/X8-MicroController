@@ -2,5 +2,8 @@
 #ifndef __INIT_H
 #define __INIT_H
 
+/* function declarations */
+void SystemClock_Config(void);
+void Error_Handler(void);
 
 #endif

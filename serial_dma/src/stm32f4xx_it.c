@@ -62,3 +62,20 @@ void SysTick_Handler(void)
 {
   HAL_IncTick();
 }
+
+static void Error_Handler(void)
+{
+  while(1)
+  {
+  }
+}
+
+void DMA2_Stream2_IRQHandler(void)
+{
+  HAL_DMA_IRQHandler(&hdma_usart1_rx);
+}
+
+void DMA2_Stream7_IRQHandler(void)
+{
+  HAL_DMA_IRQHandler(&hdma_usart1_tx);
+}
