@@ -14,9 +14,6 @@ extern DMA_HandleTypeDef hdma_i2c1_tx;
   */
 void HAL_MspInit(void)
 {
-  /* USER CODE BEGIN MspInit 0 */
-
-  /* USER CODE END MspInit 0 */
 
   HAL_NVIC_SetPriorityGrouping(NVIC_PRIORITYGROUP_4);
 
@@ -24,9 +21,7 @@ void HAL_MspInit(void)
   /* SysTick_IRQn interrupt configuration */
   HAL_NVIC_SetPriority(SysTick_IRQn, 0, 0);
 
-  /* USER CODE BEGIN MspInit 1 */
 
-  /* USER CODE END MspInit 1 */
 }
 
 void HAL_I2C_MspInit(I2C_HandleTypeDef* hi2c)
@@ -90,32 +85,7 @@ void HAL_I2C_MspInit(I2C_HandleTypeDef* hi2c)
 
 }
 
-void HAL_I2C_MspDeInit(I2C_HandleTypeDef* hi2c)
-{
 
-  if(hi2c->Instance==I2C1)
-  {
-  /* USER CODE BEGIN I2C1_MspDeInit 0 */
-
-  /* USER CODE END I2C1_MspDeInit 0 */
-    /* Peripheral clock disable */
-    __I2C1_CLK_DISABLE();
-  
-    /**I2C1 GPIO Configuration    
-    PB8     ------> I2C1_SCL
-    PB9     ------> I2C1_SDA 
-    */
-    HAL_GPIO_DeInit(GPIOB, GPIO_PIN_8|GPIO_PIN_9);
-
-    /* Peripheral DMA DeInit*/
-    HAL_DMA_DeInit(hi2c->hdmarx);
-    HAL_DMA_DeInit(hi2c->hdmatx);
-  }
-  /* USER CODE BEGIN I2C1_MspDeInit 1 */
-
-  /* USER CODE END I2C1_MspDeInit 1 */
-
-}
 
 /* USER CODE BEGIN 1 */
 
