@@ -1,12 +1,21 @@
 #include "shiftRegister.h"
 
 
-shiftRegister::shiftRegister(void)
+//input the pins that will be used on the shift register
+shiftRegister::shiftRegister(GPIO_TypeDef* dataB, uint16_t dataP,GPIO_TypeDef* clkB, uint16_t  clkP)
 {
-	/*put code that you want to run when you create the class */
+    dataBank = dataB;
+    dataPin = dataP;
+
+    clkBank = clkB;
+    clkPin = clkP;
 }
 
-void shiftRegister::control(void)
+/* this is where you will write the shift register code that outputs the controls.
+ * Each bit in the variable will represenst one of the pins on the shift register
+ * */
+
+void shiftRegister::control(uint8_t data)
 {
 
 }

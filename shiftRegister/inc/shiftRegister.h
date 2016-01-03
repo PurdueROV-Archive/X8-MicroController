@@ -10,17 +10,18 @@ class shiftRegister {
 
 public:
 
+    shiftRegister(GPIO_TypeDef* dataB, uint16_t dataP,GPIO_TypeDef* clkB, uint16_t  clkP);
 
-    shiftRegister(void);
-
-    void control(void);
-
+    void control(uint8_t data);
 
 
+private:
 
-private: 
+    GPIO_TypeDef*   dataBank;
+    uint16_t        dataPin;
 
-
+    GPIO_TypeDef*   clkBank;
+    uint16_t        clkPin;
 };
 
 #endif
