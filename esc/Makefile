@@ -11,13 +11,12 @@ BUILD_DIR = build
 OBJECTS = main.o \
 		 src/stm32f4xx_it.o \
 		src/init.o \
-		src/pressure.o
+		src/esc.o
 
 
 
 OBJECTS += \
        $(DRIVER)/stm32f4xx_hal.o \
-       $(DRIVER)/stm32f4xx_hal_adc.o \
        $(DRIVER)/stm32f4xx_hal_crc.o \
        $(DRIVER)/stm32f4xx_hal_can.o \
        $(DRIVER)/stm32f4xx_hal_uart.o \
@@ -25,6 +24,7 @@ OBJECTS += \
        $(DRIVER)/stm32f4xx_hal_cortex.o \
        $(DRIVER)/stm32f4xx_hal_gpio.o \
        $(DRIVER)/stm32f4xx_hal_rcc.o \
+        $(DRIVER)/stm32f4xx_hal_tim.o \
        $(DRIVER)/stm32f4xx_hal_dma.o \
        $(DRIVER)/stm32f4xx_hal_spi.o \
        $(DRIVER)/stm32f4xx_hal_i2c.o \
@@ -189,6 +189,10 @@ PROJECT = main
 
 SOURCE = source
 
+LIB_SRC = $(wildcard $(SOURCE)/*.cpp)
+
+LIB_OBJ = $(LIB_SRC:$(SOURCE)/%.cpp=$(BUILD_DIR)/%.o)
+
 
 ###############################################################################
 AS      = $(GCC_BIN)arm-none-eabi-as
@@ -232,14 +236,12 @@ $(LIB_OBJ): $(LIB_SRC)
 	@$(CPP) $(CC_FLAGS) $(CC_SYMBOLS) -std=gnu++98 -fno-rtti $(INCLUDE_PATHS)  $(LIB_SRC)
 	@mv *.o ./$(BUILD_DIR)
 
-$(PROJECT).elf: $(OBJECTS)
-	@$(LD) $(LD_FLAGS) -T$(LINKER_SCRIPT)  -o $(BUILD_DIR)/$@ $^  $(LD_SYS_LIBS) $(LD_SYS_LIBS)
+$(PROJECT).elf: $(OBJECTS) $(SYS_OBJECTS)
+	@$(LD) $(LD_FLAGS) -T$(LINKER_SCRIPT)  -o $(BUILD_DIR)/$@ $^ $(LIB_OBJ) $(LD_SYS_LIBS) $(LD_SYS_LIBS)
 	@rm *.o
-	@rm src/*.o
 
 $(PROJECT).bin: $(PROJECT).elf
 	@rm *.d
-	@rm src/*.d
 	@$(OBJCOPY) -O binary $(BUILD_DIR)/$< $(BUILD_DIR)/$@
 
 $(PROJECT).hex: $(PROJECT).elf
@@ -247,7 +249,7 @@ $(PROJECT).hex: $(PROJECT).elf
 
 
 clean:
-	@rm $(BUILD_DIR)/main.*
+	@rm $(BUILD_DIR)/*
 	@echo " ### Cleaned build directory"
 
 burn:
