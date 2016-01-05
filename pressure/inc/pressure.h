@@ -2,7 +2,7 @@
 #define X8_PRESSURE
 
 /* puts all of the #includes and # defines that you need here */
-
+#include "main.h"
 
 class pressure {
 
