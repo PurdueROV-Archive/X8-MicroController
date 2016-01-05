@@ -1,6 +1,8 @@
-#include "main.h"
+//#include "main.h"
 #include "stm32f4xx_it.h"
 
+extern DMA_HandleTypeDef hdma_i2c1_rx;
+extern DMA_HandleTypeDef hdma_i2c1_tx;
 
 void NMI_Handler(void)
 {

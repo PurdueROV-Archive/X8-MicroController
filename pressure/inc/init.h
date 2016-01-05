@@ -2,7 +2,9 @@
 #ifndef __INIT_H
 #define __INIT_H
 
-#include "main.h"
+//#include "main.h"
+#include "stm32f4xx_hal.h"
+
 
 extern I2C_HandleTypeDef hi2c1;
 extern DMA_HandleTypeDef hdma_i2c1_rx;

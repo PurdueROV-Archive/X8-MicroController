@@ -2,9 +2,13 @@
 #define __MAIN_H
 
 /* Includes ------------------------------------------------------------------*/
+#include <math.h>
 #include "stm32f4xx_hal.h"
 #include "stm32f4xx_nucleo.h"
 #include "stm32f4xx_it.h"
+//#include "stdio.h"
 #include "init.h"
+
+#include "pressure.h"
 
 #endif /* __MAIN_H */
