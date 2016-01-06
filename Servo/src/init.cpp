@@ -12,13 +12,13 @@ void initPwm(void)
   __TIM2_CLK_ENABLE();
 
   /* Computes the prescaler */
-  uint32_t uhPrescalerValue = (uint32_t)(SystemCoreClock / 16000000);
+  uint32_t uhPrescalerValue = (uint32_t)(SystemCoreClock / 1000000);
 
   /*TIMx defined in main.h*/
   TimHandle.Instance = TIMx;
 
   TimHandle.Init.Prescaler         = uhPrescalerValue;  //scales down the master clock
-  TimHandle.Init.Period            = 1000;  //creates the period of the pwm cycle in clock ticks
+  TimHandle.Init.Period            = 20000;  //creates the period of the pwm cycle in clock ticks
   TimHandle.Init.ClockDivision     = 0;
   TimHandle.Init.CounterMode       = TIM_COUNTERMODE_UP;
   TimHandle.Init.RepetitionCounter = 0;

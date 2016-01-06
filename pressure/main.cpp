@@ -33,12 +33,15 @@ int main(void)  {
 
 	  while (1) {
 
-		  HAL_I2C_Master_Transmit_DMA(&hi2c1, 2, buffer, 2);
 
-		  HAL_GPIO_TogglePin(GPIOA, GPIO_PIN_5);
-		
-		    // 500ms delay
-		    HAL_Delay(500);
+		 // HAL_GPIO_TogglePin(GPIOA, GPIO_PIN_5);
+
+
+		  while (HAL_I2C_GetState(&hi2c1) != HAL_I2C_STATE_READY)
+		  {
+			  HAL_GPIO_WritePin(GPIOA, GPIO_PIN_5, GPIO_PIN_SET);
+		  }
+
 	  }
 }
 

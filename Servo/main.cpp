@@ -20,15 +20,14 @@ int main(void)
 
 	initPwm();
 
-	uint8_t brightness = 10;
 
 	servo led(&TimHandle, &sConfig, TIM_CHANNEL_1);
 
+	led.set(180);
+
 	while (1)
 	{
-		led.set(brightness++);
 
-		HAL_Delay(10);
 
 
 
