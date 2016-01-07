@@ -33,6 +33,7 @@ extern UART_HandleTypeDef UartHandle;
 
 void initPrint(void);
 
+void printBool(bool val);
 void printInt(int num);
 void printDouble(double num);
 void printString(char* phrase);

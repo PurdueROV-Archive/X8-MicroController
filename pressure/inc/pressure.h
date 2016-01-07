@@ -53,10 +53,12 @@ enum ms5803_addr
 #define I2C_DMA_OK      0
 
 
-
+// FORWARD DECLARATIONS:
 extern I2C_HandleTypeDef hi2c1;
 extern DMA_HandleTypeDef hdma_i2c1_rx;
 extern DMA_HandleTypeDef hdma_i2c1_tx;
+void printString(char* phrase);
+void printInt(int num);
 
 
 class pressure 

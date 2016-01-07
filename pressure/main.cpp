@@ -12,12 +12,19 @@ DMA_HandleTypeDef hdma_i2c1_tx;
 
 int main(void)  {
 	  
+
     //must be included to initially configure the library
 	HAL_Init();
 	SystemClock_Config();
+	initPrint();
+	
+	printString("\r\n");
+	printString("1");
+	printString("2");
 	  
 	//enable the led clock
 	__HAL_RCC_GPIOA_CLK_ENABLE();
+	printString("3");
 
   
 	//configures the led pin  
@@ -26,16 +33,21 @@ int main(void)  {
 	GPIO_InitStruct.Pull = GPIO_PULLUP;
 	GPIO_InitStruct.Speed = GPIO_SPEED_FAST;
 	HAL_GPIO_Init(GPIOA, &GPIO_InitStruct);  //initializes the pin A5 
+	printString("4");
 
 	MX_GPIO_Init();
+	printString("5");
 	MX_DMA_Init();
+	printString("6");
 	MX_I2C1_Init();
+	printString("7");
 
-	initPrint();
+	HAL_I2C_MspInit(&hi2c1);
 
 	// Begin pressure sensor code:
 
 	pressure sensor(ADDRESS_HIGH, &hi2c1);
+	printString("8");
 
 	float temperature_c;
     float temperature_f;
@@ -45,9 +57,12 @@ int main(void)  {
     double pressure_baseline;
 
     sensor.reset();
+	printString("9");
     sensor.begin();
+	printString("10");
 
     pressure_baseline = sensor.getPressure(ADC_4096);
+	printString("11");
     double base_altitude = 1655.0; // Altitude of SparkFun's HQ in Boulder, CO. in (m)
 
 
@@ -101,7 +116,7 @@ int main(void)  {
         printDouble(altitude_delta);
 
 		// 500ms delay
-		HAL_Delay(500);
+		HAL_Delay(2000);
 	}
 }
 

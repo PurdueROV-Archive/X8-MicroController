@@ -68,6 +68,14 @@ void initPrint(void)
 
 
 
+void printBool(bool val)
+{
+    if (val)
+        printString("true");
+    else
+        printString("false");
+}
+
 void printInt(int num)
 {
     char buffer [33];

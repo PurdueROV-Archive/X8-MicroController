@@ -81,6 +81,13 @@ void HAL_I2C_MspInit(I2C_HandleTypeDef* hi2c)
     GPIO_InitStruct.Alternate = GPIO_AF4_I2C1;
     HAL_GPIO_Init(GPIOB, &GPIO_InitStruct);
 
+    //GPIO_InitStruct.Pin = GPIO_PIN_9;
+    //GPIO_InitStruct.Mode = GPIO_MODE_AF_OD;
+    //GPIO_InitStruct.Pull = GPIO_PULLUP;
+    //GPIO_InitStruct.Speed = GPIO_SPEED_HIGH;
+    //GPIO_InitStruct.Alternate = GPIO_AF4_I2C1;
+    //HAL_GPIO_Init(GPIOC, &GPIO_InitStruct);
+
     /* Peripheral clock enable */
             __I2C1_CLK_ENABLE();
 
@@ -120,7 +127,6 @@ void HAL_I2C_MspInit(I2C_HandleTypeDef* hi2c)
   }
 
 }
-
 //configures the system clcok
 void SystemClock_Config(void)
 {
@@ -168,3 +174,4 @@ void Error_Handler(void)
   {
   }
 }
+

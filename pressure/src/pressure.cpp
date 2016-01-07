@@ -18,11 +18,6 @@ pressure::pressure(ms5803_addr addr, I2C_HandleTypeDef* handler)
 // Base library type I2C
 {
     I2C_handle = *handler;
-    //i2c = new I2C(p_sda, p_scl);
-    //pc = new Serial(USBTX, USBRX);
-    //i2c->start(); // Arduino I2C library initializer
-    HAL_I2C_MspInit(&hi2c1);
-
 
     _address = addr; //set interface used for communication
 }
@@ -42,6 +37,8 @@ uint8_t pressure::begin(void)
     char data[2];
     char ack[8];
 
+    printString("\r\n\tbegin:1");
+
     for(i = 0; i <= 7; i++){
         ack[i] = sendCommand(CMD_PROM + (i * 2));
         I2Cread( _address, data, 2);
@@ -53,6 +50,7 @@ uint8_t pressure::begin(void)
       //pc->printf("%d", coefficient[i]);
       //pc->printf("\n");
     }
+    printString("\r\n\tbegin:2");
     for (int i = 0; i <= 7; i++)
     {
         if (ack[i] == 1)
@@ -70,11 +68,11 @@ float pressure::getTemperature(temperature_units units, precision _precision)
         return 0;
     float temperature_reported;
     // If Fahrenheit is selected return the temperature converted to F
-    if(units == FAHRENHEIT){
+    if(units == FAHRENHEIT) {
         temperature_reported = _temperature_actual / 100.0;
         temperature_reported = (((temperature_reported) * 9) / 5) + 32;
         return temperature_reported;
-        }
+    }
         
     // If Celsius is selected return the temperature converted to C 
     else {
@@ -220,17 +218,24 @@ uint32_t pressure::getADCconversion(measurement _measurement, precision _precisi
 } 
 
 int pressure::sendCommand(uint8_t command)
-{   
+{
     uint8_t dataOut[1] = {command};
     //int ack = i2c->write( _address, (const char*) dataOut, 1);
-    HAL_StatusTypeDef status = HAL_I2C_Master_Transmit(&I2C_handle, _address, (uint8_t*) dataOut, 1, 100);
+    HAL_StatusTypeDef status = HAL_I2C_Master_Transmit_DMA(&hi2c1, _address, dataOut, 1);
+    // PROBLEM MAY LIE WITHIN I2C_DMAMasterTransmitCplt in _hal_i2c.c : NOT TRUE. CAN'T CALL THAT PRIVATE CALLBACK FUNCTION.
+    printInt((uint8_t) status);
+    if (status != HAL_OK)
+        while (HAL_I2C_GetState(&hi2c1) != HAL_I2C_STATE_READY) 
+        {
+            printString("\r\n"); 
+            printString("send code: ");
+            printInt((uint8_t) HAL_I2C_GetState(&I2C_handle));
+            sensorWait(1);
+        }//printString("\r\nWaiting...");}
 
-    while (HAL_I2C_GetState(&I2C_handle) != HAL_I2C_STATE_READY) {}
-
-    if (status == HAL_ERROR || status == HAL_TIMEOUT)
-        return I2C_DMA_ERROR;
-    else
+    else 
         return I2C_DMA_OK;
+    return I2C_DMA_ERROR;
     //Wire.beginTransmission( _address);
     //Wire.write(command);
     //Wire.endTransmission();
@@ -241,21 +246,26 @@ int pressure::sendCommand(uint8_t command)
 void pressure::sensorWait(double time)
 // Delay function.  This can be modified to work outside of Arduino based MCU's
 {
-    HAL_Delay(time/1000.0);
+    HAL_Delay(time);
 }
 
 
 int pressure::I2Cread(int address, char* data, int length)
 {
     //int ack = i2c->read(address, data, length);
-    HAL_StatusTypeDef status = HAL_I2C_Master_Receive(&I2C_handle, address, (uint8_t*) data, length, 100);
+    HAL_StatusTypeDef status = HAL_I2C_Master_Receive_DMA(&hi2c1, address, (uint8_t*) data, length);
+    sensorWait(5);
 
-    while (HAL_I2C_GetState(&I2C_handle) != HAL_I2C_STATE_READY) {}
-
-    if (status == HAL_OK)
+    if (status != HAL_OK)
+        while (HAL_I2C_GetState(&hi2c1) != HAL_I2C_STATE_READY) 
+        {
+            printString("\r\n");
+            printString("read code: ");
+            printInt((uint8_t) HAL_I2C_GetState(&I2C_handle));
+        }
+    else 
         return I2C_DMA_OK;
-    else
-        return I2C_DMA_ERROR;
+    return I2C_DMA_ERROR;
 }
 
 

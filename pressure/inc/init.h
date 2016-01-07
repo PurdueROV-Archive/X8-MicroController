@@ -4,11 +4,16 @@
 
 //#include "main.h"
 #include "stm32f4xx_hal.h"
+//#include "stm32f4xx_hal_rcc.h"
 
 
+// FORWARD DECLARATIONS:
 extern I2C_HandleTypeDef hi2c1;
 extern DMA_HandleTypeDef hdma_i2c1_rx;
 extern DMA_HandleTypeDef hdma_i2c1_tx;
+void printString(char* phrase);
+void printBool(bool val);
+void printInt(int num);
 
 /* function declarations */
 void SystemClock_Config(void);
