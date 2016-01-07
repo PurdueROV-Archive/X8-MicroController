@@ -68,9 +68,9 @@ void initPrint(void)
 
 
 
-void printBool(bool val)
+void printBool(bool expr)
 {
-    if (val)
+    if (expr)
         printString("true");
     else
         printString("false");

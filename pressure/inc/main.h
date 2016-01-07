@@ -1,3 +1,8 @@
+/* main.h				test for pressure library   */
+/*==================================================*/
+/* @version 1.01            first-working-version   */
+/* @author bmaxfie                                  */
+
 #ifndef __MAIN_H
 #define __MAIN_H
 

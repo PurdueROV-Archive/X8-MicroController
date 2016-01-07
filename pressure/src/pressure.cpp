@@ -1,26 +1,30 @@
-/* Put all of your #includes and #defines up here   */
+/* pressure.cpp                                     */
+/*==================================================*/
+/* @version 1.01            first-working-version   */
+/* @author bmaxfie                                  */
 
+// See pressure.h for instructions on the use of this library.
+
+
+// INCLUDES:
 #include "pressure.h"
-//#include "main.h"
-
-
-/*Put all function definitions here. Do not forget the 
-  classname:: part before the function name! */
-
-/* Second note, each class must have a constructor. This
-   is a function that is called when you create the object 
-   (just like creating a variable) of the class. This function
-   will have no return type. */
+//#include "main
 
 
 
+// CONSTRUCTORS:
 pressure::pressure(ms5803_addr addr, I2C_HandleTypeDef* handler)
 // Base library type I2C
 {
-    I2C_handle = *handler;
+    I2C_handle = handler; // need to change
 
     _address = addr; //set interface used for communication
 }
+
+
+
+// CLASS FUNCTIONS:
+// ordered and grouped by chronology of calls and relevance respectively.
 
 int pressure::reset(void)
 // Reset device I2C
@@ -37,20 +41,17 @@ uint8_t pressure::begin(void)
     char data[2];
     char ack[8];
 
-    printString("\r\n\tbegin:1");
-
     for(i = 0; i <= 7; i++){
         ack[i] = sendCommand(CMD_PROM + (i * 2));
         I2Cread( _address, data, 2);
         coefficient[i] = (data[0] << 8)|data[1]; //data[0] highbyte, data[1] lowbyte
-    // Uncomment below for debugging output.
-      //pc->printf("C");
-      //pc->printf("%d", i);
-      //pc->printf("= ");
-      //pc->printf("%d", coefficient[i]);
-      //pc->printf("\n");
+        // Uncomment below for debugging output.
+        //printString("C");
+        //printInt(i);
+        //printString("= ");
+        //printInt(coefficient[i]);
+        //printString("\n");
     }
-    printString("\r\n\tbegin:2");
     for (int i = 0; i <= 7; i++)
     {
         if (ack[i] == 1)
@@ -94,27 +95,12 @@ float pressure::getPressure(precision _precision)
 }
 
 void pressure::getMeasurements(precision _precision)
-
+// private function used by getPressure and getTemperature. Performs ~90% of math in library.
 {
     
     //Retrieve ADC result
     int32_t temperature_raw = getADCconversion(TEMPERATURE, _precision);
     int32_t pressure_raw = getADCconversion(PRESSURE, _precision);
-    
-    /*
-    if ( temperature_raw != 0 )
-    {
-        pc->printf("getMeasurements");
-        _temperature_actual = temperature_raw;
-        return;
-    }
-    if ( pressure_raw != 0 )
-    {
-        pc->printf("getMeasurements");
-        _pressure_actual = pressure_raw;
-        return;
-    }*/
-    
     
     //Create Variables for calculations
     int32_t temp_calc;
@@ -125,10 +111,6 @@ void pressure::getMeasurements(precision _precision)
     //Now that we have a raw temperature, let's compute our actual.
     dT = temperature_raw - ((int32_t)coefficient[5] << 8);
     temp_calc = (((int64_t)dT * coefficient[6]) >> 23) + 2000;
-    
-    //pc->printf("\nS1: %d  %d", dT, temp_calc);
-    
-    // TODO TESTING  _temperature_actual = temp_calc;
     
     //Now we have our first order Temperature, let's calculate the second order.
     int64_t T2, OFF2, SENS2, OFF, SENS; //working variables
@@ -153,8 +135,6 @@ void pressure::getMeasurements(precision _precision)
         T2 = 7 * ((uint64_t)(((uint64_t)dT) * dT))/pow(2.0,37);
         OFF2 = ((temp_calc - 2000) * (temp_calc - 2000)) / 16;
         SENS2 = 0;
-        //pc->printf("\n%d  %d", (uint64_t)(((uint64_t)dT) * dT), pow(2.0,37));
-        //pc->printf("\nS2: %d  %d  %d", T2, OFF2, SENS2);
     }
     
     // Now bring it all together to apply offsets 
@@ -172,11 +152,8 @@ void pressure::getMeasurements(precision _precision)
     pressure_calc = (((SENS * pressure_raw) / 2097152 ) - OFF) / 32768;
     
     _temperature_actual = temp_calc ;
-    _pressure_actual = pressure_calc ; // 10;// pressure_calc;
+    _pressure_actual = pressure_calc ;
     
-    //pc->printf("\ntemp: %d", _temperature_actual);
-    //pc->printf("\npress: %d", _pressure_actual);
-
 }
 
 uint32_t pressure::getADCconversion(measurement _measurement, precision _precision)
@@ -184,7 +161,6 @@ uint32_t pressure::getADCconversion(measurement _measurement, precision _precisi
 // Select measurement type and precision
 {   
     uint32_t result;
-//    uint8_t highByte, midByte, lowByte;
     
     sendCommand(CMD_ADC_CONV + _measurement + _precision);
     // Wait for conversion to complete
@@ -201,17 +177,8 @@ uint32_t pressure::getADCconversion(measurement _measurement, precision _precisi
     sendCommand(CMD_ADC_READ);
     char data[3];
     I2Cread(_address, data, 3);
-    
-    /*while(Wire.available())    
-    { 
-        highByte = Wire.read();
-        midByte = Wire.read();
-        lowByte = Wire.read();  
-    }*/
-    
+
     result = ((uint32_t)data[0] << 16) + ((uint32_t)(data[1] << 8)) + data[2];
-    //pc->printf("\n%d  %d  %d", data[0], data[1], data[2]);
-    //pc->printf("\n%d  %d  %d", result, _measurement, _precision);
     
     return result;
 
@@ -220,31 +187,26 @@ uint32_t pressure::getADCconversion(measurement _measurement, precision _precisi
 int pressure::sendCommand(uint8_t command)
 {
     uint8_t dataOut[1] = {command};
-    //int ack = i2c->write( _address, (const char*) dataOut, 1);
-    HAL_StatusTypeDef status = HAL_I2C_Master_Transmit_DMA(&hi2c1, _address, dataOut, 1);
-    // PROBLEM MAY LIE WITHIN I2C_DMAMasterTransmitCplt in _hal_i2c.c : NOT TRUE. CAN'T CALL THAT PRIVATE CALLBACK FUNCTION.
-    printInt((uint8_t) status);
-    if (status != HAL_OK)
-        while (HAL_I2C_GetState(&hi2c1) != HAL_I2C_STATE_READY) 
-        {
-            printString("\r\n"); 
-            printString("send code: ");
-            printInt((uint8_t) HAL_I2C_GetState(&I2C_handle));
-            sensorWait(1);
-        }//printString("\r\nWaiting...");}
+    HAL_StatusTypeDef status = HAL_I2C_Master_Transmit_DMA(I2C_handle, _address, dataOut, 1);
 
+    if (status != HAL_OK)
+        while (HAL_I2C_GetState(I2C_handle) != HAL_I2C_STATE_READY) 
+        {
+            // If receiving a code on terminal, cross-reference code with HAL_StatusTypeDef definition in stm32f4xx_hal_def.h
+            //printString("\r\n"); 
+            //printString("I2C sending code: ");
+            //printInt((uint8_t) HAL_I2C_GetState(I2C_handle));
+            sensorWait(1);
+        }
     else 
         return I2C_DMA_OK;
     return I2C_DMA_ERROR;
-    //Wire.beginTransmission( _address);
-    //Wire.write(command);
-    //Wire.endTransmission();
-    
 }
 
 
 void pressure::sensorWait(double time)
-// Delay function.  This can be modified to work outside of Arduino based MCU's
+// Delay function.  This can be modified to work outside or change time delay's order of magnitude.
+// Currently measured in milli-seconds.
 {
     HAL_Delay(time);
 }
@@ -252,16 +214,17 @@ void pressure::sensorWait(double time)
 
 int pressure::I2Cread(int address, char* data, int length)
 {
-    //int ack = i2c->read(address, data, length);
-    HAL_StatusTypeDef status = HAL_I2C_Master_Receive_DMA(&hi2c1, address, (uint8_t*) data, length);
+    HAL_StatusTypeDef status = HAL_I2C_Master_Receive_DMA(I2C_handle, address, (uint8_t*) data, length);
     sensorWait(5);
 
     if (status != HAL_OK)
-        while (HAL_I2C_GetState(&hi2c1) != HAL_I2C_STATE_READY) 
+        while (HAL_I2C_GetState(I2C_handle) != HAL_I2C_STATE_READY) 
         {
-            printString("\r\n");
-            printString("read code: ");
-            printInt((uint8_t) HAL_I2C_GetState(&I2C_handle));
+            // If receiving a code on terminal, cross-reference code with HAL_StatusTypeDef definition in stm32f4xx_hal_def.h
+            //printString("\r\n");
+            //printString("read code: ");
+            //printInt((uint8_t) HAL_I2C_GetState(I2C_handle));
+            sensorWait(1);
         }
     else 
         return I2C_DMA_OK;
@@ -290,7 +253,8 @@ double pressure::altitude(double P, double P0)
 
 
 /******************************************************************************
-        INIT FUNCTIONS:
+        INIT FUNCTIONS:                     may be removed to save space, 
+                                            saved so they are not lost.
 ******************************************************************************/
 
 /* I2C1 init function */

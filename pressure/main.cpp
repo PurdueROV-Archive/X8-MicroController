@@ -1,6 +1,14 @@
-//put all of your #includes into main.h file
+/* main.cpp				test for pressure library   */
+/*==================================================*/
+/* @version 1.01            first-working-version   */
+/* @author bmaxfie                                  */
+
+// INCLUDES:
 #include "main.h"
 #include "print.h"
+
+
+// DEFINITIONS:
 
 /* structure used to initialize the gpio pin */
 static GPIO_InitTypeDef  GPIO_InitStruct;
@@ -10,6 +18,8 @@ DMA_HandleTypeDef hdma_i2c1_rx;
 DMA_HandleTypeDef hdma_i2c1_tx;
 
 
+
+// MAIN:
 int main(void)  {
 	  
 
@@ -17,14 +27,9 @@ int main(void)  {
 	HAL_Init();
 	SystemClock_Config();
 	initPrint();
-	
-	printString("\r\n");
-	printString("1");
-	printString("2");
 	  
 	//enable the led clock
 	__HAL_RCC_GPIOA_CLK_ENABLE();
-	printString("3");
 
   
 	//configures the led pin  
@@ -32,22 +37,16 @@ int main(void)  {
 	GPIO_InitStruct.Mode = GPIO_MODE_OUTPUT_PP;
 	GPIO_InitStruct.Pull = GPIO_PULLUP;
 	GPIO_InitStruct.Speed = GPIO_SPEED_FAST;
-	HAL_GPIO_Init(GPIOA, &GPIO_InitStruct);  //initializes the pin A5 
-	printString("4");
+	HAL_GPIO_Init(GPIOA, &GPIO_InitStruct);  //initializes the pin A5
 
 	MX_GPIO_Init();
-	printString("5");
 	MX_DMA_Init();
-	printString("6");
 	MX_I2C1_Init();
-	printString("7");
-
 	HAL_I2C_MspInit(&hi2c1);
 
 	// Begin pressure sensor code:
 
 	pressure sensor(ADDRESS_HIGH, &hi2c1);
-	printString("8");
 
 	float temperature_c;
     float temperature_f;
@@ -57,17 +56,15 @@ int main(void)  {
     double pressure_baseline;
 
     sensor.reset();
-	printString("9");
     sensor.begin();
-	printString("10");
 
     pressure_baseline = sensor.getPressure(ADC_4096);
-	printString("11");
     double base_altitude = 1655.0; // Altitude of SparkFun's HQ in Boulder, CO. in (m)
+    // Change this value:  ^^^^^^
 
 
 	while (1) {
-
+		// Health Monitor LED, period should be ~4s
 		HAL_GPIO_TogglePin(GPIOA, GPIO_PIN_5);
 
 		// To measure to higher degrees of precision use the following sensor settings:
@@ -99,7 +96,7 @@ int main(void)  {
         altitude_delta = sensor.altitude(pressure_abs , pressure_baseline);
           
           
-        // Report values via UART
+        // Report values via UART, COM port monitor.
         printString("\r\nTemperature C = ");
         printDouble(temperature_c);
           
