@@ -239,9 +239,11 @@ $(LIB_OBJ): $(LIB_SRC)
 $(PROJECT).elf: $(OBJECTS) $(SYS_OBJECTS)
 	@$(LD) $(LD_FLAGS) -T$(LINKER_SCRIPT)  -o $(BUILD_DIR)/$@ $^ $(LIB_OBJ) $(LD_SYS_LIBS) $(LD_SYS_LIBS)
 	@rm *.o
+	@rm src/*.o
 
 $(PROJECT).bin: $(PROJECT).elf
 	@rm *.d
+	@rm src/*.d
 	@$(OBJCOPY) -O binary $(BUILD_DIR)/$< $(BUILD_DIR)/$@
 
 $(PROJECT).hex: $(PROJECT).elf

@@ -57,8 +57,6 @@
 #ifndef X8_PRESSURE
 #define X8_PRESSURE
 
-
-
 // INCLUDES:
 #include <math.h>
 #include "stm32f4xx_hal.h"

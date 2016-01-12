@@ -5,7 +5,8 @@
 
 imu::imu(I2C_HandleTypeDef* handler) {
 
-    I2C_handler =handler;
+    /*this variable is what you plug into the send function */
+    I2C_handler = handler;
 }
 
 // retrieves the data from the sensor and stores it into variables
