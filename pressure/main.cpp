@@ -54,6 +54,7 @@ int main(void)  {
     double pressure_relative;
     double altitude_delta;
     double pressure_baseline;
+    uint32_t lastTime;
 
     sensor.reset();
     sensor.begin();
@@ -73,6 +74,9 @@ int main(void)  {
         // ADC_1024
         // ADC_2048
         // ADC_4096
+
+		// Collect time before polling sensor:
+        lastTime = HAL_GetTick();
           
         // Read temperature from the sensor in deg C. This operation takes about 
         temperature_c = sensor.getTemperature(CELSIUS, ADC_512);
@@ -112,8 +116,13 @@ int main(void)  {
         printString("\r\nAltitude change (m) = ");
         printDouble(altitude_delta);
 
+        // Display time (ms) it takes to do 3 full sensor pulls and calculations
+        printString("\r\nTicks = ");
+        printInt(HAL_GetTick() - lastTime);
+
 		// 500ms delay
-		HAL_Delay(2000);
+		HAL_Delay(1);
+
 	}
 }
 
