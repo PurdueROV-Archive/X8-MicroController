@@ -2,16 +2,21 @@
 
 */
 
-/* Define to prevent recursive inclusion -------------------------------------*/
+/* Define to prevent recursive inclusion -------------------------------------*/	
 #ifndef __STM32F4xx_IT_H
 #define __STM32F4xx_IT_H
 
+#include "stm32f4xx_hal.h"
+#include "stm32f4xx_hal_dma.h"
+
+
 #ifdef __cplusplus
  extern "C" {
-#endif 
+#endif
 
 /* Includes ------------------------------------------------------------------*/
-#include "main.h"
+//#include "stm32f4xx_hal.h"
+//#include "main.h"
 
 void NMI_Handler(void);
 void HardFault_Handler(void);

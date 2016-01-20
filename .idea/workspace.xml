@@ -12,14 +12,15 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="43b227c5-6914-4328-9cb3-bdb6bee1e20c" name="Default" comment="">
-      <change type="DELETED" beforePath="$PROJECT_DIR$/serial_dma/st-flash" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/print/build/donotremove.txt" afterPath="" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Servo/inc/servo.h" afterPath="$PROJECT_DIR$/Servo/inc/servo.h" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/can/main.cpp" afterPath="$PROJECT_DIR$/can/main.cpp" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/can/src/stm32f4xx_it.c" afterPath="$PROJECT_DIR$/can/src/stm32f4xx_it.c" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/pressure/main.cpp" afterPath="$PROJECT_DIR$/pressure/main.cpp" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/pressure/src/stm32f4xx_it.c" afterPath="$PROJECT_DIR$/pressure/src/stm32f4xx_it.c" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/serial_dma/Makefile" afterPath="$PROJECT_DIR$/serial_dma/Makefile" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/pressure/Makefile" afterPath="$PROJECT_DIR$/pressure/Makefile" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/pressure/inc/init.h" afterPath="$PROJECT_DIR$/pressure/inc/init.h" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/pressure/inc/main.h" afterPath="$PROJECT_DIR$/pressure/inc/main.h" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/pressure/inc/pressure.h" afterPath="$PROJECT_DIR$/pressure/inc/pressure.h" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/pressure/inc/stm32f4xx_it.h" afterPath="$PROJECT_DIR$/pressure/inc/stm32f4xx_it.h" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/pressure/src/init.cpp" afterPath="$PROJECT_DIR$/pressure/src/init.cpp" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/pressure/src/pressure.cpp" afterPath="$PROJECT_DIR$/pressure/src/pressure.cpp" />
     </list>
     <ignored path="X8-MicroController.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -57,7 +58,7 @@
           <file leaf-file-name="Arduino_I2C_ESC.h" pinned="false" current-in-tab="true">
             <entry file="file://$USER_HOME$/Desktop/Arduino_I2C_ESC-master/Arduino_I2C_ESC.h">
               <provider selected="true" editor-type-id="text-editor">
-                <state vertical-scroll-proportion="0.5475638">
+                <state vertical-scroll-proportion="0.85818183">
                   <caret line="74" column="18" selection-start-line="59" selection-start-column="4" selection-end-line="74" selection-end-column="18" />
                   <folding />
                 </state>
@@ -91,8 +92,8 @@
           <file leaf-file-name="motor.cpp" pinned="false" current-in-tab="true">
             <entry file="file://$PROJECT_DIR$/motor/src/motor.cpp">
               <provider selected="true" editor-type-id="text-editor">
-                <state vertical-scroll-proportion="0.525">
-                  <caret line="20" column="4" selection-start-line="20" selection-start-column="4" selection-end-line="20" selection-end-column="4" />
+                <state vertical-scroll-proportion="0.8606557">
+                  <caret line="20" column="0" selection-start-line="20" selection-start-column="0" selection-end-line="20" selection-end-column="0" />
                   <folding />
                 </state>
               </provider>
@@ -275,7 +276,7 @@
   </component>
   <component name="ToolWindowManager">
     <frame x="65" y="24" width="1301" height="744" extended-state="6" />
-    <editor active="true" />
+    <editor active="false" />
     <layout>
       <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.24960877" sideWeight="0.5" order="1" side_tool="false" content_ui="combo" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32956383" sideWeight="0.5" order="9" side_tool="false" content_ui="tabs" />
@@ -283,7 +284,7 @@
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="1" side_tool="true" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.3279483" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
-      <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.28748068" sideWeight="0.5" order="10" side_tool="false" content_ui="tabs" />
+      <window_info id="Terminal" active="true" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.5285935" sideWeight="0.5" order="10" side_tool="false" content_ui="tabs" />
       <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="0" side_tool="true" content_ui="tabs" />
       <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Message" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
@@ -740,7 +741,7 @@
     </entry>
     <entry file="file://$USER_HOME$/Desktop/Arduino_I2C_ESC-master/Arduino_I2C_ESC.h">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.5475638">
+        <state vertical-scroll-proportion="0.85818183">
           <caret line="74" column="18" selection-start-line="59" selection-start-column="4" selection-end-line="74" selection-end-column="18" />
           <folding />
         </state>
@@ -764,8 +765,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/motor/src/motor.cpp">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.525">
-          <caret line="20" column="4" selection-start-line="20" selection-start-column="4" selection-end-line="20" selection-end-column="4" />
+        <state vertical-scroll-proportion="0.8606557">
+          <caret line="20" column="0" selection-start-line="20" selection-start-column="0" selection-end-line="20" selection-end-column="0" />
           <folding />
         </state>
       </provider>
