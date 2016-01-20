@@ -12,15 +12,12 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="43b227c5-6914-4328-9cb3-bdb6bee1e20c" name="Default" comment="">
-      <change type="DELETED" beforePath="$PROJECT_DIR$/print/build/donotremove.txt" afterPath="" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/pressure/inc/print.h" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/pressure/src/print.cpp" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/pressure/Makefile" afterPath="$PROJECT_DIR$/pressure/Makefile" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/pressure/inc/init.h" afterPath="$PROJECT_DIR$/pressure/inc/init.h" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/pressure/inc/main.h" afterPath="$PROJECT_DIR$/pressure/inc/main.h" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/pressure/inc/pressure.h" afterPath="$PROJECT_DIR$/pressure/inc/pressure.h" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/pressure/inc/stm32f4xx_it.h" afterPath="$PROJECT_DIR$/pressure/inc/stm32f4xx_it.h" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/pressure/src/init.cpp" afterPath="$PROJECT_DIR$/pressure/src/init.cpp" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/pressure/src/pressure.cpp" afterPath="$PROJECT_DIR$/pressure/src/pressure.cpp" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/pressure/main.cpp" afterPath="$PROJECT_DIR$/pressure/main.cpp" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/pressure/src/stm32f4xx_it.c" afterPath="$PROJECT_DIR$/pressure/src/stm32f4xx_it.c" />
     </list>
     <ignored path="X8-MicroController.iws" />
     <ignored path=".idea/workspace.xml" />
