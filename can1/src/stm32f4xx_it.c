@@ -1,6 +1,7 @@
 #include "main.h"
 #include "stm32f4xx_it.h"
 
+extern CAN_HandleTypeDef    CanHandle;
 
 void NMI_Handler(void)
 {
@@ -61,17 +62,17 @@ void PendSV_Handler(void)
 void SysTick_Handler(void)
 {
   HAL_IncTick();
+
 }
 
-void DMA1_Stream0_IRQHandler(void)
+void CAN1_RX0_IRQHandler(void)
 {
-  HAL_DMA_IRQHandler(&hdma_i2c1_rx);
+  HAL_CAN_IRQHandler(&CanHandle);
 }
 
-/**
-* @brief This function handles DMA1 stream1 global interrupt.
-*/
-void DMA1_Stream1_IRQHandler(void)
+static void Error_Handler(void)
 {
-  HAL_DMA_IRQHandler(&hdma_i2c1_tx);
+  while(1)
+  {
+  }
 }

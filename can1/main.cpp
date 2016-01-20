@@ -1,9 +1,9 @@
 #include "main.h"
 /*
-    First off note that the function that get trigerred when there is a packet received with interrupts
-    is at the bottom of the code right after the main loop gets over. This function gets triggered 
-    not mater what the board is doing and the code inside of it gets triggered. We will be using this
-    way of receiving can commands for the final project so look a lot at the interrupt portion.
+	First off note that the function that get trigerred when there is a packet received with interrupts
+	is at the bottom of the code right after the main loop gets over. This function gets triggered 
+	not mater what the board is doing and the code inside of it gets triggered. We will be using this
+	way of receiving can commands for the final project so look a lot at the interrupt portion.
  */
 
 /**CAN1 GPIO Configuration
@@ -25,7 +25,7 @@ static CanRxMsgTypeDef        RxMessage;
    it uses the commands in an interrupt. */
 
 //#define SEND
-#define INTERRUPT
+//#define INTERRUPT
 
 
 
@@ -47,28 +47,26 @@ int main() {
 
     initLEDS();  //initializes the four leds on the discovery board
 
-    HAL_GPIO_TogglePin(GPIOD, GPIO_PIN_12);
-
     //initialize the can
     if(CAN_init() != HAL_OK)  Error_Handler(100, 100);
 
 //initializes the interrupt if you #define it at the top
 #ifdef INTERRUPT
-     //initialize the interrupt function to handle receiving the can receives
-  if(HAL_CAN_Receive_IT(&CanHandle, CAN_FIFO0) != HAL_OK)  Error_Handler(500, 500);
+    //initialize the interrupt function to handle receiving the can receives
+    if(HAL_CAN_Receive_IT(&CanHandle, CAN_FIFO0) != HAL_OK)  Error_Handler(500, 500);
 #endif
 
 
 
     while (1) {
 
-    /* Insert a 500ms delay */
-        HAL_Delay(200);
+        /* Insert a 500ms delay */
+        HAL_Delay(500);
         HAL_GPIO_TogglePin(GPIOD, GPIO_PIN_12);
 
 //include this code if you are sending
 #ifdef SEND
-       //send a message, if the message fails, turn on a light and then blink another light
+        //send a message, if the message fails, turn on a light and then blink another light
        if(HAL_CAN_Transmit(&CanHandle, 10) != HAL_OK)
         {
             HAL_GPIO_TogglePin(GPIOD, GPIO_PIN_14);
@@ -84,13 +82,14 @@ int main() {
         //receive a can message
         if(HAL_CAN_Receive(&CanHandle, CAN_FIFO0,10) == HAL_OK)
         {
+            //Error_Handler(100, 1000);
             HAL_GPIO_TogglePin(GPIOD, GPIO_PIN_13);
         }
 
         //wait until the can state is ready meaning a message has been received
         if(HAL_CAN_GetState(&CanHandle) != HAL_CAN_STATE_READY)
         {
-            //Error_Handler(100, 500);
+           // Error_Handler(100, 500);
         }
 
         if(CanHandle.pRxMsg->StdId != 0x11)
@@ -105,7 +104,7 @@ int main() {
 
         if(CanHandle.pRxMsg->DLC != 8)
         {
-            //Error_Handler(0, 100);
+           // Error_Handler(0, 100);
         }
 
         //By the way DLC stands for Data Length
@@ -113,7 +112,7 @@ int main() {
         {
            if( CanHandle.pRxMsg->Data[i] != 1)
            {
-               //Error_Handler(1000, 1000);
+               Error_Handler(1000, 1000);
            }
         }
 //end for not interrupt portion of code
@@ -148,11 +147,11 @@ void HAL_CAN_RxCpltCallback(CAN_HandleTypeDef* CanHandle)
                 }
             }
             //blink the orange light if a message containing all ones is received
-           // HAL_GPIO_TogglePin(GPIOD, GPIO_PIN_13);
+            // HAL_GPIO_TogglePin(GPIOD, GPIO_PIN_13);
         }
         else
         {
-            //Error_Handler(1000, 1000);
+           // Error_Handler(1000, 1000);
         }
     }
     else
@@ -164,7 +163,7 @@ void HAL_CAN_RxCpltCallback(CAN_HandleTypeDef* CanHandle)
     if(HAL_CAN_Receive_IT(CanHandle, CAN_FIFO0) != HAL_OK)
     {
         /* Reception Error */
-        //Error_Handler(2000, 2000);
+       // Error_Handler(2000, 2000);
     }
 }
 
@@ -173,7 +172,7 @@ void SystemClock_Config(void)
 
     RCC_OscInitTypeDef RCC_OscInitStruct;
 
-    __PWR_CLK_ENABLE();
+            __PWR_CLK_ENABLE();
 
     __HAL_PWR_VOLTAGESCALING_CONFIG(PWR_REGULATOR_VOLTAGE_SCALE1);
 
@@ -196,32 +195,30 @@ void HAL_CAN_MspInit(CAN_HandleTypeDef* hcan)
 {
 
     GPIO_InitTypeDef GPIO_InitStruct;
-    if(hcan->Instance==CAN2)
+    if(hcan->Instance==CAN1)
     {
 
-        
+
         /* Peripheral clock enable */
-        __CAN2_CLK_ENABLE();
         __CAN1_CLK_ENABLE();
-
-
 
         /**CAN1 GPIO Configuration
         PD0     ------> CAN1_RX
         PD1     ------> CAN1_TX
         */
-        GPIO_InitStruct.Pin = GPIO_PIN_5|GPIO_PIN_6;
+        GPIO_InitStruct.Pin = GPIO_PIN_8|GPIO_PIN_9;
         GPIO_InitStruct.Mode = GPIO_MODE_AF_PP;
         GPIO_InitStruct.Pull = GPIO_NOPULL;
         GPIO_InitStruct.Speed = GPIO_SPEED_HIGH;
-        GPIO_InitStruct.Alternate = GPIO_AF9_CAN2;
+        GPIO_InitStruct.Alternate = GPIO_AF9_CAN1;
         HAL_GPIO_Init(GPIOB, &GPIO_InitStruct);
 
         /* Peripheral interrupt init*/
-        HAL_NVIC_SetPriority(CAN2_RX0_IRQn, 0, 0);
-        HAL_NVIC_EnableIRQ(CAN2_RX0_IRQn);
-        HAL_NVIC_SetPriority(CAN2_RX1_IRQn, 0, 0);
-        HAL_NVIC_EnableIRQ(CAN2_RX1_IRQn);
+        HAL_NVIC_SetPriority(CAN1_RX0_IRQn, 0, 0);
+        HAL_NVIC_EnableIRQ(CAN1_RX0_IRQn);
+        /* USER CODE BEGIN CAN1_MspInit 1 */
+
+        /* USER CODE END CAN1_MspInit 1 */
     }
 
 }
@@ -233,7 +230,7 @@ HAL_StatusTypeDef CAN_init(void)
 
 
     /*##-1- Configure the CAN peripheral #######################################*/
-    CanHandle.Instance = CAN2;
+    CanHandle.Instance = CAN1;
     CanHandle.pTxMsg = &TxMessage;
     CanHandle.pRxMsg = &RxMessage;
 
@@ -254,7 +251,8 @@ HAL_StatusTypeDef CAN_init(void)
     //if can is unable to initialize
     if(HAL_CAN_Init(&CanHandle) != HAL_OK)
     {
-        while(1);
+        /* Initialization Error */
+        //Error_Handler();
     }
 
     /*##-2- Configure the CAN Filter ###########################################*/
@@ -267,16 +265,17 @@ HAL_StatusTypeDef CAN_init(void)
     sFilterConfig.FilterMaskIdLow = 0x0000;
     sFilterConfig.FilterFIFOAssignment = 0;
     sFilterConfig.FilterActivation = ENABLE;
-    sFilterConfig.BankNumber = 0;
+    sFilterConfig.BankNumber = 14;
 
     if(HAL_CAN_ConfigFilter(&CanHandle, &sFilterConfig) != HAL_OK)
     {
-        while(1);
+        /* Filter configuration Error */
+        // Error_Handler();
     }
 
     //sets up the communication information
     CanHandle.pTxMsg->StdId = 0x11;  //the id of this microboard
-    
+
 
     CanHandle.pTxMsg->RTR = CAN_RTR_DATA;
     CanHandle.pTxMsg->IDE = CAN_ID_STD;
@@ -284,7 +283,7 @@ HAL_StatusTypeDef CAN_init(void)
 
 
     CanHandle.pTxMsg->DLC = 8;  //data length; how many bytes of data you are sending. This number is always less than 8
-    
+
     uint8_t num = 1;  //test number we will be sending
 
     //the bytes of data that are sent

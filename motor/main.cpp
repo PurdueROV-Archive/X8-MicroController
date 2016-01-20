@@ -1,6 +1,6 @@
 //put all of your #includes into main.h file
 #include "main.h"
-#include <math.h>
+#include "motor.h"
 
 /* structure used to initialize the gpio pin */
 GPIO_InitTypeDef  GPIO_InitStruct;
@@ -27,33 +27,22 @@ int main(void)  {
 		MX_DMA_Init();
 		MX_I2C1_Init();
 
-	uint8_t buffer[2] = {2, 3};
 
+
+		uint8_t buffer[2] = {2, 3};
 
 
 	  while (1) {
 
-
-		 // HAL_GPIO_TogglePin(GPIOA, GPIO_PIN_5);
-
-		  HAL_I2C_Master_Transmit(&hi2c1, 0x76,  buffer, 2, 100);
+		  HAL_I2C_Master_Transmit_DMA(&hi2c1, 2, buffer, 2);
 
 
-		 while (HAL_I2C_GetState(&hi2c1) != HAL_I2C_STATE_READY)
-		  {
-			  HAL_GPIO_WritePin(GPIOA, GPIO_PIN_5, GPIO_PIN_SET);
-			  //HAL_GPIO_TogglePin(GPIOA, GPIO_PIN_5);
-		  }
 
-		  //HAL_Delay(500);
+		  HAL_GPIO_TogglePin(GPIOA, GPIO_PIN_5);
+		
+		    // 500ms delay
+		    HAL_Delay(500);
 	  }
-}
-
-void HAL_I2C_MasterTxCpltCallback(I2C_HandleTypeDef *I2cHandle)
-{
-	/* Turn LED4 on: Transfer in transmission process is correct */
-	HAL_GPIO_WritePin(GPIOA, GPIO_PIN_5, GPIO_PIN_SET);
-
 }
 
 

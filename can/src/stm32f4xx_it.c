@@ -64,7 +64,7 @@ void SysTick_Handler(void)
   HAL_IncTick();
 }
 
-void CAN1_RX0_IRQHandler(void)
+void CAN2_RX0_IRQHandler(void)
 {
   HAL_CAN_IRQHandler(&CanHandle);
 }

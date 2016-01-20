@@ -63,15 +63,3 @@ void SysTick_Handler(void)
   HAL_IncTick();
 }
 
-void DMA1_Stream0_IRQHandler(void)
-{
-  HAL_DMA_IRQHandler(&hdma_i2c1_rx);
-}
-
-/**
-* @brief This function handles DMA1 stream1 global interrupt.
-*/
-void DMA1_Stream1_IRQHandler(void)
-{
-  HAL_DMA_IRQHandler(&hdma_i2c1_tx);
-}
