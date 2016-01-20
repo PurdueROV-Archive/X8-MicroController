@@ -48,13 +48,15 @@ public:
 private:
 
     I2C_HandleTypeDef* I2C_handler;
-    uint8_t motorAddress = 0x29;
+    static uint8_t motorAddress;
 
-    uint16_t _voltage_raw[8], _current_raw[8], _temp_raw[8];
-    int16_t _rpm[NUM_MOTORS];
-    uint16_t _rpmTimer[NUM_MOTORS];
-    uint8_t _identifier[NUM_MOTORS];
-    uint8_t _poleCount[NUM_MOTORS];
+    uint16_t _voltage_raw, _current_raw, _temp_raw;
+    int16_t _rpm;
+    uint16_t _rpmTimer;
+    uint8_t _identifier;
+    uint8_t _poleCount;
+
+    uint8_t _buffer[9];
 
     static void readBuffer(uint8_t address, uint8_t buffer[]);
 
