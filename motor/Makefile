@@ -11,7 +11,8 @@ BUILD_DIR = build
 OBJECTS = main.o \
 		 src/stm32f4xx_it.o \
 		src/init.o \
-		src/motor.o
+		src/motor.o \
+		src/print.o
 
 
 

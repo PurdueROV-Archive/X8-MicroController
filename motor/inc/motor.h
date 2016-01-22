@@ -39,7 +39,7 @@ public:
 
 
 /*constructor */
-    motor(I2C_HandleTypeDef* handler);
+    motor(I2C_HandleTypeDef* handler, uint8_t numberMotors);
 
     
 
@@ -47,20 +47,22 @@ public:
 
 private:
 
-    I2C_HandleTypeDef* I2C_handler;
-    static uint8_t motorAddress;
+    void readBuffer(uint8_t address, uint8_t buffer[]);
+
+    void readSensors(uint8_t address, uint16_t *rpm, uint16_t *vbat, uint16_t *temp, uint16_t *curr);
+
+    uint8_t motorAddress;
 
     uint16_t _voltage_raw, _current_raw, _temp_raw;
     int16_t _rpm;
     uint16_t _rpmTimer;
     uint8_t _identifier;
     uint8_t _poleCount;
+    I2C_HandleTypeDef* I2C_handler;
+    uint8_t numMotors;
 
     uint8_t _buffer[9];
 
-    static void readBuffer(uint8_t address, uint8_t buffer[]);
-
-    void readSensors(uint8_t address, uint16_t *rpm, uint16_t *vbat, uint16_t *temp, uint16_t *curr);
 
 };
 

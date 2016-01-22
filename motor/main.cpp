@@ -1,6 +1,7 @@
 //put all of your #includes into main.h file
 #include "main.h"
 #include "motor.h"
+#include "print.h"
 
 /* structure used to initialize the gpio pin */
 GPIO_InitTypeDef  GPIO_InitStruct;
@@ -29,19 +30,30 @@ int main(void)  {
 
 
 
-		uint8_t buffer[2] = {2, 3};
+	motor    thruster(&hi2c1, 8);
+
+	int i = 0;
+	while (1) {
 
 
-	  while (1) {
+			thruster.set(7000);
+			thruster.update();
 
-		  HAL_I2C_Master_Transmit_DMA(&hi2c1, 2, buffer, 2);
+			printString("ESC: ");
+			if(thruster.isAlive())
+				printString("ok\t\t");
+			else
+				printString("NA");
+
+			printInt(thruster.voltage());printString(" V\t\t");
+			printInt(thruster.current());printString(" A\t\t");
+			printInt(thruster.temperature());printString("  C\n");
 
 
+			HAL_GPIO_TogglePin(GPIOA, GPIO_PIN_5);
 
-		  HAL_GPIO_TogglePin(GPIOA, GPIO_PIN_5);
-		
-		    // 500ms delay
-		    HAL_Delay(500);
+		    HAL_Delay(280);
+
 	  }
 }
 
