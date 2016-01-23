@@ -40,18 +40,17 @@ int main(void)  {
 		//HAL_I2C_Master_Transmit_DMA(&hi2c1, (0x28 << 1), buffer, 2);
 		if (imu1.retrieve()) {
 			HAL_GPIO_TogglePin(GPIOA, GPIO_PIN_5);
-			printString("X: ");
+			printString("\tX: ");
 			printDouble(imu1.getX());
-			printString("  Y: ");
+			printString("\tY: ");
 			printDouble(imu1.getY());
-			printString("  Z: ");
+			printString("\tZ: ");
 			printDouble(imu1.getZ());
 			printString("\n");
 		}
 
 
-		
-		// 500ms delay
+		// 50ms delay
 		HAL_Delay(50);
 	}
 }

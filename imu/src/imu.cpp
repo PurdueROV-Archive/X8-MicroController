@@ -1,6 +1,19 @@
 /* Put all of your #includes and #defines up here   */
 #include "imu.h"
 
+/*
+ * This library uses I2C to communicate with the BNO055 Inertial Measurement Unit.
+ * Upon request, the IMU will send Euler angles x y and z in degrees.
+ * To set up communication with the IMU, use the constructor imu( I2C handler pointer ).
+ * 		where 'I2C handler pointer' is a pointer of type I2C_HandleTypeDef*
+ *
+ *
+ * To read angles from the IMU, run the retrieve() function
+ * which will receive and parse the angles and store them in the private variables
+ * xAngle, yAngle, and zAngle
+ * These variables are available to the user using the functions getX(), getY(), or getZ().
+ *
+ */
 
 imu::imu(I2C_HandleTypeDef* handler) {
 
@@ -25,10 +38,11 @@ imu::imu(I2C_HandleTypeDef* handler) {
 // retrieves the data from the sensor and stores it into variables
 bool imu::retrieve(void) {
 
-    /* In this function, I want you to retreive the data from the sensor and then store it into
+   /* this function retrieves the data from the sensor and then stores it into
     * xAngle, yAngle, and zAngle so that you can call getX, getY, and getZ later whenever you need
-    * the angle data. This means that you must call retreive before you call the other functions
-    * if you want to get new angle data*/
+    * the angle data. This means that you must call retrieve before you call the other functions
+    * if you want to get new angle data
+    */
 
 	uint8_t deg_or_rad;
 	int16_t x, y, z;
@@ -140,6 +154,7 @@ void imu::check_id(void) {
 }
 
 void imu::change_fusion_mode(uint8_t mode) {
+	/* Changes fusion mode to configure or send angles via I2C */
 	uint8_t current_mode;
 
 	select_page(0);
@@ -180,6 +195,7 @@ void imu::change_fusion_mode(uint8_t mode) {
 }
 
 uint8_t imu::check_operating_mode(void) {
+	/* initialize operating mode, */
 	select_page(0);
 	dt[0] = IMU_OPR_MODE;
 
