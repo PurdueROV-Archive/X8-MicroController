@@ -16,6 +16,4 @@ void MX_GPIO_Init(void);
 void MX_DMA_Init(void);
 void MX_I2C1_Init(void);
 
-
-
 #endif
