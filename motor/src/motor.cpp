@@ -17,8 +17,15 @@ void motor::readBuffer(uint8_t address, uint8_t buffer[]) {
     uint8_t temp[1] = {0x02};
 
     HAL_I2C_Master_Transmit_DMA(I2C_handler, address, temp, 1);
-
+    while (HAL_I2C_GetState(I2C_handler) != HAL_I2C_STATE_READY)
+    {
+        HAL_Delay(1);
+    }
     HAL_I2C_Master_Receive_DMA(I2C_handler, address, buffer, 9);
+    while (HAL_I2C_GetState(I2C_handler) != HAL_I2C_STATE_READY)
+    {
+        HAL_Delay(1);
+    }
 }
 
 // Send motor speed command to ESC

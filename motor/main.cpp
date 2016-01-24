@@ -28,7 +28,7 @@ int main(void)  {
 		MX_DMA_Init();
 		MX_I2C1_Init();
 
-
+	initPrint();
 
 	motor    thruster(&hi2c1, 8);
 
@@ -36,7 +36,7 @@ int main(void)  {
 	while (1) {
 
 
-			thruster.set(7000);
+			thruster.set(10000);
 			thruster.update();
 
 			printString("ESC: ");
