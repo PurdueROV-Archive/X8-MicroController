@@ -1,9 +1,9 @@
 #include "main.h"
 /*
-    First off note that the function that get trigerred when there is a packet received with interrupts
-    is at the bottom of the code right after the main loop gets over. This function gets triggered 
-    not mater what the board is doing and the code inside of it gets triggered. We will be using this
-    way of receiving can commands for the final project so look a lot at the interrupt portion.
+	First off note that the function that get trigerred when there is a packet received with interrupts
+	is at the bottom of the code right after the main loop gets over. This function gets triggered 
+	not mater what the board is doing and the code inside of it gets triggered. We will be using this
+	way of receiving can commands for the final project so look a lot at the interrupt portion.
  */
 
 /**CAN1 GPIO Configuration
@@ -24,7 +24,7 @@ static CanRxMsgTypeDef        RxMessage;
    mode determines whether the code uses the while loop the receive commands or whether 
    it uses the commands in an interrupt. */
 
-//#define SEND
+#define SEND
 #define INTERRUPT
 
 
@@ -62,8 +62,8 @@ int main() {
 
     while (1) {
 
-    /* Insert a 500ms delay */
-        HAL_Delay(200);
+	/* Insert a 500ms delay */
+	    HAL_Delay(500);
         HAL_GPIO_TogglePin(GPIOD, GPIO_PIN_12);
 
 //include this code if you are sending
@@ -136,7 +136,7 @@ void HAL_CAN_RxCpltCallback(CAN_HandleTypeDef* CanHandle)
     //checks if the address received was correct
     if ((CanHandle->pRxMsg)->StdId == 0x11 && (CanHandle->pRxMsg)->IDE == CAN_ID_STD)
     {
-        //if the data length is 8
+    	//if the data length is 8
         if((CanHandle->pRxMsg)->DLC == 8)
         {
             //checks if each value is 1, because that's what I send it
@@ -144,7 +144,7 @@ void HAL_CAN_RxCpltCallback(CAN_HandleTypeDef* CanHandle)
             {
                 if( (CanHandle->pRxMsg)->Data[i] != 1)
                 {
-                    //Error_Handler(1000, 1000);
+                    Error_Handler(1000, 1000);
                 }
             }
             //blink the orange light if a message containing all ones is received
@@ -152,19 +152,19 @@ void HAL_CAN_RxCpltCallback(CAN_HandleTypeDef* CanHandle)
         }
         else
         {
-            //Error_Handler(1000, 1000);
+            Error_Handler(1000, 1000);
         }
     }
     else
     {
-        //Error_Handler(1000, 1000);
+        Error_Handler(1000, 1000);
     }
 
     //checks the interrupt handler to see if it recieved everything correctly
     if(HAL_CAN_Receive_IT(CanHandle, CAN_FIFO0) != HAL_OK)
     {
         /* Reception Error */
-        //Error_Handler(2000, 2000);
+        Error_Handler(2000, 2000);
     }
 }
 
@@ -285,7 +285,7 @@ HAL_StatusTypeDef CAN_init(void)
 
     CanHandle.pTxMsg->DLC = 8;  //data length; how many bytes of data you are sending. This number is always less than 8
     
-    uint8_t num = 1;  //test number we will be sending
+	uint8_t num = 1;  //test number we will be sending
 
     //the bytes of data that are sent
     CanHandle.pTxMsg->Data[0] = num;

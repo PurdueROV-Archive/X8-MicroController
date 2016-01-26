@@ -32,6 +32,7 @@ int main(void)  {
 	__HAL_RCC_GPIOA_CLK_ENABLE();
 
   
+
 	//configures the led pin  
 	GPIO_InitStruct.Pin = GPIO_PIN_5;  //pin 5
 	GPIO_InitStruct.Mode = GPIO_MODE_OUTPUT_PP;
@@ -124,6 +125,14 @@ int main(void)  {
 		HAL_Delay(1);
 
 	}
+
+}
+
+void HAL_I2C_MasterTxCpltCallback(I2C_HandleTypeDef *I2cHandle)
+{
+	/* Turn LED4 on: Transfer in transmission process is correct */
+	HAL_GPIO_WritePin(GPIOA, GPIO_PIN_5, GPIO_PIN_SET);
+
 }
 
 
