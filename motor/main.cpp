@@ -36,7 +36,7 @@ int main(void)  {
 	while (1) {
 
 
-			thruster.set(10000);
+			thruster.set(7000);
 			thruster.update();
 
 			printString("ESC: ");
@@ -52,7 +52,7 @@ int main(void)  {
 
 			HAL_GPIO_TogglePin(GPIOA, GPIO_PIN_5);
 
-		    HAL_Delay(280);
+		    HAL_Delay(500);
 
 	  }
 }
