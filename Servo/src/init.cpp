@@ -18,7 +18,7 @@ void initPwm(void)
   TimHandle.Instance = TIMx;
 
   TimHandle.Init.Prescaler         = uhPrescalerValue;  //scales down the master clock
-  TimHandle.Init.Period            = 20000;  //creates the period of the pwm cycle in clock ticks
+  TimHandle.Init.Period            = 3333;  //creates the period of the pwm cycle in clock ticks
   TimHandle.Init.ClockDivision     = 0;
   TimHandle.Init.CounterMode       = TIM_COUNTERMODE_UP;
   TimHandle.Init.RepetitionCounter = 0;
@@ -35,7 +35,7 @@ void initPwm(void)
   sConfig.OCIdleState  = TIM_OCIDLESTATE_RESET;
 
   //IMPORTANT!! sets the duty cycle
-  sConfig.Pulse = 50;
+  sConfig.Pulse = 0;
 
   //initializes the pwm
   HAL_TIM_PWM_ConfigChannel(&TimHandle, &sConfig, TIM_CHANNEL_1);
