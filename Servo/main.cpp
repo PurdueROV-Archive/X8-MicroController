@@ -23,13 +23,18 @@ int main(void)
 
 	servo led(&TimHandle, &sConfig, TIM_CHANNEL_1);
 
-	led.set(180);
+	//led.set(0);
 
 	while (1)
 	{
-
-
-
+		led.set(1);
+		HAL_Delay(1000);
+		led.set(90);
+		HAL_Delay(1000);
+		led.set(180);
+		HAL_Delay(1000);
+		led.set(90);
+		HAL_Delay(1000);
 
 	}
 }
