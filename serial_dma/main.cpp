@@ -12,13 +12,15 @@ int main(void)
     MX_DMA_Init();
     MX_USART2_UART_Init();
 
+    MX_USART1_UART_Init();
+
 
     HAL_UART_Receive_DMA(&huart2, (uint8_t*)buffer, 2);
  
-    while(buffer[1] == 'B')
+    /*while(buffer[1] == 'B')
     {
         HAL_Delay(100);
-    }
+    }*/
 
 	while (1)
 	{
