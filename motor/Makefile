@@ -202,7 +202,7 @@ SIZE    = $(GCC_BIN)arm-none-eabi-size
 
 #compiling flags needed by the boards
 CPU = -mcpu=cortex-m4 -mthumb -mfpu=fpv4-sp-d16 -mfloat-abi=softfp
-CC_FLAGS = $(CPU) -c -g -fno-common -fmessage-length=0 -Wall -Wextra -fno-exceptions -ffunction-sections -fdata-sections -fomit-frame-pointer -MMD -MP -fdiagnostics-color=auto
+CC_FLAGS = $(CPU) -c -g -w -fno-common -fmessage-length=0 -Wall -Wextra -fno-exceptions -ffunction-sections -fdata-sections -fomit-frame-pointer -MMD -MP -fdiagnostics-color=auto
 CC_SYMBOLS = \
         -DSTM32F407xx           \
         -DSTM32F4               \

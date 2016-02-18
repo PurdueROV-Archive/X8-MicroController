@@ -28,13 +28,13 @@ int main(void)
 	while (1)
 	{
 		led.set(1);
-		HAL_Delay(1000);
+		HAL_Delay(500);
 		led.set(90);
-		HAL_Delay(1000);
+		HAL_Delay(500);
 		led.set(180);
-		HAL_Delay(1000);
+		HAL_Delay(500);
 		led.set(90);
-		HAL_Delay(1000);
+		HAL_Delay(500);
 
 	}
 }

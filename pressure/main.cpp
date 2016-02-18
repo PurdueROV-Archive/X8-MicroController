@@ -61,7 +61,7 @@ int main(void)  {
     sensor.begin();
 
     pressure_baseline = sensor.getPressure(ADC_4096);
-    double base_altitude = 1655.0; // Altitude of SparkFun's HQ in Boulder, CO. in (m)
+    double base_altitude = 200.0; // Altitude of SparkFun's HQ in Boulder, CO. in (m)
     // Change this value:  ^^^^^^
 
 
@@ -80,12 +80,12 @@ int main(void)  {
         lastTime = HAL_GetTick();
           
         // Read temperature from the sensor in deg C. This operation takes about 
-        temperature_c = sensor.getTemperature(CELSIUS, ADC_512);
+        //temperature_c = sensor.getTemperature(CELSIUS, ADC_512);
           
         // Read temperature from the sensor in deg F. Converting
         // to Fahrenheit is not internal to the sensor.
         // Additional math is done to convert a Celsius reading.
-        temperature_f = sensor.getTemperature(FAHRENHEIT, ADC_512);
+        //temperature_f = sensor.getTemperature(FAHRENHEIT, ADC_512);
           
         // Read pressure from the sensor in mbar.
         pressure_abs = sensor.getPressure(ADC_4096);
@@ -102,11 +102,11 @@ int main(void)  {
           
           
         // Report values via UART, COM port monitor.
-        printString("\r\nTemperature C = ");
-        printDouble(temperature_c);
+        //printString("\r\nTemperature C = ");
+        //printDouble(temperature_c);
           
-        printString("\r\nTemperature F = ");
-        printDouble(temperature_f);
+        //printString("\r\nTemperature F = ");
+        //printDouble(temperature_f);
           
         printString("\r\nPressure abs (mbar)= ");
         printDouble(pressure_abs);
@@ -121,8 +121,11 @@ int main(void)  {
         printString("\r\nTicks = ");
         printInt(HAL_GetTick() - lastTime);
 
+        printString("\n\n");
+
 		// 500ms delay
-		HAL_Delay(1);
+		HAL_Delay(500);
+
 
 	}
 
@@ -131,7 +134,7 @@ int main(void)  {
 void HAL_I2C_MasterTxCpltCallback(I2C_HandleTypeDef *I2cHandle)
 {
 	/* Turn LED4 on: Transfer in transmission process is correct */
-	HAL_GPIO_WritePin(GPIOA, GPIO_PIN_5, GPIO_PIN_SET);
+	//HAL_GPIO_WritePin(GPIOA, GPIO_PIN_5, GPIO_PIN_SET);
 
 }
 

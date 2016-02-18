@@ -11,8 +11,7 @@ BUILD_DIR = build
 OBJECTS = main.o \
 		 src/stm32f4xx_it.o \
 		src/init.o \
-		src/pressure.o \
-		src/print.o
+		src/shiftRegister.o
 
 
 
@@ -233,7 +232,7 @@ $(LIB_OBJ): $(LIB_SRC)
 	@$(CPP) $(CC_FLAGS) $(CC_SYMBOLS) -std=gnu++98 -fno-rtti $(INCLUDE_PATHS)  $(LIB_SRC)
 	@mv *.o ./$(BUILD_DIR)
 
-$(PROJECT).elf: $(OBJECTS) 
+$(PROJECT).elf: $(OBJECTS)
 	@$(LD) $(LD_FLAGS) -T$(LINKER_SCRIPT)  -o $(BUILD_DIR)/$@ $^  $(LD_SYS_LIBS) $(LD_SYS_LIBS)
 	@rm *.o
 	@rm src/*.o

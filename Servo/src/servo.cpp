@@ -22,8 +22,8 @@ servo::servo(TIM_HandleTypeDef* HTIM, TIM_OC_InitTypeDef* SCONFIG, uint32_t CHAN
     sConfig = SCONFIG;
     channel = CHANNEL;
 
-    startPosition = 0.5;
-    range = 1.75;
+    startPosition = 0.75;
+    range = 1.50;
 
 }
 
