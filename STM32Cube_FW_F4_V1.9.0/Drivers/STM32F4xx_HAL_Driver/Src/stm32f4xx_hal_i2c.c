@@ -281,9 +281,7 @@ static HAL_StatusTypeDef I2C_Slave_AF(I2C_HandleTypeDef *hi2c);
 
 /**
   * @brief  Initializes the I2C according to the specified parameters
-  *
-  *
-  *     in the I2C_InitTypeDef and create the associated handle.
+  *         in the I2C_InitTypeDef and create the associated handle.
   * @param  hi2c: pointer to a I2C_HandleTypeDef structure that contains
   *         the configuration information for I2C module
   * @retval HAL status
