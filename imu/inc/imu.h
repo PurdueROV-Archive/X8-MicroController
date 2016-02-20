@@ -36,7 +36,7 @@ public:
 /*constructor */
     imu(I2C_HandleTypeDef* handler);
 
-    bool retrieve(void);
+    bool retrieve_euler(void);
 
     double getX(void);
 

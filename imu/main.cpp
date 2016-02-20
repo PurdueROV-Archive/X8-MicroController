@@ -51,7 +51,7 @@ int main(void)  {
 
 
 		// 50ms delay
-		HAL_Delay(50);
+		//HAL_Delay(50);
 	}
 }
 

@@ -36,7 +36,7 @@ imu::imu(I2C_HandleTypeDef* handler) {
 }
 
 // retrieves the data from the sensor and stores it into variables
-bool imu::retrieve(void) {
+bool imu::retrieve_euler(void) {
 
    /* this function retrieves the data from the sensor and then stores it into
     * xAngle, yAngle, and zAngle so that you can call getX, getY, and getZ later whenever you need
@@ -50,13 +50,15 @@ bool imu::retrieve(void) {
 	select_page(0);
 	dt[0] = IMU_UNIT_SEL;
 
+	// Request data? Unit
 	HAL_I2C_Master_Transmit_DMA(I2C_handler, (0x28 << 1), dt, 1);
+	// Received or ready to recive? Better to make sure we call it at a suitable rate than adding a delay here.
 	while (HAL_I2C_GetState(I2C_handler) != HAL_I2C_STATE_READY) HAL_Delay(1);
 
 	HAL_I2C_Master_Receive_DMA(I2C_handler, (0x28 << 1), dt, 1);
 	while (HAL_I2C_GetState(I2C_handler) != HAL_I2C_STATE_READY) HAL_Delay(1);
 
-	HAL_Delay(50);
+	//HAL_Delay(50);
 	deg_or_rad = (char)dt[0] & 0x04;
 
 	dt[0] = IMU_EULER_H_LSB;
@@ -67,7 +69,7 @@ bool imu::retrieve(void) {
 	HAL_I2C_Master_Receive_DMA(I2C_handler, (0x28 << 1), dt, 6);
 	while (HAL_I2C_GetState(I2C_handler) != HAL_I2C_STATE_READY) HAL_Delay(1);
 
-	HAL_Delay(50);
+	//HAL_Delay(50);
 
 	x = (char)dt[1] << 8 | (char)dt[0];
 	y = (char)dt[3] << 8 | (char)dt[2];
@@ -84,6 +86,40 @@ bool imu::retrieve(void) {
 	}
 	return true;
 }
+
+
+void imu::get_linear_accel(void)
+{
+    uint8_t ms2_or_mg;
+    int16_t x,y,z;
+
+    select_page(0);
+    dt[0] = BNO055_UNIT_SEL;
+    _i2c.write(chip_addr, dt, 1, true);
+    _i2c.read(chip_addr, dt, 1, false);
+    if (dt[0] & 0x01) {
+        ms2_or_mg = 1; // mg
+    } else {
+        ms2_or_mg = 0; // m/s*s
+    }
+    dt[0] = BNO055_LINEAR_ACC_X_LSB;
+    _i2c.write(chip_addr, dt, 1, true);
+    _i2c.read(chip_addr, dt, 6, false);
+    x = dt[1] << 8 | dt[0];
+    y = dt[3] << 8 | dt[2];
+    z = dt[5] << 8 | dt[4];
+    if (ms2_or_mg) {
+        la->x = (double)x;
+        la->y = (double)y;
+        la->z = (double)z;
+    } else {
+        la->x = (double)x / 100;
+        la->y = (double)y / 100;
+        la->z = (double)z / 100;
+    }
+}
+
+
 
 //returns the angle with respect to the X axis
 double imu::getX(void){
