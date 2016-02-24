@@ -28,6 +28,9 @@ imu::imu(I2C_HandleTypeDef* handler) {
 	select_page(0);
 	dt[0] = IMU_UNIT_SEL;
 	dt[1] = 0x00;
+	la[0] = 0.0;
+	la[1] = 0.0;
+	la[2] = 0.0;
 	HAL_I2C_Master_Transmit_DMA(I2C_handler, (0x28 << 1), dt, 2);
 	while (HAL_I2C_GetState(I2C_handler) != HAL_I2C_STATE_READY) HAL_Delay(1);
 
@@ -94,46 +97,65 @@ void imu::get_linear_accel(void)
     int16_t x,y,z;
 
     select_page(0);
-    dt[0] = BNO055_UNIT_SEL;
-    _i2c.write(chip_addr, dt, 1, true);
-    _i2c.read(chip_addr, dt, 1, false);
+    dt[0] = IMU_UNIT_SEL;
+    HAL_I2C_Master_Transmit_DMA(I2C_handler, (0x28 << 1), dt, 1);
+    while (HAL_I2C_GetState(I2C_handler) != HAL_I2C_STATE_READY) HAL_Delay(1);
+    HAL_I2C_Master_Receive_DMA(I2C_handler, (0x28 << 1), dt, 1);
+    while (HAL_I2C_GetState(I2C_handler) != HAL_I2C_STATE_READY) HAL_Delay(1);
     if (dt[0] & 0x01) {
         ms2_or_mg = 1; // mg
     } else {
         ms2_or_mg = 0; // m/s*s
     }
-    dt[0] = BNO055_LINEAR_ACC_X_LSB;
-    _i2c.write(chip_addr, dt, 1, true);
-    _i2c.read(chip_addr, dt, 6, false);
+    dt[0] = IMU_LINEAR_ACC_X_LSB;
+    HAL_I2C_Master_Transmit_DMA(I2C_handler, (0x28 << 1), dt, 1);
+    while (HAL_I2C_GetState(I2C_handler) != HAL_I2C_STATE_READY) HAL_Delay(1);
+    HAL_I2C_Master_Receive_DMA(I2C_handler, (0x28 << 1), dt, 6);
+    while (HAL_I2C_GetState(I2C_handler) != HAL_I2C_STATE_READY) HAL_Delay(1);
     x = dt[1] << 8 | dt[0];
     y = dt[3] << 8 | dt[2];
     z = dt[5] << 8 | dt[4];
     if (ms2_or_mg) {
-        la->x = (double)x;
-        la->y = (double)y;
-        la->z = (double)z;
+        la[0] = (double)x;
+        la[1] = (double)y;
+        la[2] = (double)z;
     } else {
-        la->x = (double)x / 100;
-        la->y = (double)y / 100;
-        la->z = (double)z / 100;
+        la[0] = (double)x / 100;
+        la[1] = (double)y / 100;
+        la[2] = (double)z / 100;
     }
 }
 
 
 
 //returns the angle with respect to the X axis
-double imu::getX(void){
+double imu::rX(void){
     return xAngle;
 }
 
 //returns the angle with respect to the Y axis
-double imu::getY(void){
+double imu::rY(void){
     return yAngle;
 }
 
 //returns the angle with respect to the Z axis
-double imu::getZ(void){
+double imu::rZ(void){
     return zAngle;
+}
+
+//returns the linear acceleration with respect to the X axis.
+double imu::aX(void){
+	return la[0];
+}
+
+//returns the linear acceleration with respect to the Y axis.
+double imu::aY(void){
+	return la[1];
+}
+
+//returns the linear acceleration with respect to the Z axis.
+double imu::aZ(void){
+	return la[2];
 }
 
 uint8_t imu::select_page(uint8_t page) {

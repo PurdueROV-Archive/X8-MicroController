@@ -38,14 +38,22 @@ int main(void)  {
 	while (1) {
 
 		//HAL_I2C_Master_Transmit_DMA(&hi2c1, (0x28 << 1), buffer, 2);
-		if (imu1.retrieve()) {
+		if (imu1.retrieve_euler()) {
 			HAL_GPIO_TogglePin(GPIOA, GPIO_PIN_5);
-			printString("\tX: ");
-			printDouble(imu1.getX());
-			printString("\tY: ");
-			printDouble(imu1.getY());
-			printString("\tZ: ");
-			printDouble(imu1.getZ());
+			printString("\trX: ");
+			printDouble(imu1.rX());
+			printString("\trY: ");
+			printDouble(imu1.rY());
+			printString("\trZ: ");
+			printDouble(imu1.rZ());
+			printString("\n");
+
+			printString("\taX: ");
+			printDouble(imu1.aX());
+			printString("\taY: ");
+			printDouble(imu1.aY());
+			printString("\taZ: ");
+			printDouble(imu1.aZ());
 			printString("\n");
 		}
 
