@@ -21,14 +21,35 @@ servo::servo(TIM_HandleTypeDef* HTIM, TIM_OC_InitTypeDef* SCONFIG, uint32_t CHAN
     timerHandler = HTIM;
     sConfig = SCONFIG;
     channel = CHANNEL;
+
+    startPosition = 0.75;
+    range = 1.50;
+
 }
 
 //sets the angle of the servo from 0 to 180 degrees
 void servo::set(uint8_t angle)
 {
-    
+    if(angle > 180)
+       angle = 180;
+
+    sConfig->Pulse = ((double) timerHandler->Init.Period / 3.33) * range * angle / 180 + ((double) timerHandler->Init.Period / 3.33) * startPosition;
+
+    HAL_TIM_PWM_ConfigChannel(timerHandler, sConfig, channel);
+    HAL_TIM_PWM_Start(timerHandler, channel) ;
 }
 
+//sets the starting pulse length that will corespond to an angle of 0 in miliseconds
+void servo::setStart(double start)
+{
+    startPosition = start;
+}
+
+//sets the range that the pulse length will vary in mili seconds
+void servo::setRange(double Range)
+{
+    range = Range;
+}
 
 
 
