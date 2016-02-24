@@ -65,7 +65,7 @@ int main(void)  {
 
 
 	while (1) {
-		// Health Monitor LED, period should be ~4s
+		// Health Monitor LED, period should be ~83ms
 		HAL_GPIO_TogglePin(GPIOA, GPIO_PIN_5);
 
 		// To measure to higher degrees of precision use the following sensor settings:
