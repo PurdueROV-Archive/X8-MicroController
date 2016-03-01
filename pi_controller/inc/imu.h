@@ -25,7 +25,7 @@
 
 #define IMU_OPR_MODE            0x3d
 
-class imu {
+class IMU {
 
 
 public:
@@ -34,7 +34,7 @@ public:
 
 
 /*constructor */
-    imu(I2C_HandleTypeDef* handler);
+    IMU(I2C_HandleTypeDef* handler);
 
     bool retrieve_euler(void);
 

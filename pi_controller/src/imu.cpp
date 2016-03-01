@@ -4,7 +4,7 @@
 /*
  * This library uses I2C to communicate with the BNO055 Inertial Measurement Unit.
  * Upon request, the IMU will send Euler angles x y and z in degrees.
- * To set up communication with the IMU, use the constructor imu( I2C handler pointer ).
+ * To set up communication with the IMU, use the constructor IMU( I2C handler pointer ).
  * 		where 'I2C handler pointer' is a pointer of type I2C_HandleTypeDef*
  *
  *
@@ -15,7 +15,7 @@
  *
  */
 
-imu::imu(I2C_HandleTypeDef* handler) {
+IMU::IMU(I2C_HandleTypeDef* handler) {
 
     /*this variable is what you plug into the send function */
     I2C_handler = handler;
@@ -39,7 +39,7 @@ imu::imu(I2C_HandleTypeDef* handler) {
 }
 
 // retrieves the data from the sensor and stores it into variables
-bool imu::retrieve_euler(void) {
+bool IMU::retrieve_euler(void) {
 
    /* this function retrieves the data from the sensor and then stores it into
     * xAngle, yAngle, and zAngle so that you can call getX, getY, and getZ later whenever you need
@@ -79,19 +79,19 @@ bool imu::retrieve_euler(void) {
 	z = (char)dt[5] << 8 | (char)dt[4];
 
 	if (deg_or_rad) {
-		xAngle = (double)x / 900;
-		yAngle = (double)y / 900;
-		zAngle = (double)z / 900;
+		yAngle = (double)x / 900;	// FYI
+		zAngle = (double)y / 900;	// RENAMED X,Y,Z <-- direction
+		xAngle = (double)z / 900;
 	} else {
-		xAngle = (double)x / 16;
-		yAngle = (double)y / 16;
-		zAngle = (double)z / 16;
+		yAngle = (double)x / 16;
+		zAngle = (double)y / 16;
+		xAngle = (double)z / 16;
 	}
 	return true;
 }
 
 
-void imu::get_linear_accel(void)
+void IMU::get_linear_accel(void)
 {
     uint8_t ms2_or_mg;
     int16_t x,y,z;
@@ -124,66 +124,41 @@ void imu::get_linear_accel(void)
         la[1] = (double)y / 100;
         la[2] = (double)z / 100;
     }
-
-    // Rotate the linear acceleration to earth frame
-    rotate_linear_accel();
 }
 
-void imu::rotate_linear_accel(void)
-{
-	float c, s; // One cosine and sine per rotation, reused.
-
-	// Rotate around X
-	c = cos(-xAngle);
-	s = sin(-xAngle);
-	la[1] = c*la[1] - s*la[2];
-	la[2] = s*la[1] + c*la[2];
-
-	// Rotate around Y
-	c = cos(-yAngle);
-	s = sin(-yAngle);
-	la[0] =  c*la[0] + s*la[2];
-	la[2] = -s*la[0] + c*la[2];
-
-	// Rotate around Z
-	c = cos(-zAngle);
-	s = sin(-zAngle);
-	la[1] =  c*la[0] - s*la[1];
-	la[2] =  s*la[0] + c*la[1];
-}
 
 
 //returns the angle with respect to the X axis
-double imu::rX(void){
+double IMU::rX(void){
     return xAngle;
 }
 
 //returns the angle with respect to the Y axis
-double imu::rY(void){
+double IMU::rY(void){
     return yAngle;
 }
 
 //returns the angle with respect to the Z axis
-double imu::rZ(void){
+double IMU::rZ(void){
     return zAngle;
 }
 
 //returns the linear acceleration with respect to the X axis.
-double imu::aX(void){
+double IMU::aX(void){
 	return la[0];
 }
 
 //returns the linear acceleration with respect to the Y axis.
-double imu::aY(void){
+double IMU::aY(void){
 	return la[1];
 }
 
 //returns the linear acceleration with respect to the Z axis.
-double imu::aZ(void){
+double IMU::aZ(void){
 	return la[2];
 }
 
-uint8_t imu::select_page(uint8_t page) {
+uint8_t IMU::select_page(uint8_t page) {
 	if (page != page_flag){
 		dt[0] = IMU_PAGE_ID;
 		if (page == 1) {
@@ -207,7 +182,7 @@ uint8_t imu::select_page(uint8_t page) {
 	return page_flag;
 }
 
-void imu::check_id(void) {
+void IMU::check_id(void) {
 
 	select_page(0);
 	dt[0] = IMU_CHIP_ID;
@@ -236,7 +211,7 @@ void imu::check_id(void) {
 	sw_rev_id = dt[6];
 }
 
-void imu::change_fusion_mode(uint8_t mode) {
+void IMU::change_fusion_mode(uint8_t mode) {
 	/* Changes fusion mode to configure or send angles via I2C */
 	uint8_t current_mode;
 
@@ -277,7 +252,7 @@ void imu::change_fusion_mode(uint8_t mode) {
 	}
 }
 
-uint8_t imu::check_operating_mode(void) {
+uint8_t IMU::check_operating_mode(void) {
 	/* initialize operating mode, */
 	select_page(0);
 	dt[0] = IMU_OPR_MODE;
