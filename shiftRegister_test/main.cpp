@@ -7,8 +7,6 @@ GPIO_InitTypeDef  GPIO_InitStruct;
 
 void UpdateHydraulics();
 
-int time = 0;
-
 int main(void)  {
 	  
     //must be included to initially configure the library
@@ -45,19 +43,8 @@ int main(void)  {
 
 			hydraulics.control(i++);
 
-			UpdateHydraulics();
+			hydraulics.UpdateHydraulics();
 
 
 	  }
-}
-void UpdateHydraulics(void) {
-	//while(1)
-	//{
-	if (HAL_GetTick() - time > 1000) {
-		HAL_GPIO_TogglePin(GPIOA, GPIO_PIN_8); //toggle pin works so far
-		//HAL_Delay(500);
-		time = HAL_GetTick();
-		//break;
-	}
-	//}
 }
