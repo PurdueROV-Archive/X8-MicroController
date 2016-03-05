@@ -1,14 +1,3 @@
-<<<<<<< HEAD
-#ifndef __MAIN_H
-#define __MAIN_H
-
-/* Includes ------------------------------------------------------------------*/
-#include "stm32f4xx_hal.h"
-#include "stm32f4xx_nucleo.h"
-#include "stm32f4xx_it.h"
-#include "init.h"
-
-=======
 #ifndef __MAIN_H
 #define __MAIN_H
 
@@ -44,5 +33,5 @@ __weak uint32_t HAL_GetTick(void) {
         uwTick++;
     }
 
->>>>>>> f7e96fead1d63559470fc216c0d9ca73485fd654
+
 #endif /* __MAIN_H */

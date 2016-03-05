@@ -31,6 +31,12 @@ private:
 
     uint64_t    clawSetTime;
     uint16_t    timeDelay;
+    uint16_t    updateTimeDelay;
+
+    uint8_t clawFlag;
+
+    uint8_t clawOn;
+    uint8_t clawOff;
 };
 
 #endif
