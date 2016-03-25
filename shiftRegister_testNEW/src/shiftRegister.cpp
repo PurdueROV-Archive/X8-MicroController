@@ -96,7 +96,7 @@ void shiftRegister::SetClaw(void)
         HAL_Delay(1);
 
         //read the next bit to read in
-        temp = data & (1 << (1 - j));
+        //temp = data & (1 << (1 - j));
 
         //if the next bit is a 1, turn on the data pin, else turn of the data pin
         if(temp)	HAL_GPIO_WritePin(dataBank, dataPin, GPIO_PIN_SET);
