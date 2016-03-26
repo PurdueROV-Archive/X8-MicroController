@@ -5,6 +5,7 @@
 #include "stm32f4xx_hal_dma.h"
 #include "stm32f4xx_hal_i2c.h"
 #include "main.h"
+#include "print.h"
 
 #define IMU_PAGE_ID             0x07
 #define IMU_EULER_H_LSB         0x1a
@@ -24,6 +25,8 @@
 #define MODE_NDOF               0x0c
 
 #define IMU_OPR_MODE            0x3d
+
+#define IMU_I2C_ADDRESS         0x76
 
 class imu {
 

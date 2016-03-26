@@ -19,6 +19,14 @@ imu::imu(I2C_HandleTypeDef* handler) {
 
     /*this variable is what you plug into the send function */
     I2C_handler = handler;
+    printString("Starting Address Test\n");
+    int address = 0x00;
+	dt[0] = IMU_UNIT_SEL;
+	dt[1] = 0x00;
+    for (address = 0x00; address < 117; address++)
+    {
+    	HAL_I2C_Master_Transmit_DMA(I2C_handler, (address << 1), dt, 2);
+    }
 
 	page_flag = 0xff;
 	select_page(0);
@@ -31,7 +39,7 @@ imu::imu(I2C_HandleTypeDef* handler) {
 	la[0] = 0.0;
 	la[1] = 0.0;
 	la[2] = 0.0;
-	HAL_I2C_Master_Transmit_DMA(I2C_handler, (0x28 << 1), dt, 2);
+	HAL_I2C_Master_Transmit_DMA(I2C_handler, (IMU_I2C_ADDRESS << 1), dt, 2);
 	while (HAL_I2C_GetState(I2C_handler) != HAL_I2C_STATE_READY) HAL_Delay(1);
 
 	uint8_t chip_mode = 0x08;
@@ -54,11 +62,11 @@ bool imu::retrieve_euler(void) {
 	dt[0] = IMU_UNIT_SEL;
 
 	// Request data? Unit
-	HAL_I2C_Master_Transmit_DMA(I2C_handler, (0x28 << 1), dt, 1);
+	HAL_I2C_Master_Transmit_DMA(I2C_handler, (IMU_I2C_ADDRESS << 1), dt, 1);
 	// Received or ready to recive? Better to make sure we call it at a suitable rate than adding a delay here.
 	while (HAL_I2C_GetState(I2C_handler) != HAL_I2C_STATE_READY) HAL_Delay(1);
 
-	HAL_I2C_Master_Receive_DMA(I2C_handler, (0x28 << 1), dt, 1);
+	HAL_I2C_Master_Receive_DMA(I2C_handler, (IMU_I2C_ADDRESS << 1), dt, 1);
 	while (HAL_I2C_GetState(I2C_handler) != HAL_I2C_STATE_READY) HAL_Delay(1);
 
 	//HAL_Delay(50);
@@ -66,10 +74,10 @@ bool imu::retrieve_euler(void) {
 
 	dt[0] = IMU_EULER_H_LSB;
 
-	HAL_I2C_Master_Transmit_DMA(I2C_handler, (0x28 << 1), dt, 1);
+	HAL_I2C_Master_Transmit_DMA(I2C_handler, (IMU_I2C_ADDRESS << 1), dt, 1);
 	while (HAL_I2C_GetState(I2C_handler) != HAL_I2C_STATE_READY) HAL_Delay(1);
 
-	HAL_I2C_Master_Receive_DMA(I2C_handler, (0x28 << 1), dt, 6);
+	HAL_I2C_Master_Receive_DMA(I2C_handler, (IMU_I2C_ADDRESS << 1), dt, 6);
 	while (HAL_I2C_GetState(I2C_handler) != HAL_I2C_STATE_READY) HAL_Delay(1);
 
 	//HAL_Delay(50);
@@ -98,9 +106,9 @@ void imu::get_linear_accel(void)
 
     select_page(0);
     dt[0] = IMU_UNIT_SEL;
-    HAL_I2C_Master_Transmit_DMA(I2C_handler, (0x28 << 1), dt, 1);
+    HAL_I2C_Master_Transmit_DMA(I2C_handler, (IMU_I2C_ADDRESS << 1), dt, 1);
     while (HAL_I2C_GetState(I2C_handler) != HAL_I2C_STATE_READY) HAL_Delay(1);
-    HAL_I2C_Master_Receive_DMA(I2C_handler, (0x28 << 1), dt, 1);
+    HAL_I2C_Master_Receive_DMA(I2C_handler, (IMU_I2C_ADDRESS << 1), dt, 1);
     while (HAL_I2C_GetState(I2C_handler) != HAL_I2C_STATE_READY) HAL_Delay(1);
     if (dt[0] & 0x01) {
         ms2_or_mg = 1; // mg
@@ -108,9 +116,9 @@ void imu::get_linear_accel(void)
         ms2_or_mg = 0; // m/s*s
     }
     dt[0] = IMU_LINEAR_ACC_X_LSB;
-    HAL_I2C_Master_Transmit_DMA(I2C_handler, (0x28 << 1), dt, 1);
+    HAL_I2C_Master_Transmit_DMA(I2C_handler, (IMU_I2C_ADDRESS << 1), dt, 1);
     while (HAL_I2C_GetState(I2C_handler) != HAL_I2C_STATE_READY) HAL_Delay(1);
-    HAL_I2C_Master_Receive_DMA(I2C_handler, (0x28 << 1), dt, 6);
+    HAL_I2C_Master_Receive_DMA(I2C_handler, (IMU_I2C_ADDRESS << 1), dt, 6);
     while (HAL_I2C_GetState(I2C_handler) != HAL_I2C_STATE_READY) HAL_Delay(1);
     x = dt[1] << 8 | dt[0];
     y = dt[3] << 8 | dt[2];
@@ -192,15 +200,15 @@ uint8_t imu::select_page(uint8_t page) {
 		} else {
 			dt[1] = 0;  // select page 0
 		}
-		HAL_I2C_Master_Transmit_DMA(I2C_handler, (0x28 << 1), dt, 2);
+		HAL_I2C_Master_Transmit_DMA(I2C_handler, (IMU_I2C_ADDRESS << 1), dt, 2);
 		while (HAL_I2C_GetState(I2C_handler) != HAL_I2C_STATE_READY) HAL_Delay(1);
 
 		dt[0] = IMU_PAGE_ID;
 
-		HAL_I2C_Master_Transmit_DMA(I2C_handler, (0x28 << 1), dt, 1);
+		HAL_I2C_Master_Transmit_DMA(I2C_handler, (IMU_I2C_ADDRESS << 1), dt, 1);
 		while (HAL_I2C_GetState(I2C_handler) != HAL_I2C_STATE_READY) HAL_Delay(1);
 
-		HAL_I2C_Master_Receive_DMA(I2C_handler, (0x28 << 1), dt, 1);
+		HAL_I2C_Master_Receive_DMA(I2C_handler, (IMU_I2C_ADDRESS << 1), dt, 1);
 		while (HAL_I2C_GetState(I2C_handler) != HAL_I2C_STATE_READY) HAL_Delay(1);
 
 		page_flag = dt[0];
@@ -213,10 +221,10 @@ void imu::check_id(void) {
 	select_page(0);
 	dt[0] = IMU_CHIP_ID;
 
-	HAL_I2C_Master_Transmit_DMA(I2C_handler, (0x28 << 1), dt, 1);
+	HAL_I2C_Master_Transmit_DMA(I2C_handler, (IMU_I2C_ADDRESS << 1), dt, 1);
 	while (HAL_I2C_GetState(I2C_handler) != HAL_I2C_STATE_READY) HAL_Delay(1);
 
-	HAL_I2C_Master_Receive_DMA(I2C_handler, (0x28 << 1), dt, 7);
+	HAL_I2C_Master_Receive_DMA(I2C_handler, (IMU_I2C_ADDRESS << 1), dt, 7);
 	while (HAL_I2C_GetState(I2C_handler) != HAL_I2C_STATE_READY) HAL_Delay(1);
 
 	if (dt[0] == IMU_CHIP_ID) {
@@ -248,7 +256,7 @@ void imu::change_fusion_mode(uint8_t mode) {
 			dt[0] = IMU_OPR_MODE;
 			dt[1] = mode;
 
-			HAL_I2C_Master_Transmit_DMA(I2C_handler, (0x28 << 1), dt, 2);
+			HAL_I2C_Master_Transmit_DMA(I2C_handler, (IMU_I2C_ADDRESS << 1), dt, 2);
 			while (HAL_I2C_GetState(I2C_handler) != HAL_I2C_STATE_READY) HAL_Delay(1);
 
 			HAL_Delay(19);    // wait 19mS
@@ -261,14 +269,14 @@ void imu::change_fusion_mode(uint8_t mode) {
 			if (current_mode != CONFIGMODE) {   // Can we change the mode directry?
 				dt[0] = IMU_OPR_MODE;
 				dt[1] = CONFIGMODE;
-				HAL_I2C_Master_Transmit_DMA(I2C_handler, (0x28 << 1), dt, 2);
+				HAL_I2C_Master_Transmit_DMA(I2C_handler, (IMU_I2C_ADDRESS << 1), dt, 2);
 				while (HAL_I2C_GetState(I2C_handler) != HAL_I2C_STATE_READY) HAL_Delay(1);
 
 				HAL_Delay(19);    // wait 19mS
 			}
 			dt[0] = IMU_OPR_MODE;
 			dt[1] = mode;
-			HAL_I2C_Master_Transmit_DMA(I2C_handler, (0x28 << 1), dt, 2);
+			HAL_I2C_Master_Transmit_DMA(I2C_handler, (IMU_I2C_ADDRESS << 1), dt, 2);
 			while (HAL_I2C_GetState(I2C_handler) != HAL_I2C_STATE_READY) HAL_Delay(1);
 
 			HAL_Delay(7);
@@ -283,10 +291,10 @@ uint8_t imu::check_operating_mode(void) {
 	select_page(0);
 	dt[0] = IMU_OPR_MODE;
 
-	HAL_I2C_Master_Transmit_DMA(I2C_handler, (0x28 << 1), dt, 1);
+	HAL_I2C_Master_Transmit_DMA(I2C_handler, (IMU_I2C_ADDRESS << 1), dt, 1);
 	while (HAL_I2C_GetState(I2C_handler) != HAL_I2C_STATE_READY) HAL_Delay(1);
 
-	HAL_I2C_Master_Receive_DMA(I2C_handler, (0x28 << 1), dt, 1);
+	HAL_I2C_Master_Receive_DMA(I2C_handler, (IMU_I2C_ADDRESS << 1), dt, 1);
 	while (HAL_I2C_GetState(I2C_handler) != HAL_I2C_STATE_READY) HAL_Delay(1);
 
 	return dt[0];

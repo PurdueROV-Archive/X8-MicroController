@@ -58,25 +58,48 @@
 */
 
 
+/* structure used to initialize the gpio pin */
+GPIO_InitTypeDef  GPIO_InitStruct;
+//I2C_HandleTypeDef hi2c1;
 
 /* Variables used in the motor controlling code */
 
 int main(void) {
-	//initializes all of the pins!
-	initEverything();
 
 
+	//must be included to initially configure the library
+	HAL_Init();
+	SystemClock_Config();
+	  
+	//enable the led clock
+	__HAL_RCC_GPIOA_CLK_ENABLE();
+
+  
+	//configures the led pin
+	GPIO_InitStruct.Pin = GPIO_PIN_5;  //pin 5
+	GPIO_InitStruct.Mode = GPIO_MODE_OUTPUT_PP;
+	GPIO_InitStruct.Pull = GPIO_PULLUP;
+	GPIO_InitStruct.Speed = GPIO_SPEED_FAST;
+	HAL_GPIO_Init(GPIOA, &GPIO_InitStruct);  //initializes the pin A5
+	MX_GPIO_Init();
+	MX_DMA_Init();
+	MX_I2C1_Init();
+	HAL_I2C_MspInit(&hi2c1);
+
+	initPrint();
+
+	printString("Creating Objects\r\n");
 
 	// IMU init
 	IMU imu = IMU(&hi2c1);
 
 	// pressure init
-	Pressure pressure = Pressure(ADDRESS_HIGH);
-	pressure.reset();
-	pressure.begin();
+	//Pressure pressure = Pressure(ADDRESS_HIGH);
+	//pressure.reset();
+	//pressure.begin();
 
 	while (1) {
-
+		printString("While\n");
 		// Update piController's sensor data and compute its PID modulated output to the Rotational force vector.
 		imu.get_linear_accel(); // Gets linear movement
 		imu.retrieve_euler(); // Gets angular movement
@@ -86,7 +109,7 @@ int main(void) {
 		//force_output.R = piController.getOutput();
 
 		// Pressure Sensor:
-		// sensor.getPressure(ADC_4096); // Returns mbar pressure from sensor.
+		pressure.getPressure(ADC_4096); // Returns mbar pressure from sensor.
 
 		HAL_Delay(1);
 	}

@@ -7,18 +7,11 @@
 I2C_HandleTypeDef hi2c1;
 DMA_HandleTypeDef hdma_i2c1_rx;
 DMA_HandleTypeDef hdma_i2c1_tx;
-GPIO_InitTypeDef  GPIO_InitStruct;
+extern GPIO_InitTypeDef  GPIO_InitStruct;
 
 
 void initEverything(void)
 {
-  HAL_Init();
-  SystemClock_Config();
-  __HAL_RCC_GPIOA_CLK_ENABLE();
-  HAL_GPIO_Init(GPIOA, &GPIO_InitStruct);
-  MX_DMA_Init();
-  MX_I2C1_Init();
-  HAL_I2C_MspInit(&hi2c1);
 }
 
 void MX_I2C1_Init(void)

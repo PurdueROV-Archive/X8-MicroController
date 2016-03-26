@@ -105,8 +105,8 @@ int main(void)  {
         //printString("\r\nTemperature C = ");
         //printDouble(temperature_c);
           
-        //printString("\r\nTemperature F = ");
-        //printDouble(temperature_f);
+        printString("\r\nTemperature F = ");
+        printDouble(temperature_f);
           
         printString("\r\nPressure abs (mbar)= ");
         printDouble(pressure_abs);
