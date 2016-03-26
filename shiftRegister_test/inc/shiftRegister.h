@@ -14,6 +14,9 @@ public:
 
     void control(uint8_t data);
 
+    void UpdateHydraulics(void);
+
+    void SetClaw(void);
 
 private:
 
@@ -25,6 +28,15 @@ private:
 
     GPIO_TypeDef*   latchBank;
     uint32_t        latchPin;
+
+    uint64_t    clawSetTime;
+    uint16_t    timeDelay;
+    uint16_t    updateTimeDelay;
+
+    uint8_t clawFlag;
+
+    uint8_t clawOn;
+    uint8_t clawOff;
 };
 
 #endif
