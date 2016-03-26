@@ -70,6 +70,7 @@ private:
     uint8_t ready_flag;
     uint8_t  bootldr_rev_id;
     uint16_t sw_rev_id;
+    // void rotate_linear_accel(void);
 };
 
 #endif
