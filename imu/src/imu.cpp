@@ -126,9 +126,10 @@ void imu::get_linear_accel(void)
     }
 
     // Rotate the linear acceleration to earth frame
-    rotate_linear_accel();
+    //rotate_linear_accel();
 }
 
+/*
 void imu::rotate_linear_accel(void)
 {
 	float c, s; // One cosine and sine per rotation, reused.
@@ -150,7 +151,7 @@ void imu::rotate_linear_accel(void)
 	s = sin(-zAngle);
 	la[1] =  c*la[0] - s*la[1];
 	la[2] =  s*la[0] + c*la[1];
-}
+}*/
 
 
 //returns the angle with respect to the X axis
