@@ -5,6 +5,7 @@
 #include "stm32f4xx_hal_dma.h"
 #include "stm32f4xx_hal_i2c.h"
 #include "main.h"
+#include <math.h>
 
 #define IMU_PAGE_ID             0x07
 #define IMU_EULER_H_LSB         0x1a
@@ -70,7 +71,7 @@ private:
     uint8_t ready_flag;
     uint8_t  bootldr_rev_id;
     uint16_t sw_rev_id;
-    // void rotate_linear_accel(void);
+    void rotate_linear_accel(void);
 };
 
 #endif
