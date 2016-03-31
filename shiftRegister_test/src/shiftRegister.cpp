@@ -1,10 +1,9 @@
 #include "shiftRegister.h"
 
-
-
 //input the pins that will be used on the shift register
 shiftRegister::shiftRegister(GPIO_TypeDef* dataB, uint16_t dataP,GPIO_TypeDef* clkB, uint16_t  clkP,GPIO_TypeDef* latB, uint16_t  latP)
 {
+
     GPIO_InitTypeDef  GPIO_InitStruct;
 
     dataBank = dataB;
@@ -24,17 +23,22 @@ shiftRegister::shiftRegister(GPIO_TypeDef* dataB, uint16_t dataP,GPIO_TypeDef* c
 
     HAL_GPIO_Init(dataBank, &GPIO_InitStruct);
 
-    GPIO_InitStruct.Pin = clkPin;;
+    GPIO_InitStruct.Pin = clkPin;
     HAL_GPIO_Init(clkBank, &GPIO_InitStruct);
 
     GPIO_InitStruct.Pin = latchPin;
     HAL_GPIO_Init(latchBank, &GPIO_InitStruct);
 
+    timeDelay = 1000;
+    updateTimeDelay = 2000;
+    clawFlag = 1;
 
+    clawOn = 0x11;
+    clawOff = 0x00;
 }
 
 /* this is where you will write the shift register code that outputs the controls.
- * Each bit in the variable will represenst one of the pins on the shift register
+ * Each bit in the variable will represent one of the pins on the shift register
  * */
 
 void shiftRegister::control(uint8_t data)
@@ -55,8 +59,10 @@ void shiftRegister::control(uint8_t data)
         temp = data & (1 << (7 - j));
 
         //if the next bit is a 1, turn on the data pin, else turn of the data pin
-        if(temp)	HAL_GPIO_WritePin(dataBank, dataPin, GPIO_PIN_SET);
-        else		HAL_GPIO_WritePin(dataBank, dataPin, GPIO_PIN_RESET);
+        if(temp)
+          HAL_GPIO_WritePin(dataBank, dataPin, GPIO_PIN_SET);
+        else
+          HAL_GPIO_WritePin(dataBank, dataPin, GPIO_PIN_RESET);
 
         //HAL_Delay(1);
 
@@ -73,8 +79,28 @@ void shiftRegister::control(uint8_t data)
     HAL_GPIO_WritePin(latchBank, latchPin, GPIO_PIN_SET);
 
     //HAL_Delay(10);
+}
 
+void shiftRegister::SetClaw(void)
+{
+    clawSetTime = HAL_GetTick();
+//turn on claw
+    clawFlag = 1;
+    control(clawOn);
+}
 
+void shiftRegister::UpdateHydraulics(void)
+{
+    if (HAL_GetTick() - clawSetTime > timeDelay)
+    {
+        if(clawFlag) {
+            clawFlag = 0;
+            HAL_GPIO_TogglePin(GPIOA, GPIO_PIN_8); //toggle pin works so f
+            control(clawOff);
+        }
+    }
+    if (HAL_GetTick() - clawSetTime > updateTimeDelay)
+        SetClaw();
 }
 
 

@@ -66,7 +66,7 @@ int main(void)  {
 
 
 	while (1) {
-		// Health Monitor LED, period should be ~4s
+		// Health Monitor LED, period should be ~83ms
 		HAL_GPIO_TogglePin(GPIOA, GPIO_PIN_5);
 
 		// To measure to higher degrees of precision use the following sensor settings:
@@ -105,8 +105,8 @@ int main(void)  {
         //printString("\r\nTemperature C = ");
         //printDouble(temperature_c);
           
-        //printString("\r\nTemperature F = ");
-        //printDouble(temperature_f);
+        printString("\r\nTemperature F = ");
+        printDouble(temperature_f);
           
         printString("\r\nPressure abs (mbar)= ");
         printDouble(pressure_abs);

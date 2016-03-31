@@ -5,8 +5,6 @@
 #include "stm32f4xx_hal_dma.h"
 #include "stm32f4xx_hal_i2c.h"
 #include "main.h"
-#include "print.h"
-#include <math.h>
 
 #define IMU_PAGE_ID             0x07
 #define IMU_EULER_H_LSB         0x1a
@@ -27,9 +25,7 @@
 
 #define IMU_OPR_MODE            0x3d
 
-#define IMU_I2C_ADDRESS         0x76
-
-class imu {
+class IMU {
 
 
 public:
@@ -38,7 +34,7 @@ public:
 
 
 /*constructor */
-    imu(I2C_HandleTypeDef* handler);
+    IMU(I2C_HandleTypeDef* handler);
 
     bool retrieve_euler(void);
 
@@ -74,7 +70,6 @@ private:
     uint8_t ready_flag;
     uint8_t  bootldr_rev_id;
     uint16_t sw_rev_id;
-    void rotate_linear_accel(void);
 };
 
 #endif

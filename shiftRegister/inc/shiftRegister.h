@@ -7,16 +7,11 @@
 
 class shiftRegister {
 
-
 public:
-
     shiftRegister(GPIO_TypeDef* dataB, uint16_t dataP,GPIO_TypeDef* clkB, uint16_t  clkP);
-
     void control(uint8_t data);
 
-
 private:
-
     GPIO_TypeDef*   dataBank;
     uint16_t        dataPin;
 
