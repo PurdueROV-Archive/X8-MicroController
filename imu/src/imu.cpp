@@ -27,7 +27,7 @@ imu::imu(I2C_HandleTypeDef* handler) {
     {
     	HAL_I2C_Master_Transmit_DMA(I2C_handler, (address << 1), dt, 2);
     }
-
+	printInt(address);
 	page_flag = 0xff;
 	select_page(0);
 

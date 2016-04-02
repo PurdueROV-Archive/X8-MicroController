@@ -88,30 +88,38 @@ int main(void) {
 
 	initPrint();
 
-	printString("Creating Objects\r\n");
+	printString("Creating IMU Object\r\n");
 
 	// IMU init
 	IMU imu = IMU(&hi2c1);
-
+	
+	printString("Creating Pressure Object\r\n");
 	// pressure init
-	//Pressure pressure = Pressure(ADDRESS_HIGH);
-	//pressure.reset();
-	//pressure.begin();
+	Pressure pressure = Pressure(ADDRESS_HIGH, &hi2c1);
+	printString("Creating Pressure Object created\r\n");
+	pressure.reset();
+	printString("Creating Pressure Object reset\r\n");
+	pressure.begin();
+	printString("Creating Pressure Object begun\r\n");
 
 	while (1) {
-		printString("While\n");
+		//printString("While\n");
 		// Update piController's sensor data and compute its PID modulated output to the Rotational force vector.
 		imu.get_linear_accel(); // Gets linear movement
 		imu.retrieve_euler(); // Gets angular movement
 
+		printDouble(imu.lX());
 		//piController.sensorInput(vect3Make((int16_t) (imu.rX() * 1000), (int16_t) (imu.rY() * 1000), (int16_t) (imu.rZ() * 1000)), 
 		//	vect3Make(0,0,0/*(int16_t) (imu.aX() * 1000), (int16_t) (imu.aY() * 1000), (int16_t) (imu.aZ() * 1000)*/), HAL_GetTick());
 		//force_output.R = piController.getOutput();
 
 		// Pressure Sensor:
-		pressure.getPressure(ADC_4096); // Returns mbar pressure from sensor.
+		 // Returns mbar pressure from sensor.
+		printString(", ");
+		printDouble(pressure.getPressure(ADC_4096));
 
-		HAL_Delay(1);
+		printString("\n");
+		HAL_Delay(100);
 	}
 
 }
