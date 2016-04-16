@@ -85,7 +85,7 @@ int main(void)  {
         // Read temperature from the sensor in deg F. Converting
         // to Fahrenheit is not internal to the sensor.
         // Additional math is done to convert a Celsius reading.
-        //temperature_f = sensor.getTemperature(FAHRENHEIT, ADC_512);
+        temperature_f = sensor.getTemperature(FAHRENHEIT, ADC_512);
           
         // Read pressure from the sensor in mbar.
         pressure_abs = sensor.getPressure(ADC_4096);
@@ -105,8 +105,8 @@ int main(void)  {
         //printString("\r\nTemperature C = ");
         //printDouble(temperature_c);
           
-        //printString("\r\nTemperature F = ");
-        //printDouble(temperature_f);
+        printString("\r\nTemperature F = ");
+        printDouble(temperature_f);
           
         printString("\r\nPressure abs (mbar)= ");
         printDouble(pressure_abs);

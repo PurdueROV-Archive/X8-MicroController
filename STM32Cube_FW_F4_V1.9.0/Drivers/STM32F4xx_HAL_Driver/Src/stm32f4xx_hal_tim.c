@@ -348,6 +348,7 @@ HAL_StatusTypeDef HAL_TIM_Base_Stop(TIM_HandleTypeDef *htim)
   */
 HAL_StatusTypeDef HAL_TIM_Base_Start_IT(TIM_HandleTypeDef *htim)
 {
+
   /* Check the parameters */
   assert_param(IS_TIM_INSTANCE(htim->Instance));
   

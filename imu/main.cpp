@@ -36,11 +36,11 @@ int main(void)  {
 	imu imu1(&hi2c1);
 
 	while (1) {
-		imu1.get_linear_accel();
+		//imu1.get_linear_accel();
 		//HAL_I2C_Master_Transmit_DMA(&hi2c1, (0x28 << 1), buffer, 2);
-		if (imu1.retrieve_euler()) {
+		/*if (imu1.retrieve_euler()) {
 			HAL_GPIO_TogglePin(GPIOA, GPIO_PIN_5);
-			/*printString("\trX: ");
+			printString("\trX: ");
 			printDouble(imu1.rX());
 			printString("\trY: ");
 			printDouble(imu1.rY());
@@ -54,12 +54,12 @@ int main(void)  {
 			printDouble(imu1.aY());
 			printString("\taZ: ");
 			printDouble(imu1.aZ());
-			printString("\n");*/
-		}
+			printString("\n");
+		}*/
 
 
 		// 50ms delay
-		//HAL_Delay(50);
+		HAL_Delay(50);
 	}
 }
 
