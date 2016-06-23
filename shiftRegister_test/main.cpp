@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 //put all of your #includes into main.h file
 #include "main.h"
 #include "shiftRegister.h"
@@ -39,23 +38,22 @@ int main(void)  {
 		int i = 0;
 		while (1) {
 
+			if (i > 8)
+				i = 0;
+
 
 			HAL_Delay(100);
 
-			hydraulics.control(i++);
-
-			hydraulics.UpdateHydraulics();
+			hydraulics.control(0b01010101);
 
 
 	  }
-}
-=======
-
+}/*
 //put all of your #includes into main.h file
 #include "main.h"
 #include "shiftRegister.h"
 
-/* structure used to initialize the gpio pin */
+/* structure used to initialize the gpio pin *//*
 GPIO_InitTypeDef  GPIO_InitStruct;
 
 void UpdateHydraulics();
@@ -105,4 +103,4 @@ int main(void)  {
 
 	  }
 }
->>>>>>> origin/development
+>>>>>>> origin/development*/

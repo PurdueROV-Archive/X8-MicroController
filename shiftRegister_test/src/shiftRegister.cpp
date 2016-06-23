@@ -55,7 +55,7 @@ void shiftRegister::control(uint8_t data)
 
     int temp;
 
-    int delay = 0xffff;  //small delay to give the shift register time to set
+    int delay = 0x0f0;  //small delay to give the shift register time to set
 
     for(int j = 0; j < 8; j++)
     {
