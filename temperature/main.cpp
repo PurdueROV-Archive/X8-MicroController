@@ -37,8 +37,17 @@ int main(void)  {
 	while (1) {
 
 		tempSensor.read();
-		tempSensor.getTemp();
-		// 50ms delay
+		printDouble(tempSensor.rawInfo);
+		printString("  ");
+printDouble(tempSensor.data[0]);
+		printString("  ");
+printDouble(tempSensor.data[1]);
+		printString("  ");
+printDouble(tempSensor.data[2]);
+		printString("  ");
+		printDouble(tempSensor.getTemp());
+
+		printString("\n");
 		HAL_Delay(50);
 	}
 }

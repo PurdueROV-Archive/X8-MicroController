@@ -102,6 +102,14 @@ int main(void) {
 	pressure.begin();
 	printString("Creating Pressure Object begun\r\n");
 
+		pressure.ADC_begin(ADC_4096);
+		HAL_Delay(10);
+		pressure.ADC_read();
+		printString("\n");
+
+
+	pressure.ADC_begin(ADC_4096);
+
 	while (1) {
 		//printString("While\n");
 		// Update piController's sensor data and compute its PID modulated output to the Rotational force vector.
@@ -116,10 +124,25 @@ int main(void) {
 		// Pressure Sensor:
 		 // Returns mbar pressure from sensor.
 		printString(", ");
-		printDouble(pressure.getPressure(ADC_4096));
+		printDouble(imu.rY());
+		printString(", ");
+		printDouble(imu.rZ());
+		printString(", ");
+		printDouble(imu.rX());
+		printString(", ");
+		pressure.ADC_read();
+		printDouble(pressure.convert2mBar());
+
+		//pressure.ADC_begin(TEMPERATURE, ADC_4096);
+		//HAL_Delay(10);
+		//pressure.ADC_read(TEMPERATURE);
+
+
+
+		pressure.ADC_begin(ADC_4096);
 
 		printString("\n");
-		HAL_Delay(100);
+		HAL_Delay(10);
 	}
 
 }

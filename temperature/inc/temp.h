@@ -8,7 +8,7 @@
 #include "main.h"
 #include <math.h>
 
-#define TSYS01_ADDR                        0x77
+#define TSYS01_ADDR                        0x77 << 1
 #define TSYS01_RESET                       0x1E
 #define TSYS01_ADC_READ                    0x00
 #define TSYS01_ADC_TEMP_CONV               0x48
@@ -27,12 +27,16 @@ public:
     void read();
     float getTemp();
 
+    uint32_t rawInfo;
+    uint16_t Constants[8];
+uint8_t data[8];
+
 private:
 
     I2C_HandleTypeDef* I2C_handler;
-    uint16_t Constants[8];
-    uint8_t data[8];
-    uint32_t rawInfo;
+    
+    //uint8_t data[8];
+    
     uint32_t adc;
     float TEMP;
 

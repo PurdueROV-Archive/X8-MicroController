@@ -134,26 +134,33 @@ class Pressure
         
         // Use Functions:
         // Return calculated temperature from sensor
-        float getTemperature(temperature_units units, precision _precision);
+        //float getTemperature(temperature_units units, precision _precision);
         // Return calculated pressure from sensor
-        float getPressure(precision _precision);
+        //float getPressure(precision _precision);
 
-        double sealevel(double P, double A); // See instructions above for general use
-        double altitude(double P, double A);
+        //double sealevel(double P, double A); // See instructions above for general use
+        //double altitude(double P, double A);
 
+
+        void ADC_begin(precision _precision);
+        uint32_t ADC_read(void);
+        float convert2mBar(void);
 
 
     private:
         // Definitions:
+        uint8_t count;
+        int32_t temperature_raw;
+        int32_t pressure_raw;
         int32_t _temperature_actual;
-        int32_t _pressure_actual;
+        float _pressure_actual;
         I2C_HandleTypeDef* I2C_handle;
         int _address;       // Variable used to store I2C device address.
         uint16_t coefficient[8];// Coefficients;
         
         // Functions:
-        void getMeasurements(precision _precision);
-        uint32_t getADCconversion(measurement _measurement, precision _precision);  // Retrieve ADC result
+        // void getMeasurements(precision _precision);
+        // uint32_t getADCconversion(measurement _measurement, precision _precision);  // Retrieve ADC result
 
         int sendCommand(uint8_t command);  // General I2C_DMA send command function
         int I2Cread(int address, char* data, int length);   // General I2C_DMA read function

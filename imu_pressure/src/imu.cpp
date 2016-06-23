@@ -79,15 +79,26 @@ bool IMU::retrieve_euler(void) {
 	x = (char)dt[1] << 8 | (char)dt[0];
 	y = (char)dt[3] << 8 | (char)dt[2];
 	z = (char)dt[5] << 8 | (char)dt[4];
+	
+	/*
+	if (z > 0)
+		z -= 2880;
+	else
+		z += 2880;
 
+		x = x - 2900;
+	 if(x > 2880)
+	 	x -= 5760;
+	 	
+	 */
 	if (deg_or_rad) {
 		xAngle = (double)x / 900;
 		yAngle = (double)y / 900;
 		zAngle = (double)z / 900;
 	} else {
-		xAngle = (double)x / 16;
-		yAngle = (double)y / 16;
-		zAngle = (double)z / 16;
+		xAngle = (double)x;
+		yAngle = (double)y;
+		zAngle = (double)z;
 	}
 	return true;
 }
