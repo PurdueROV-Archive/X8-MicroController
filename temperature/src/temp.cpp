@@ -43,9 +43,12 @@ void Temp::read(void) {
 		
 	HAL_I2C_Master_Receive_DMA(I2C_handler, TSYS01_ADDR, data, 3);
 	rawInfo = 0;
-	rawInfo = data[0];
+	/*
+     rawInfo = data[0];
 	rawInfo = (rawInfo << 8) | data[1];
 	rawInfo = (rawInfo << 8) | data[2];
+     */
+    rawInfo = (data[0] << 16) | (data[1] << 8) | (data[2]);
 
 	calculate();
 }
