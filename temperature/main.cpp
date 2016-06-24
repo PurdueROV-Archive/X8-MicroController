@@ -37,13 +37,13 @@ int main(void)  {
 	while (1) {
 
 		tempSensor.read();
-		printDouble(tempSensor.rawInfo);
+		printInt(tempSensor.rawInfo);
 		printString("  ");
-printDouble(tempSensor.data[0]);
+printInt(tempSensor.data[0]);
 		printString("  ");
-printDouble(tempSensor.data[1]);
+printInt(tempSensor.data[1]);
 		printString("  ");
-printDouble(tempSensor.data[2]);
+printInt(tempSensor.data[2]);
 		printString("  ");
 		printDouble(tempSensor.getTemp());
 

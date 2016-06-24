@@ -30,6 +30,7 @@ public:
     uint32_t rawInfo;
     uint16_t Constants[8];
 uint8_t data[8];
+uint8_t raw_temp[4];
 
 private:
 

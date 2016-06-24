@@ -41,31 +41,43 @@ void Temp::read(void) {
 	HAL_I2C_Master_Transmit_DMA(I2C_handler, TSYS01_ADDR, data, 1);
 	while (HAL_I2C_GetState(I2C_handler) != HAL_I2C_STATE_READY) HAL_Delay(1);
 		
-	HAL_I2C_Master_Receive_DMA(I2C_handler, TSYS01_ADDR, data, 3);
-	rawInfo = 0;
-	rawInfo = data[0];
-	rawInfo = (rawInfo << 8) | data[1];
-	rawInfo = (rawInfo << 8) | data[2];
+	HAL_I2C_Master_Receive_DMA(I2C_handler, TSYS01_ADDR, raw_temp, 3);
+
+	rawInfo = raw_temp[0];
+	rawInfo = ((uint32_t)rawInfo << 8) | (uint32_t)raw_temp[1];
+	rawInfo = ((uint32_t)rawInfo << 8) | (uint32_t)raw_temp[2];
 
 	calculate();
 }
 
 void Temp::calculate(void) {
-	adc = rawInfo; //  / 256;
+	adc = rawInfo  / 256;
+
+
 /*
-	TEMP = (-2) * (float)(Constants[1]) / 1000000000000000000000.0f * pow(adc, 4) +
-		   4 * (float)(Constants[2]) / 10000000000000000.0f * pow(adc, 3) +
-			(-2) * (float)(Constants[3]) / 100000000000.0f * pow(adc, 2) +
-			1 * (float)(Constants[4]) / 1000000.0f * adc +
-			(-1.5) * (float)(Constants[5]) / 100;
-*/
-
-
 TEMP = (-2) * float(Constants[1]) / 1000000000000000000000.0f * pow(adc,4) + 
         4 * float(Constants[2]) / 10000000000000000.0f * pow(adc,3) +
 	  (-2) * float(Constants[3]) / 100000000000.0f * pow(adc,2) +
    	    1 * float(Constants[4]) / 1000000.0f * adc +
       (-1.5) * float(Constants[5]) / 100 ;
+*/
+	uint16_t C[8];
+
+	C[0] = 0;
+	C[1] = 28446;  //0xA2 K4
+	C[2] = 24926;  //0XA4 k3
+ 	C[3] = 36016;  //0XA6 K2
+	C[4] = 32791;  //0XA8 K1
+	C[5] = 40781;  //0XAA K0
+	C[6] = 0;
+	C[7] = 0;
+
+TEMP = (-2) * float(C[1]) / 1000000000000000000000.0f * pow(adc,4) + 
+        4 * float(C[2]) / 10000000000000000.0f * pow(adc,3) +
+	  (-2) * float(C[3]) / 100000000000.0f * pow(adc,2) +
+   	    1 * float(C[4]) / 1000000.0f * adc +
+      (-1.5) * float(C[5]) / 100 ;
+
 
 }
 
