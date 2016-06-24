@@ -48,7 +48,8 @@ void Temp::read(void) {
 	rawInfo = (rawInfo << 8) | data[1];
 	rawInfo = (rawInfo << 8) | data[2];
      */
-    rawInfo = (data[0] << 16) | (data[1] << 8) | (data[2]);
+    
+    rawInfo = ((unit32_t)data[0] << 16) | ((unit32_t)data[1] << 8) | ((unit32_t)data[2]);
 
 	calculate();
 }
