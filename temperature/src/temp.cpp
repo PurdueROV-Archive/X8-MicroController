@@ -31,15 +31,20 @@ void Temp::init(void) {
 	}
 }
 
-// Read temperature from the sensor, must be run to update temperature value
-void Temp::read(void) {
+void Temp::ADC_begin(void){
 	data[0] = TSYS01_ADC_TEMP_CONV;
 	HAL_I2C_Master_Transmit_DMA(I2C_handler, TSYS01_ADDR, data, 1);
-	HAL_Delay(10);
+}
+
+// Read temperature from the sensor, must be run to update temperature value
+void Temp::read(void) {
 
 	data[0] = TSYS01_ADC_READ;
 	HAL_I2C_Master_Transmit_DMA(I2C_handler, TSYS01_ADDR, data, 1);
-	while (HAL_I2C_GetState(I2C_handler) != HAL_I2C_STATE_READY) HAL_Delay(1);
+	
+	// This should probably go away
+	// while (HAL_I2C_GetState(I2C_handler) != HAL_I2C_STATE_READY)
+	HAL_Delay(1);
 
 
 	HAL_I2C_Master_Receive_DMA(I2C_handler, TSYS01_ADDR, raw_temp, 3);

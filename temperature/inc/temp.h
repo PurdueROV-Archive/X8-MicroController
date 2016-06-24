@@ -25,6 +25,7 @@ public:
     Temp(I2C_HandleTypeDef* handler);
     void init();
     void read();
+    void ADC_begin();
     float getTemp();
 
     uint32_t rawInfo;
