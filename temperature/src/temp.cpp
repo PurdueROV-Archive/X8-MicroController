@@ -40,7 +40,8 @@ void Temp::read(void) {
 	data[0] = TSYS01_ADC_READ;
 	HAL_I2C_Master_Transmit_DMA(I2C_handler, TSYS01_ADDR, data, 1);
 	while (HAL_I2C_GetState(I2C_handler) != HAL_I2C_STATE_READY) HAL_Delay(1);
-		
+
+
 	HAL_I2C_Master_Receive_DMA(I2C_handler, TSYS01_ADDR, raw_temp, 3);
 
 	rawInfo = raw_temp[0];
